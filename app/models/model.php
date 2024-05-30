@@ -504,9 +504,15 @@ class _model {
 
     // ------------- DATE --------------------
 
-
+// A TESTER AVANT UTILISATION
     
 // Fonctions à faire dans le modèle :
+// - getDates() : renvoie un tableau de dates
+        // sqlToList
+        // listChamps
+        // toTab
+        // sqlExecute
+        // listEtendue
 
 function sqlToList($sql, $param) {
     // Role : à partir d'une requête SQL et de ses paramètres, 
@@ -613,15 +619,30 @@ foreach($this->fields as $type) {
 $sql .= implode(", ", $tableau);
 $sql .= " FROM `$this->table` ";
 
-// ajouter la condition WHERE
-$sql .= "WHERE "; 
-$sql = "DELETE FROM `$this->table` WHERE `champ1` = :champ1 AND `champ2` = :champ2";
+// ajouter la condition WHERE à la requette sql
+
+// $sql .= "WHERE "; 
+// $sql = "DELETE FROM `$this->table` WHERE `champ1` = :champ1 AND `champ2` = :champ2";
+
+// Obtenir toutes les clés du tableau
+$keys = array_keys($filtres);
+// Obtenir la dernière clé du tableau
+$lastKey = end($keys);
 
 foreach($filtres as $index => $value) {
-
-    if ()
+    // si c'est la derniere ligne du tableau
+    if ($lastKey == $index) {
+     $sql .= "`$value` = :$value";
+    } else {
+       $sql .= "`$value` = :$value AND ";
+    }
 }
-        $param = [":id" => $this->id];
+        // $param = [":id" => $this->id];
+
+// construire le tableau des parametres
+$param = $this->makeRequestParamForSet();
+
+
 
 // ajouter la condition de trie ORDER BY
 $tabOrder = [];
@@ -644,7 +665,7 @@ if (!empty($tabOrder))  $sql .= " ORDER BY " . implode(",", $tabOrder);
 // préparer / exécuter
 global $bdd;
 $req = $bdd->prepare($sql);
-if ( ! $req->execute()) {
+if ( ! $req->execute($param)) {
     // Echec de la requête
     return [];
 }
