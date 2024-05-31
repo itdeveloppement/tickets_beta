@@ -1,5 +1,10 @@
-<h1>403 Accès refusé</h1>
-
-<p>
-    Nous n'avons pas trouvé la page 
-</p>
+<?php
+/**
+ * Template : met en forme la page d'accueil vendeur
+ */
+?>
+<body>
+    <main>
+        <h2>page accueil vendeur</h2>
+    </main>
+</body>
