@@ -5,9 +5,7 @@
 ?>
 <body>
     <main>
-        <p>
-            Le fichier n'a pas été trouvé (erreur 404)
-        </p>
+        <p> Mince ! une erreur technique est survenue ! </p>
         <button><a href="index.php"></a>Retour à l'accueil</button>
     </main>
 </body>
