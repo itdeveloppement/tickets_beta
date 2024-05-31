@@ -10,7 +10,6 @@ Methode : si une classe PHP rencontre une classe non denfnini il appel une fonct
     - si la classe existe on peut effectuier d'autre traitement (vérifications supplémentaires ou des initialisations spécifiques à la classe. A preciser)
 */
 
-
 /**
  * Role : charger automatiquement les classes
  */
@@ -33,7 +32,7 @@ public static function register (){
  */
 public static function autoloadClasses ($class) {
     if ($class == "_model") {
-        include_once "../app/modeles/Model.php" ;
+        include_once "../app/utils/Model.php" ;
      }
      // si le fichier existe (ou le repertoire)
      else if (file_exists("../app/modeles/$class.php")) {
@@ -44,6 +43,5 @@ public static function autoloadClasses ($class) {
         // capter l'exception 
         throw new ClassNotExist();
     }
-
 }
 }

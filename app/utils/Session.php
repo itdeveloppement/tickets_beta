@@ -26,10 +26,17 @@ protected $utilisateurConnecte;
  */
 public function activation () {
     session_start();
+
+    // si l'utilisateur est conecté
     if ($this->isConnected()){
         global $utilisateurConnecte;
-        $utilisateurConnecte = new personnage ($this->getIdConnected());
+        $utilisateurConnecte = new Utilisateur ($this->getIdConnected());
+        // si l'utilsateur n'esxiste plus, on force la deconnexion
+        if (!$utilisateurConnecte->is()) {
+            $this->deconnect();
+        }
     }
+    // retour si on est connecté ou pas
     return $this->isConnected();
 }
 
@@ -60,20 +67,28 @@ public function deconnect() {
     $_SESSION["id"] = 0;
 }
 
-/**
- * role : resegne la session avev l'id de l'utilisateur connecté
- * @param : id de l'utilisateur connecté
- * @return : true
- */
-public function connect($id) {
-    $_SESSION["id"] = $id;
-}
+function getUserConnected() {
+    // Rôle : donné l'objet correspondant à l'utilisateur connecté
+    // Paramètres : néant
+    // Retour : un objet de la calsse qui gère les utilisateurs de l'appli
+
+    if ($this->isConnected()) {
+        global $utilisateurConnecte;
+        return $utilisateurConnecte;
+    } else {
+        return new Utilisateur();
+    }
+
+
+ }
+
 
 /** JE NE COMPREND PAS POURQUOI ON DEFINIT CETTE METHODE
  * role : retourne l'objet de l'utilisateur connecté
  * @param : neant
  * @return : si session connecté retourne l'id de la session sion retour 0
  */
+/*
 public function getUserConnected() {
     if ($this->isConnected()) {
         return $this->utilisateurConnecte;
@@ -81,5 +96,6 @@ public function getUserConnected() {
         return new personnage();
     }
 }
+*/
 }
 
