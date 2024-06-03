@@ -13,7 +13,7 @@ Methode : si une classe PHP rencontre une classe non denfnini il appel une fonct
 /**
  * Role : charger automatiquement les classes
  */
-class Autoload { 
+class autoload { 
 
 /**
  * role : initialise autoloadClass pour initialiser le chargement automatique de la classe
@@ -32,17 +32,17 @@ public static function register (){
  */
 public static function autoloadClasses ($class) {
     if ($class == "_model") {
-        include_once "../utils/Model.php" ;
+        include_once __DIR__ . "/../utils/Model.php";
      }
      // si le fichier existe (ou le repertoire)
-     else if (file_exists("../modeles/$class.php")) {
-         include_once "../modeles/$class.php";
+     else if (file_exists(__DIR__ . "/../modeles/$class.php")) {
+         include_once __DIR__ . "/../modeles/$class.php";
      }
      // si la classe n'existe pas 
      if (! class_exists($class)) {
         // capter l'exception 
         // throw new ClassNotExist();
-        // echo "la classe n'exitse pas";
+        echo "la classe n'exitse pas";
     }
 }
 }

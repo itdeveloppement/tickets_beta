@@ -23,30 +23,30 @@ $exception-getCode() : retourne le code du message d'erreur
 (voir sur mdn les autres retours possibles)
 */
 
-/* connexion à la BDD
+// autochargement des classes (voir class autoload pour detail)
+include __DIR__ . "/../modeles/autoload.php"; 
+include __DIR__ . "/../modeles/classNotExist.php";
+
+autoload::register();
+
+/* connexion à la BDD (avec l'objet)
     ouvrir la base de donnée avec PDO dans la variable globale
     lever les exeptions avce PDO 
     Entrée dans le catch executer avec Throwable et executer un code si une exception est detecté
 */
+// parametres de connexion :
+$dsn = 'mysql:host=localhost;dbname=projets_tickets_mcastellano;charset=UTF8';
+$userName = 'mcastellano';
+$password = 'c8?kpn?s2q+Z';
+$options = [PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING];
+
 global $bdd;
-try { 
-$bdd = new PDO("mysql:host=localhost;dbname=projets_tickets_mcastellano;charset=UTF8", "mcastellano", "c8?kpn?s2q+Z");
-} catch (Throwable $exception) {
-    echo "Une erreur a été rencontrée lors de la connexion à la BDD. Message : " . $exception->getMessage() . "Code message : " . $exception->getCode();
-} 
-
-// definition des modes de gesion des erreurs avec PDO
-$bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-
-// autochargement des classes (voir class autoload pour detail)
-include "../modeles/Autoload.php"; 
-include "../modeles/ClassNotExist.php";
-Autoload::register();
+$bdd = connexion::connexionBdd($dsn, $userName, $password, $options);
 
 
 // insertion des librairie diverse
-include_once "../modeles/Session.php";
+// include_once "../modeles/Session.php";
 // Activer le mécanisme de session
-Session::activation();
+// Session::activation();
 
 

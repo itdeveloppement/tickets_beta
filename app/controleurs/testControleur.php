@@ -4,7 +4,7 @@
  */
 
  include "../utils/init.php";
-echo "test1";
+// echo "test12";
 
-Session::connect(2);
-print_r($_SESSION);
+// session::connect(2);
+// print_r($_SESSION);

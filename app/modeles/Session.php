@@ -14,7 +14,7 @@ a chaque debut de script on appel activation() (ds l'init)
  * calsse : personnage
  * role : gere  la session
  */
-class Session {
+class session {
 
 protected $utilisateurConnecte;
 
@@ -27,6 +27,7 @@ protected $utilisateurConnecte;
 public static function activation () { 
     session_start();
    
+// SELF appel la methode dans la classe en cours
 
     // si l'utilisateur est conecté
     if (self::isConnected()){
@@ -77,7 +78,7 @@ public static function utilisateurConnect() {
         global $utilisateurConnecte;
         return $utilisateurConnecte;
     } else {
-        return new Utilisateur();
+        return new utilisateur();
     }
  }
 
@@ -91,7 +92,7 @@ public static function utilisateurConnect() {
         global $utilisateurConnecte;
         return $utilisateurConnecte;
     } else {
-        return new Utilisateur();
+        return new utilisateur();
     }
  }
 
@@ -104,7 +105,7 @@ public static function utilisateurConnect() {
     $_SESSION["id"] = $id;
     //   - charger l'objet utilisateur connecté 
     global $utilisateurConnecte;
-    $utilisateurConnecte = new Utilisateur(self::utilisateurConnect());
+    $utilisateurConnecte = new utilisateur(self::utilisateurConnect());
 
  }
 

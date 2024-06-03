@@ -3,7 +3,7 @@
  * role : tester classe
  */
 
- class TestClasse {
+ class sestClasse {
 
  public function affichageTest() {
     echo "test classe reussit";

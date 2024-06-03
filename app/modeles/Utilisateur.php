@@ -5,5 +5,7 @@
 
  class Utilisateur extends _model {
 
-    
+    public function afficher() {
+        echo "test class utilisateur";
+    }
  }
