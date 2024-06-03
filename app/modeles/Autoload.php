@@ -21,7 +21,7 @@ class Autoload {
  * @return : neant
  */
 public static function register (){
-    // self (un peu comme le this mais pour classe static / dans la classe courante appel la fonction ...)
+    // self (un peu comme le this mais pour classe static / pour la classe courante appel la fonction ...)
     spl_autoload_register([self::class, 'autoloadClasses']);
 }
 
@@ -32,16 +32,17 @@ public static function register (){
  */
 public static function autoloadClasses ($class) {
     if ($class == "_model") {
-        include_once "../app/utils/Model.php" ;
+        include_once "../utils/Model.php" ;
      }
      // si le fichier existe (ou le repertoire)
-     else if (file_exists("../app/modeles/$class.php")) {
-         include_once "../app/modeles/$class.php";
+     else if (file_exists("../modeles/$class.php")) {
+         include_once "../modeles/$class.php";
      }
      // si la classe n'existe pas 
      if (! class_exists($class)) {
         // capter l'exception 
-        throw new ClassNotExist();
+        // throw new ClassNotExist();
+        // echo "la classe n'exitse pas";
     }
 }
 }

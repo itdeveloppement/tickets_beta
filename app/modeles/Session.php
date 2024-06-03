@@ -14,7 +14,7 @@ a chaque debut de script on appel activation() (ds l'init)
  * calsse : personnage
  * role : gere  la session
  */
-class session {
+class Session extends _model{
 
 protected $utilisateurConnecte;
 
@@ -24,8 +24,9 @@ protected $utilisateurConnecte;
  * @return : true si on est connecté, sinon false
  * note : si un utilisateur est connecté, il existe un id, isConnected return true, un objet "perssonageConnecté" à l'id trouvé est instancier, on retourn true, sinon on n'est pas connecté et on retourne false
  */
-public function activation () {
+public function activation () { // ok
     session_start();
+   
 
     // si l'utilisateur est conecté
     if ($this->isConnected()){
@@ -45,7 +46,7 @@ public function activation () {
  * @param : neant
  * @return : si la session est connectée return true, sion false 
  */
-public function isConnected () {
+public function isConnected () { // ok
     return !empty($_SESSION["id"]) ? true : false;
 }
 
@@ -54,7 +55,7 @@ public function isConnected () {
  * @param : neant
  * @return : si session connecté retourne l'id de la session sion retour 0
  */
-public function getIdConnected () {
+public function getIdConnected () { // ok
 return $this->isConnected() ? $_SESSION["id"] : 0;
 }
 
@@ -63,11 +64,11 @@ return $this->isConnected() ? $_SESSION["id"] : 0;
  * @param : neant
  * @return : true
  */
-public function deconnect() {
+public function deconnect() { // ok
     $_SESSION["id"] = 0;
 }
 
-function getUserConnected() {
+function utilisateurConnect() {
     // Rôle : donné l'objet correspondant à l'utilisateur connecté
     // Paramètres : néant
     // Retour : un objet de la calsse qui gère les utilisateurs de l'appli
@@ -78,9 +79,35 @@ function getUserConnected() {
     } else {
         return new Utilisateur();
     }
+ }
 
+ /**
+  * role : retourner l'objet de l'itilisateur connecté
+  * @param : neant
+  * @return : l'objet de l'utilisateur connecté
+  */
+ function sessionUserconnected() {
+    if ($this->isConnected()) {
+        global $utilisateurConnecte;
+        return $utilisateurConnecte;
+    } else {
+        return new Utilisateur();
+    }
+ }
+
+ function connect($id) {
+    // Rôle : connecter un utilisateur
+    // paramètres :
+    //      $id : id de l'utilisateur connecté
+    // Retour : true
+
+    $_SESSION["id"] = $id;
+    //   - charger l'objet utilisateur connecté 
+    global $utilisateurConnecte;
+    $utilisateurConnecte = new Utilisateur($this->utilisateurConnect());
 
  }
+
 
 
 /** JE NE COMPREND PAS POURQUOI ON DEFINIT CETTE METHODE

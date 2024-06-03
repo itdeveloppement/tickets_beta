@@ -38,15 +38,15 @@ $bdd = new PDO("mysql:host=localhost;dbname=projets_tickets_mcastellano;charset=
 // definition des modes de gesion des erreurs avec PDO
 $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-// autochargement des classe (voir class autoload pour detail)
-include "../app/utils/Autoload.php"; 
-include "../app/utils/ClassNotExist.php";
-autoload::register();
+// autochargement des classes (voir class autoload pour detail)
+include "../modeles/Autoload.php"; 
+include "../modeles/ClassNotExist.php";
+Autoload::register();
 
 
 // insertion des librairie diverse
-include_once "app/modeles/session.php";
+include_once "../modeles/Session.php";
 // Activer le mécanisme de session
-$session = new session();
+$session = new Session();
 $session->activation();
 

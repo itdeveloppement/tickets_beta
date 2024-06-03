@@ -3,7 +3,7 @@
  * role : caracteristique d'un personnage (client / vendeur / technicien)
  */
 
- class Utilisateur {
+ class Utilisateur extends _model {
 
     
  }
