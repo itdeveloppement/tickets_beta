@@ -45,8 +45,8 @@ $bdd = connexion::connexionBdd($dsn, $userName, $password, $options);
 
 
 // insertion des librairie diverse
-// include_once "../modeles/Session.php";
+include_once __DIR__ . "/../modeles/session.php";
 // Activer le mécanisme de session
-// Session::activation();
+session::activation();
 
 

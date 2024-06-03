@@ -197,7 +197,6 @@ class _model {
     // ** recupere un objet de la bdd selon l'id **
 
     function load($id) {
-        echo $id;
         // Rôle : chargement de l'objet (de ses attributs) depuis une ligne de la base de données
         // Paramètres : 
         //      $id : id du contact à charger

@@ -12,11 +12,15 @@ Methode : si une classe PHP rencontre une classe non denfnini il appel une fonct
 
 /**
  * Role : charger automatiquement les classes
+ * 
+ * Methodes :
+ *  register () : initialiser le chargement automatique de la classe
+ *  autoloadClasses ($class) : trouve la classe et la charge
+ * 
  */
 class autoload { 
 
-/**
- * role : initialise autoloadClass pour initialiser le chargement automatique de la classe
+/** role : initialise autoloadClass pour initialiser le chargement automatique de la classe
  * @param : neant
  * @return : neant
  */
@@ -25,14 +29,13 @@ public static function register (){
     spl_autoload_register([self::class, 'autoloadClasses']);
 }
 
-/**
- * Role : trouver la classe et la charger
+/** Role : trouver la classe et la charger
  * @param {objet} $class : nom de la classe
  * @return : neant
  */
 public static function autoloadClasses ($class) {
     if ($class == "_model") {
-        include_once __DIR__ . "/../utils/Model.php";
+        include_once __DIR__ . "/../utils/model.php";
      }
      // si le fichier existe (ou le repertoire)
      else if (file_exists(__DIR__ . "/../modeles/$class.php")) {
