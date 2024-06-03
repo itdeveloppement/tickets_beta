@@ -14,7 +14,7 @@ a chaque debut de script on appel activation() (ds l'init)
  * calsse : personnage
  * role : gere  la session
  */
-class Session extends _model{
+class Session {
 
 protected $utilisateurConnecte;
 
@@ -24,21 +24,21 @@ protected $utilisateurConnecte;
  * @return : true si on est connecté, sinon false
  * note : si un utilisateur est connecté, il existe un id, isConnected return true, un objet "perssonageConnecté" à l'id trouvé est instancier, on retourn true, sinon on n'est pas connecté et on retourne false
  */
-public function activation () { // ok
+public static function activation () { 
     session_start();
    
 
     // si l'utilisateur est conecté
-    if ($this->isConnected()){
+    if (self::isConnected()){
         global $utilisateurConnecte;
-        $utilisateurConnecte = new Utilisateur ($this->getIdConnected());
+        $utilisateurConnecte = new Utilisateur (self::getIdConnected());
         // si l'utilsateur n'esxiste plus, on force la deconnexion
         if (!$utilisateurConnecte->is()) {
-            $this->deconnect();
+            self::deconnect();
         }
     }
     // retour si on est connecté ou pas
-    return $this->isConnected();
+    return self::isConnected();
 }
 
 /**
@@ -46,7 +46,7 @@ public function activation () { // ok
  * @param : neant
  * @return : si la session est connectée return true, sion false 
  */
-public function isConnected () { // ok
+public static function isConnected () {
     return !empty($_SESSION["id"]) ? true : false;
 }
 
@@ -55,8 +55,8 @@ public function isConnected () { // ok
  * @param : neant
  * @return : si session connecté retourne l'id de la session sion retour 0
  */
-public function getIdConnected () { // ok
-return $this->isConnected() ? $_SESSION["id"] : 0;
+public static function getIdConnected () {
+return self::isConnected() ? $_SESSION["id"] : 0;
 }
 
 /**
@@ -64,16 +64,16 @@ return $this->isConnected() ? $_SESSION["id"] : 0;
  * @param : neant
  * @return : true
  */
-public function deconnect() { // ok
+public static function deconnect() {
     $_SESSION["id"] = 0;
 }
 
-function utilisateurConnect() {
+public static function utilisateurConnect() {
     // Rôle : donné l'objet correspondant à l'utilisateur connecté
     // Paramètres : néant
     // Retour : un objet de la calsse qui gère les utilisateurs de l'appli
 
-    if ($this->isConnected()) {
+    if (self::isConnected()) {
         global $utilisateurConnecte;
         return $utilisateurConnecte;
     } else {
@@ -86,8 +86,8 @@ function utilisateurConnect() {
   * @param : neant
   * @return : l'objet de l'utilisateur connecté
   */
- function sessionUserconnected() {
-    if ($this->isConnected()) {
+ public static function sessionUserconnected() {
+    if (self::isConnected()) {
         global $utilisateurConnecte;
         return $utilisateurConnecte;
     } else {
@@ -95,7 +95,7 @@ function utilisateurConnect() {
     }
  }
 
- function connect($id) {
+ public static function connect($id) {
     // Rôle : connecter un utilisateur
     // paramètres :
     //      $id : id de l'utilisateur connecté
@@ -104,7 +104,7 @@ function utilisateurConnect() {
     $_SESSION["id"] = $id;
     //   - charger l'objet utilisateur connecté 
     global $utilisateurConnecte;
-    $utilisateurConnecte = new Utilisateur($this->utilisateurConnect());
+    $utilisateurConnecte = new Utilisateur(self::utilisateurConnect());
 
  }
 

@@ -47,6 +47,6 @@ Autoload::register();
 // insertion des librairie diverse
 include_once "../modeles/Session.php";
 // Activer le mécanisme de session
-$session = new Session();
-$session->activation();
+Session::activation();
+
 
