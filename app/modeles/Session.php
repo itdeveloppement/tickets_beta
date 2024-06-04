@@ -82,7 +82,6 @@ public static function utilisateurConnect() {
     }
  }
 
-
  /** role : retourner l'objet de l'itilisateur connecté
   * @param : neant
   * @return : l'objet de l'utilisateur connecté
@@ -105,8 +104,5 @@ public static function utilisateurConnect() {
     //   - charger l'objet utilisateur connecté 
     global $utilisateurConnecte;
     $utilisateurConnecte = new utilisateur(self::utilisateurConnect());
-
  }
-
 }
-
