@@ -9,7 +9,7 @@
  *  submit($libelle, $classe = null): affiche un bouton submit et son libelle
  */
 
-class form {
+class Form {
     // attributs
     protected $data; // ex : $data [ "nom"=>"Durand", "prenom"=>"Teo", "email" => "email@email" ]
    

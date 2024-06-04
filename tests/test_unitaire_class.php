@@ -1,14 +1,14 @@
 <?php
 /**
- * role test controleur
+ * role test class
  */
 echo"test";
- include "../utils/init.php";
+ include "../app/utils/init.php";
 
 // session::connect(2);
 
 // test creation de formulaire
-$form = new form($dataForm);
+$form = new Form($dataForm);
 $button = new Button();
 
 // champ deformulaire
