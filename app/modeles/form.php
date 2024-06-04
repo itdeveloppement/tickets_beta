@@ -43,8 +43,8 @@ class form {
         $value = $this->getValue($name);
         $html = 
         "
-        <label class=$classe for=$name>$libelle</label><br>
-        <input class=$classe type=$name id=$name name=$name value=$value><br>
+        <label class=<?= htmlentities($classe); ?>for=$name><?= htmlentities($libelle); ?></label><br>
+        <input class=<?= htmlentities($classe); ?> type=<?= htmlentities($name); ?> id=<?= htmlentities($name); ?> name=<?= htmlentities($name); ?> value=<?= htmlentities($value); ?>><br>
         ";
         return  $html;
     }
@@ -60,8 +60,8 @@ class form {
     public function textarea ($name, $libelle, $classe = null) {
         $value = $this->getValue($name);
         $html = "
-        <label class=$classe for=$name>$libelle</label><br>
-        <textarea class=$classe id=$name name=$name>$value</textarea><br>
+        <label class=<?= htmlentities($classe); ?> for=<?= htmlentities($name); ?>><?= htmlentities($libelle); ?></label><br>
+        <textarea class=<?= htmlentities($classe); ?> id=<?= htmlentities($name); ?> name=<?= htmlentities($name); ?>>$value</textarea><br>
         ";
         return $html;
     }
@@ -74,6 +74,6 @@ class form {
      * 
      */
     public function submit($libelle, $classe = null) {
-        return "<button class=$classe type='submit'>$libelle</button>";
+        return "<button class=<?= htmlentities($classe); ?> type='submit'><?= htmlentities($libelle); ?></button>";
     }
 }

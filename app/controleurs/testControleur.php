@@ -2,7 +2,7 @@
 /**
  * role test controleur
  */
-
+echo"test";
  include "../utils/init.php";
 
 
@@ -10,8 +10,8 @@
 
 $data = [ 
     "email" => "email@email",
-    "nom" => "Durant",
-    "prenom" => "Téo",
+    "nom" => "Durantr",
+    "prenom" => "Téoo",
     "message" => "Téo,  un gourmand invétéré,  croqua un bonbon magique.  Un dragon affamé jaillit, réclamant des tonnes de gâteaux. Teo, paniqué, lui offrit un gâteau géant... en chewing-gum ! Le dragon, mâchant sans fin, s'enlisa et Teo s'enfuit, riant.",
 ];
 
