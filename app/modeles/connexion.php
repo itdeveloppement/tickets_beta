@@ -13,7 +13,6 @@
  *  connexionBdd() : connexion à la bdd
  *  deconnexionBdd() : deconnexion à la bdd
  */
-
 class connexion {
 
 // attributs
@@ -51,6 +50,4 @@ public static function connexionBdd($dsn, $userName, $password, $options = []) {
 public static function deconnexionBDD() {
     self::$bdd = null;
 }
-
-
 }
