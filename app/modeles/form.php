@@ -46,7 +46,7 @@ class form {
         <label class=<?= htmlentities($classe); ?>for=$name><?= htmlentities($libelle); ?></label><br>
         <input class=<?= htmlentities($classe); ?> type=<?= htmlentities($name); ?> id=<?= htmlentities($name); ?> name=<?= htmlentities($name); ?> value=<?= htmlentities($value); ?>><br>
         ";
-        return  $html;
+        return  $html;  
     }
 
     /** role : affiche un message (textarea) et sa valeur si il y en a
