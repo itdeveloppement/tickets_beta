@@ -21,7 +21,7 @@ a chaque debut de script on appel activation() (ds l'init)
  *  sessionUserconnected() : retourne l'objet de l'itilisateur connecté
  *  connect($id): connecter un utilisateur
  */
-class session {  
+class session {
 
 protected $utilisateurConnecte;
 
