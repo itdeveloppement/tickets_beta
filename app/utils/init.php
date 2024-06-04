@@ -24,8 +24,8 @@ $exception-getCode() : retourne le code du message d'erreur
 */
 
 // autochargement des classes (voir class autoload pour detail)
-include __DIR__ . "/../modeles/autoload.php"; 
-include __DIR__ . "/../modeles/classNotExist.php";
+include __DIR__ . "/../modeles/Autoload.php"; 
+include __DIR__ . "/../modeles/ClassNotExist.php";
 
 autoload::register();
 

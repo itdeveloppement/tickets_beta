@@ -36,10 +36,9 @@ public function verifierDroits($id) {
         $tab = self::DROITS[$url];
         $utilisateur = new Utilisateur($id);
         foreach ($tab as $value){
-            print_r($value);
             // status : client / vendeur / technicien et AC : compte actif
             if ($value == $utilisateur->get("status") && $utilisateur->get("etat") == "AC") {
-                echo "acces autorisé";
+                echo "Message debug dans class Droits : acces autorisé";
                 return true;
             }
         }

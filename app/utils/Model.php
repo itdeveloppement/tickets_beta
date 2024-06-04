@@ -232,7 +232,7 @@ class _model {
         // Préparer / exécuter
         
         
-        $bdd = connexion::connexionBdd();
+        $bdd = Connexion::connexionBdd();
         $req = $bdd->prepare($sql);
         if ( ! $req->execute($param)) {
             // On a une erreur de requête (on peut afficher des messages en phase de debug)
@@ -273,7 +273,7 @@ class _model {
         $sql = "INSERT INTO `$this->table`SET " . $this->makeRequestSet();
         $param  = $this->makeRequestParamForSet();
         // On prépare la requête
-        $bdd = connexion::connexionBdd();
+        $bdd = Connexion::connexionBdd();
         $req = $bdd->prepare($sql);
         //  - on exécute cette requête
         if ( ! $req->execute($param)) {
@@ -314,7 +314,7 @@ class _model {
         $param[":id"] = $this->id;
            
         // On prépare la requête
-        $bdd = connexion::connexionBdd();
+        $bdd = Connexion::connexionBdd();
         $req = $bdd->prepare($sql);
 
         //  - on exécute cette requête
@@ -417,7 +417,7 @@ class _model {
     
         //  - on préparer un objet requête
         // Cela s'aplique à l'objet base de données : il est en variable globale, c'est $bdd
-        $bdd = connexion::connexionBdd();
+        $bdd = Connexion::connexionBdd();
         $req = $bdd->prepare($sql);
 
         //  - on exécute cette requête
@@ -480,7 +480,7 @@ class _model {
         }
         if (!empty($tabOrder))  $sql .= " ORDER BY " . implode(",", $tabOrder);
         // préparer / exécuter
-        $bdd = connexion::connexionBdd();
+        $bdd = Connexion::connexionBdd();
         $req = $bdd->prepare($sql);
         if ( ! $req->execute()) {
             // Echec de la requête
@@ -524,7 +524,7 @@ function sqlToList($sql, $param) {
     // Retour : tableau d'objets de la classe courante (indexés par l'ID)
 
         // preparation de la requette
-        $bdd = connexion::connexionBdd();
+        $bdd = Connexion::connexionBdd();
         $req = $bdd->prepare($sql);
 
         //  - on exécute cette requête
@@ -588,7 +588,7 @@ function sqlExecute($sql, $param) {
     //      Objet requete exécutée (requête au sens PDO, que l'on pourra donc interroger comme on veut)
 
     // preparation de la requette
-    $bdd = connexion::connexionBdd();
+    $bdd = Connexion::connexionBdd();
     $req = $bdd->prepare($sql);
 
     //  - on exécute cette requête
@@ -664,7 +664,7 @@ foreach($tris as $tri) {
 }
 if (!empty($tabOrder))  $sql .= " ORDER BY " . implode(",", $tabOrder);
 // préparer / exécuter
-$bdd = connexion::connexionBdd();
+$bdd = Connexion::connexionBdd();
 $req = $bdd->prepare($sql);
 if ( ! $req->execute($param)) {
     // Echec de la requête
