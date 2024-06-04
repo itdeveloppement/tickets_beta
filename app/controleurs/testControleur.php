@@ -9,7 +9,7 @@ echo"test";
 // session::connect(2);
 
 $data = [ 
-    "email" => "email@email",
+    "email" => "email@emailhhhhh",
     "nom" => "Durantr",
     "prenom" => "Téoo",
     "message" => "Téo,  un gourmand invétéré,  croqua un bonbon magique.  Un dragon affamé jaillit, réclamant des tonnes de gâteaux. Teo, paniqué, lui offrit un gâteau géant... en chewing-gum ! Le dragon, mâchant sans fin, s'enlisa et Teo s'enfuit, riant.",
