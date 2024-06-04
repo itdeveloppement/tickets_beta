@@ -21,7 +21,7 @@ a chaque debut de script on appel activation() (ds l'init)
  *  sessionUserconnected() : retourne l'objet de l'itilisateur connecté
  *  connect($id): connecter un utilisateur
  */
-class session {
+class Session {
 
 protected $utilisateurConnecte;
 
@@ -35,7 +35,7 @@ public static function activation () {
     // si l'utilisateur est conecté
     if (self::isConnected()){
         global $utilisateurConnecte;
-        $utilisateurConnecte = new utilisateur (self::getIdConnected());
+        $utilisateurConnecte = new Utilisateur (self::getIdConnected());
         // si l'utilsateur n'esxiste plus, on force la deconnexion
         if (!$utilisateurConnecte->is()) {
             self::deconnect();
@@ -78,7 +78,7 @@ public static function utilisateurConnect() {
         global $utilisateurConnecte;
         return $utilisateurConnecte;
     } else {
-        return new utilisateur();
+        return new Utilisateur();
     }
  }
 
@@ -91,7 +91,7 @@ public static function utilisateurConnect() {
         global $utilisateurConnecte;
         return $utilisateurConnecte;
     } else {
-        return new utilisateur();
+        return new Utilisateur();
     }
  }
 
@@ -103,6 +103,6 @@ public static function utilisateurConnect() {
     $_SESSION["id"] = $id;
     //   - charger l'objet utilisateur connecté 
     global $utilisateurConnecte;
-    $utilisateurConnecte = new utilisateur(self::utilisateurConnect());
+    // $utilisateurConnecte = new Utilisateur(self::utilisateurConnect()); // JE NE COMPREND PAS PK CA NE FONCTIONNE PAS
  }
 }

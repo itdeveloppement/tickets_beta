@@ -34,19 +34,15 @@ autoload::register();
     lever les exeptions avce PDO 
     Entrée dans le catch executer avec Throwable et executer un code si une exception est detecté
 */
-// parametres de connexion :
-$dsn = 'mysql:host=localhost;dbname=projets_tickets_mcastellano;charset=UTF8';
-$userName = 'mcastellano';
-$password = 'c8?kpn?s2q+Z';
-$options = [PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING];
 
-global $bdd;
-$bdd = connexion::connexionBdd($dsn, $userName, $password, $options);
 
+// global $bdd;
+// $bdd = connexion::connexionBdd();
 
 // insertion des librairie diverse
-include_once __DIR__ . "/../modeles/session.php";
+include_once __DIR__ . "/../modeles/Session.php";
 // Activer le mécanisme de session
-session::activation();
+Session::activation();
+
 
 

@@ -5,7 +5,7 @@
  * attributs
  *  $userName : nom d'utilisateur
  *  $password : password de connexion à la base
- *  $dns : chaine e connexion selon le type de base de données
+ *  $dns : chaine de connexion selon le type de base de données
  *  $option : tableau associatif pour gerer notamant les erreurs et exception
  *  $bdd : stock l'objet PDO
  * 
@@ -13,14 +13,14 @@
  *  connexionBdd() : connexion à la bdd
  *  deconnexionBdd() : deconnexion à la bdd
  */
-class connexion {
+class connexion extends _model{
 
 // attributs
-protected static $dsn;
-protected static $userName;
-protected static $password;
-protected static $options;
-protected static $bdd;
+protected static $dsn = 'mysql:host=localhost;dbname=projets_tickets_mcastellano;charset=UTF8';
+protected static $userName = 'mcastellano';
+protected static $password  = 'c8?kpn?s2q+Z';
+protected static $options = [PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING];
+protected static $bdd = null;
 
 /** Role : connecter la base de donnée
  * @param : 
@@ -30,12 +30,12 @@ protected static $bdd;
  *  $option : tableau associatif pour gerer notamant les erreurs et exception
  * @return : l'objet de connexion ou l'erreur d'exception 
  */
-public static function connexionBdd($dsn, $userName, $password, $options = []) {
+public static function connexionBdd() {
     try 
     { 
-    self::$bdd = new PDO ($dsn, $userName, $password, $options); 
+    self::$bdd = new PDO (self::$dsn, self::$userName, self::$password, self::$options); 
     self::$bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    return self::$bdd;
+    return  self::$bdd;
     }
     catch (PDOException $exception ) {
     // include "app/controleurs/index.php"
