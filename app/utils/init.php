@@ -37,7 +37,7 @@ Autoload::register();
 
 
 // global $bdd;
-// $bdd = connexion::connexionBdd();
+// $bdd = connexion::connexion();
 
 // insertion des librairie diverse
 include_once __DIR__ . "/../modeles/ConnexionSes.php";

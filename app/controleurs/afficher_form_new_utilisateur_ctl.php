@@ -8,5 +8,5 @@ include_once "../utils/init.php";
 $form = new Form();
 $button = new Button();
 
-include __DIR__ . "/../views/main/insert_new_utilisateur.view.php";
+include __DIR__ . "/../views/main/form_insert_new_utilisateur.view.php";
 
