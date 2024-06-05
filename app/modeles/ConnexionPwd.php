@@ -27,7 +27,6 @@ public function connexionValide() {
     $listeUtilisateurs = new utilisateur ();
     $utilisateurs = $listeUtilisateurs->listAll();
     foreach ($utilisateurs as $utilisateur => $values) {
-        // print_r($values) ;
         $logUtilisateur = $values->get("email");
         $passwordUtilisateur = $values->get("password");
         // vrification concordance

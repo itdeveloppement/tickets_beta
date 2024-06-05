@@ -9,18 +9,12 @@ class RouterAccueil extends _model{
  * @return : nothing
  */
 public function routerAcc ($id) {
-    echo "id routerAcc : " . $id . " / "; 
-
     $utilisateur = new Utilisateur($id);
-    print_r($utilisateur);
     $status = $utilisateur->get("status");
-  
-    echo "status : " . $status . " / "; 
-   
     if ($status == "CLI") {
         include __DIR__ . "/../views/main/accueil_client_view.php";
         exit;
-    } else if ($status == "VEND") {
+    } else if ($status == "VEN") {
             include __DIR__ . "/../views/main/accueil_vendeur_view.php";
             exit;
         } else if ($status == "TEC") {

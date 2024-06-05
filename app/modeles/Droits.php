@@ -11,8 +11,8 @@ class Droits {
 
     protected $url; // url current
     const DROITS = [
-        'index.php' => ['CLI', 'VEND', 'TEC'],
-        'test_unitaire _ctl.php' => ['CLI', 'VEND'],
+        'index.php' => ['CLI', 'VEN', 'TEC'],
+        'test_unitaire _ctl.php' => ['CLI', 'VEN'],
     ];
 
 /** role : recuperation l'URL de la page courent et verifie les droits
@@ -40,12 +40,12 @@ public function verifierDroits($status) {
             if ($value == $status) { // il faut ajouter ICI && SI ETAT == AC
                 echo "Message debug dans class Droits : acces autorisé";
                 return true;
-            } else {
-                echo "Message debug dans class Droits : acces refusé";
-                // include __DIR__ . "/../controleurs/index.php";
-                return false;
+                exit;
             }
         }
+        echo "Message debug dans class Droits : acces refusé";
+        // include __DIR__ . "/../controleurs/index.php";
+        return false;
     }
 }
 
