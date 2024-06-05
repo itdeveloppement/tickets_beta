@@ -13,7 +13,7 @@
  *  connexionBdd() : connexion à la bdd
  *  deconnexionBdd() : deconnexion à la bdd
  */
-class Connexion extends _model{
+class ConnexionBdd extends _model{
 
 // attributs
 protected static $dsn = 'mysql:host=localhost;dbname=projets_tickets_mcastellano;charset=UTF8';

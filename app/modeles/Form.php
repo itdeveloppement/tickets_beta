@@ -7,13 +7,24 @@
  *  input ($name, $libelle, $classe = null): affiche un input et sa valeur (si il y en a)
  *  textarea ($name, $libelle, $classe = null) : affiche un message (textarea) et sa valeur si il y en a
  *  submit($libelle, $classe = null): affiche un bouton submit et son libelle
+ * 
+ * exemple d'utilisation
+ * 
+ * <form action="traitement.php" method="post">
+ *   <?= $form->input("nom", "Nom", "classe"); ?>
+ *   <?= $form->input("prenom", "Prénom", "classe"); ?>
+ *   <?= $form->input("email", "Email", "classe"); ?>
+ *   <?= $form->input("password", "Mot de passe", "classe"); ?>
+ *   <?= $form->textarea("message", "Message", "classe"); ?>
+ * </form>
+ *
  */
 
 class Form {
     // attributs
     protected $data; // ex : $data [ "nom"=>"Durand", "prenom"=>"Teo", "email" => "email@email" ]
    
-    public function __construct($data)
+    public function __construct($data = null)
     {
         // remplir l'objet avec les valeurs des champs
         $this->data = $data;
@@ -66,6 +77,7 @@ class Form {
         return $html;
     }
 
+ 
     /** role : affiche un bouton submit et son libelle
      * @param : 
      *      $libelle : libelle du bouton, 
@@ -73,10 +85,11 @@ class Form {
      * @return : code html d'un label
      * 
      */
+       /*
     public function submit($libelle, $classe = null) {
         $html = "<button class='" . htmlentities($classe) . "' type='submit'>" . htmlentities($libelle). "</button>";
         return $html;
        
-}
+} */
 }
 

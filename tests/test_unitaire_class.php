@@ -40,3 +40,6 @@ $dataLink = [
     "prenom" => "Téo"
 ];
 echo $link->link("https://www.example.com", "suivre le lien"); 
+
+
+

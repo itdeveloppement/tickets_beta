@@ -4,6 +4,9 @@
  * 
  * methode
  *  link ($libelle, $type, $class = null, $id= null) : return le lien de type <a> html
+ * 
+ * exemple utilisation
+ *   <?= $button->button("Envoyer", "submit", "classe"); ?>
  */
  
 class Link {
