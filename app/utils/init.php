@@ -1,5 +1,5 @@
 <?php
-
+echo "test init";
 // NOTION : affichage des erreur  ----------------------------------------
     // parametre l'affichage des erreurs
     // connexion à la base de donnée via PDO
@@ -27,7 +27,7 @@ $exception-getCode() : retourne le code du message d'erreur
 include __DIR__ . "/../modeles/Autoload.php"; 
 include __DIR__ . "/../modeles/ClassNotExist.php";
 
-autoload::register();
+Autoload::register();
 
 /* connexion à la BDD (avec l'objet)
     ouvrir la base de donnée avec PDO dans la variable globale
@@ -40,9 +40,9 @@ autoload::register();
 // $bdd = connexion::connexionBdd();
 
 // insertion des librairie diverse
-include_once __DIR__ . "/../modeles/Session.php";
+include_once __DIR__ . "/../modeles/ConnexionSes.php";
 // Activer le mécanisme de session
-Session::activation();
+ConnexionSes::activation();
 
 
 

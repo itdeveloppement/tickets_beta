@@ -10,8 +10,8 @@ include "../app/utils/init.php";
 $utilisateur = new Utilisateur();
 $utilisateur->load(1);
 
-Session::connect(1);
+ConnexionSes::connect(1);
 // print_r($_SESSION);
 
 $droits = new Droits();
-$droits->verifierDroits(Session::getIdConnected());
+$droits->verifierDroits(ConnexionSes::getIdConnected());
