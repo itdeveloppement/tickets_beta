@@ -16,6 +16,7 @@
  // verifier si la session existe 
     // en fonction du status affiche la page d'accueil
     if  (ConnexionSes::isConnected()) {
+        echo"1";
         $status = $utilisateur->droits();
         if($status->verifierDroits($_SESSION["status"])) {
             $page = $utilisateur->routerAccueil();
@@ -28,16 +29,17 @@
     // renseigne la session avec l'id et le status
     // en fonction du status affiche la page d'accueil
     } else if ((isset($_POST["email"]) && isset($_POST["password"]))) {
-
+        echo"2";
     // recuperation et controle des données POST
     $log = $_POST["email"];
     $password = $_POST["password"];
 
     // validation password et idt
     $utilisateur->connexionValideUtilisateur($log, $password);
-
+    print_r($_SESSION);
     // connexion et rensegnement session id et du status
     $utilisateur = new Utilisateur(ConnexionSes::getIdConnected());
+    
     $_SESSION["status"] = $utilisateur->get("status");
 
     // routage pour ouverture page en fonction du status
