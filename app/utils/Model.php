@@ -460,7 +460,7 @@ class _model {
 
         $sql .= implode(", ", $tableau);
         $sql .= " FROM `$this->table` ";
-
+      
         // Construire la liste des critères de tri
         $tabOrder = [];
         foreach($tris as $tri) {
@@ -478,7 +478,9 @@ class _model {
             }
             $tabOrder[] = "`$nomField` $ordre";
         }
+       
         if (!empty($tabOrder))  $sql .= " ORDER BY " . implode(",", $tabOrder);
+        // 
         // préparer / exécuter
         $bdd = ConnexionBdd::connexion();
         $req = $bdd->prepare($sql);

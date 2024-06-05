@@ -4,14 +4,14 @@
  * 
  * methode
  *  verifierDroits($id) : verifier les droits d'acces à la page pour un utilisateur connecté
- *  
+ *  statusUtilisateur ($id) : retourne le status de l'utilisateur connecté
  */
 
 class Droits {
 
     protected $url; // url current
     const DROITS = [
-        'page_accueil_technicien_view.php' => ['CLI', 'VEND'],
+        'index.php' => ['CLI', 'VEND', 'TEC'],
         'test_unitaire _ctl.php' => ['CLI', 'VEND'],
     ];
 
@@ -20,26 +20,30 @@ class Droits {
  *  @return : true si autorisé, sion false
  */
 private function urlCurrent () {
+    // recuperation de l'url current dans la globale SERVEUR
     $url = basename($_SERVER['SCRIPT_FILENAME']);
         return $url;
     }
 
 /** rôle : verifier les droits d'acces à la page
- * @param : id de l'utilisateur connecté
+ * @param : status de la session de l'utilisateur connecté
  * @return : true si autorisation, false sinon
  */
-public function verifierDroits($id) {
+public function verifierDroits($status) {
     $url = $this->urlCurrent();
     if (! isset(self::DROITS[$url])) {
             return false;
     } else {
         $tab = self::DROITS[$url];
-        $utilisateur = new Utilisateur($id);
         foreach ($tab as $value){
             // status : client / vendeur / technicien et AC : compte actif
-            if ($value == $utilisateur->get("status") && $utilisateur->get("etat") == "AC") {
+            if ($value == $status) { // il faut ajouter ICI && SI ETAT == AC
                 echo "Message debug dans class Droits : acces autorisé";
                 return true;
+            } else {
+                echo "Message debug dans class Droits : acces refusé";
+                // include __DIR__ . "/../controleurs/index.php";
+                return false;
             }
         }
     }
