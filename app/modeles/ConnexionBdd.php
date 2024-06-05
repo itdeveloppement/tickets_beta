@@ -10,10 +10,10 @@
  *  $bdd : stock l'objet PDO
  * 
  * methode
- *  connexionBdd() : connexion à la bdd
- *  deconnexionBdd() : deconnexion à la bdd
+ *  connexion() : connexion à la bdd
+ *  deconnexion() : deconnexion à la bdd
  */
-class ConnexionBdd extends _model{
+class ConnexionBdd {
 
 // attributs
 protected static $dsn = 'mysql:host=localhost;dbname=projets_tickets_mcastellano;charset=UTF8';
@@ -30,7 +30,7 @@ protected static $bdd = null;
  *  $option : tableau associatif pour gerer notamant les erreurs et exception
  * @return : l'objet de connexion ou l'erreur d'exception 
  */
-public static function connexionBdd() {
+public static function connexion() {
     try 
     { 
     self::$bdd = new PDO (self::$dsn, self::$userName, self::$password, self::$options); 
@@ -47,7 +47,7 @@ public static function connexionBdd() {
  * @param : neant
  * @return : nothing
  */
-public static function deconnexionBDD() {
+public static function deconnexion() {
     self::$bdd = null;
 }
 }
