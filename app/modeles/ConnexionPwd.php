@@ -4,7 +4,7 @@
  * 
  */
 
- class ConnexionPwd extends _model {
+ class ConnexionPwd {
 
 //attributs
 protected $log;
@@ -23,19 +23,21 @@ public function __construct($log, $pwd) {
 * @param {string} $password : la valeur du password passé en POST
 * @return true si connecté , sinon return false 
 */
-public function connexionValide($log, $pwd) {
-    $listePersonnages = $this->listAll();
-    foreach ($listePersonnages as $personnage => $values) {
-        $logPersonnage = $values->get("pseudo");
-        $passwordPersonnage = $values->get("password");
+public function connexionValide() {
+    $listeUtilisateurs = new utilisateur ();
+    $utilisateurs = $listeUtilisateurs->listAll();
+    foreach ($utilisateurs as $utilisateur => $values) {
+        // print_r($values) ;
+        $logUtilisateur = $values->get("email");
+        $passwordUtilisateur = $values->get("password");
         // vrification concordance
-        if (($logPersonnage==$log) && (password_verify($pwd, $passwordPersonnage))) {
-            $session = new ConnexionSes(); 
-            $session->connect($personnage);
+        if (($logUtilisateur==$this->log) && (password_verify($this->pwd, $passwordUtilisateur))) { 
+            ConnexionSes::connect($utilisateur);
             return true;
         }   
     }
     return false;
+   
     }
  }
 
