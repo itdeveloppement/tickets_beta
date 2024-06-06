@@ -9,8 +9,9 @@ class RouterAccueil extends _model{
  * @return : nothing
  */
 public function routerAcc ($id) {
-    $utilisateur = new Utilisateur($id);
-    $status = $utilisateur->get("status");
+    $status = ConnexionSes::getStatusSession ();
+    // $utilisateur = new Utilisateur($id);
+    // $status = $utilisateur->get("status"); // A MODIFIER SUR LA SESSION
     if ($status == "CLI") {
         include __DIR__ . "/../views/main/accueil_client_view.php";
         exit;

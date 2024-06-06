@@ -29,21 +29,20 @@
     // renseigne la session avec l'id et le status
     // en fonction du status affiche la page d'accueil
     } else if ((isset($_POST["email"]) && isset($_POST["password"]))) {
-        echo"2";
-    // recuperation et controle des données POST
-    $log = $_POST["email"];
-    $password = $_POST["password"];
-
-    // validation password et idt
-    $utilisateur->connexionValideUtilisateur($log, $password);
-
-    // connexion et rensegnement session id et du status
-    $utilisateur = new Utilisateur(ConnexionSes::getIdConnected());
     
-    $_SESSION["status"] = $utilisateur->get("status");
+        // recuperation et controle des données POST
+        $log = $_POST["email"];
+        $password = $_POST["password"];
 
-    // routage pour ouverture page en fonction du status
-    $status = $utilisateur->droits();
+        // validation password et idt
+        $test = $utilisateur->connexionValideUtilisateur($log, $password);
+
+        // connexion et rensegnement session id et du status
+        $utilisateur = new Utilisateur(ConnexionSes::getIdConnected());
+        
+        // routage pour ouverture page en fonction du status
+        $status = $utilisateur->droits();
+
     if($status->verifierDroits(connexionSes::getStatusSession())) {
         $page = $utilisateur->routerAccueil();
         $page->routerAcc (connexionSes::getIdConnected());
