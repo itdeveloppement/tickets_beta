@@ -4,7 +4,7 @@
  * 
  */
 
- class ConnexionPwd {
+ class ConnexionPwd extends _model{
 
 //attributs
 protected $log;
@@ -26,12 +26,17 @@ public function __construct($log, $pwd) {
 public function connexionValide() {
     $listeUtilisateurs = new utilisateur ();
     $utilisateurs = $listeUtilisateurs->listAll();
+
     foreach ($utilisateurs as $utilisateur => $values) {
         $logUtilisateur = $values->get("email");
         $passwordUtilisateur = $values->get("password");
+        $statusUtilisateur = $values->get("status");
+
         // vrification concordance
         if (($logUtilisateur==$this->log) && (password_verify($this->pwd, $passwordUtilisateur))) { 
-            ConnexionSes::connect($utilisateur);
+            ConnexionSes::connect($utilisateur, );
+            ConnexionSes::statusSessionConnect($statusUtilisateur);
+            
             return true;
         }   
     }

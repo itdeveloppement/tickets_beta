@@ -102,10 +102,11 @@ public static function utilisateurConnect() {
   */
  public static function connect($id) {
     $_SESSION["id"] = $id;
+}
     //   - charger l'objet utilisateur connecté 
-    global $utilisateurConnecte;
+    // global $utilisateurConnecte;
     // $utilisateurConnecte = new Utilisateur(self::utilisateurConnect()); // JE NE COMPREND PAS PK CA NE FONCTIONNE PAS
- }
+ 
 
  // --------- SESSION STATUS --------
 
@@ -114,7 +115,7 @@ public static function utilisateurConnect() {
  * @param : status à renseigner dans la session
  * @return : 
  */
-public static function statusSession ($status) {
+public static function statusSessionConnect($status) {
     $_SESSION["status"] = $status;
 }
 

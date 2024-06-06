@@ -30,11 +30,13 @@ private function urlCurrent () {
  * @return : true si autorisation, false sinon
  */
 public function verifierDroits($status) {
+
     $url = $this->urlCurrent();
     if (! isset(self::DROITS[$url])) {
             return false;
     } else {
         $tab = self::DROITS[$url];
+        
         foreach ($tab as $value){
             // status : client / vendeur / technicien et AC : compte actif
             if ($value == $status) { // il faut ajouter ICI && SI ETAT == AC
