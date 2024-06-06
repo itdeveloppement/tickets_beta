@@ -67,6 +67,7 @@ public static function getIdConnected () {
  */
 public static function deconnect() {
     $_SESSION["id"] = 0;
+    $_SESSION["status"] = '';
 }
 
 /** charger l'objet utilisateur connecté
@@ -105,4 +106,25 @@ public static function utilisateurConnect() {
     global $utilisateurConnecte;
     // $utilisateurConnecte = new Utilisateur(self::utilisateurConnect()); // JE NE COMPREND PAS PK CA NE FONCTIONNE PAS
  }
+
+ // --------- SESSION STATUS --------
+
+/**
+ * role : modifie ou ajoute un status à la session
+ * @param : status à renseigner dans la session
+ * @return : 
+ */
+public static function statusSession ($status) {
+    $_SESSION["status"] = $status;
+}
+
+/**
+ * role : retourne le status renseigné dans la session
+ * @param : status à renseigner dans la session
+ * @return : status renseigné dans la session
+ */
+public static function getStatusSession () {
+    return self::isConnected() ? $_SESSION["status"] : '';
+}
+
 }

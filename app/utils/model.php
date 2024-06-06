@@ -60,7 +60,7 @@ class _model {
      
     // CONSTRUCTEUR
 
-    function __construct($id = null) {
+    function __construct($id = null) { // ok
         // Cette fonction se déclenche à chaque fois que l'on instancie un objet (new nomClasse())
         // Les paramètres du constructeur devront être valorisés dans les parenthèses du new nomClasse() 
         // rôle : charger l'objet correspondant à l'id (si non null)
@@ -78,7 +78,7 @@ class _model {
 
     // **si l'objet est chargé**
 
-    function is() {
+    function is() { // ok
         // Rôle : dire si l'objet est chargé (si il y a un contact de la BDD dedans)
         // Paramères : néant
         // Retour : true si il est chargé, false sinon
@@ -91,7 +91,7 @@ class _model {
 
     // Au lieu de $contact->getEmail(), on va avoir une syntaxe $contact->get("email")
 
-    function get($fieldName) {
+    function get($fieldName) { // ok
         // Rôle : récupérer la valeur d'un attribut
         // Paramètres :
         //      $fieldName : nom de l'attribut
@@ -124,14 +124,14 @@ class _model {
 
     // ** recuperer un objet associé**
 
-    function getTarget($fieldName) {
+    function getTarget($fieldName) { // ok
         // Rôle : retourner un objet pointé par un champ
         // paramètre : 
         //      $fieldName : nom du champ
         // Retour : objet (d'une classe héritée de la classe _model), chargé avec l'objet pointé
         //       si on ne trouve pas :
         //          si champ inconnu ou pas un lien : retourne un objet _model (vide)
-        //          si le champ est un lien, mais vide, ou pas d'bjet en face : le bon objet, mais pas chargé
+        //          si le champ est un lien, mais vide, ou pas d'objet en face : le bon objet, mais pas chargé
 
         // Verification si l'objet associé au champs est deja chargé dans le tableu $targets (dans $this->targets)
         if (isset($this->targets[$fieldName])) {
@@ -153,7 +153,7 @@ class _model {
     }
 
     // ** retourner l'id de l'objet **
-    function id() {
+    function id() { // ok
         // Rôle : récupérer l'id
         // paramètres : néant
         // Retour : l'id ou O (un nombre entier)
@@ -165,7 +165,7 @@ class _model {
     // ** Setters : donne des valeurs aux attributs **
 
     // Au lieu de $contact->setNom("Durand), on va avoir une syntaxe $contact->set("nom", "Durand")
-    function set($fieldName, $value) {
+    function set($fieldName, $value) { // ok
         // Rôle : changer / initialiser la valeur d'un attribut
         // Paramètres : quel attrribut, quelle nouvelle valeur
         //      $fieldName : nom de l'attribut
@@ -182,7 +182,7 @@ class _model {
     // ** defnit toutes les valeurs des objets)**
 
     function loadFromTab($tab) {
-        // Rôle : initialiser l'objet (complètement) à partir d'un tableau de données (simialire à celui réupéré par fetch)
+        // Rôle : initialiser l'objet (complètement) à partir d'un tableau de données (simialire à celui récupéré par fetch)
         // Paramètres : 
         //      $tab : tableau valorisant les champs du MPD
         // Retour : true 
@@ -196,7 +196,7 @@ class _model {
 
     // ** recupere un objet de la bdd selon l'id **
 
-    function load($id) {
+    function load($id) { // ok
         // Rôle : chargement de l'objet (de ses attributs) depuis une ligne de la base de données
         // Paramètres : 
         //      $id : id du contact à charger
@@ -263,7 +263,7 @@ class _model {
 
     // ** insere un objet en bdd **
 
-    function insert() {
+    function insert() { // ok
         // Rôle : création du contact courant dans la base de données
         // paramètres : néant (on utilise les attributs de l'objet)
         // retour : true si réussi, false si échoué
@@ -288,7 +288,7 @@ class _model {
 
     // ** modifie un objet en bdd **
 
-    function update() {
+    function update() { // ok
         // Rôle : mettre à jour l'objet courant dans la base de données
         // Paramètres : néant
         // Retour : true si réussi, false si échoué
@@ -325,7 +325,7 @@ class _model {
         return true;
     }
 
-    function makeRequestSet() {
+    function makeRequestSet() { // ok
         // Rôle : construire la partie d'une requête de mise à jour ou de création valorisant les champs
         // paramètres : néant
         // Retour : le texte à mettre derrère SET dans une requête SQL : `nomChamp1` = :nomChamp1, `nomChamp2` = :noùmChamp2, ...
@@ -347,7 +347,7 @@ class _model {
         return implode(", ", $tableau);
     }
 
-    function makeTableauSimpleSet() {
+    function makeTableauSimpleSet() { // ok
         // Rôle : faire un tableau contenant pour chaque champ, un élément avec le texte `nomChamp` = :nomChamp
         // paramètres : néant
         // Retour : le tableau décrit ci-dessus
@@ -363,7 +363,7 @@ class _model {
         return $result;
     }
 
-    function makeRequestParamForSet() {
+    function makeRequestParamForSet() { // ok
         // Rôle : préparer (et retourner) le tableau de valorisation des paramètres pour mise à jour des champs
         // Paramètres : néant
         // Retour : le tableau contenant les valeurs associées aux :nomChamp (pour chaque champ)
@@ -398,7 +398,7 @@ class _model {
 
     // ** supprime un objet en bdd **
 
-    function delete() {
+    function delete() { // ok
         // Rôle : supprimer l'objet courant dans la base de données
         // Paramètres : néant
         // Retour : Ceux qui sont sur les cp
@@ -434,7 +434,7 @@ class _model {
 
     // ** donner la liste de tous les objets de cette calsse (depuis la BDD) **
 
-    function listAll(...$tris) {
+    function listAll(...$tris) {    // ok
         // Rôle : donner la liste de tous les objets de cette calsse (depuis la BDD)
         // paramètres : gérer les critères de tri
         //          "+/-nomChamp", "+/-nnomChamp", ....
