@@ -36,7 +36,7 @@
 
     // validation password et idt
     $utilisateur->connexionValideUtilisateur($log, $password);
-    print_r($_SESSION);
+
     // connexion et rensegnement session id et du status
     $utilisateur = new Utilisateur(ConnexionSes::getIdConnected());
     
@@ -44,7 +44,7 @@
 
     // routage pour ouverture page en fonction du status
     $status = $utilisateur->droits();
-    if($status->verifierDroits($_SESSION["status"])) {
+    if($status->verifierDroits(connexionSes::getStatusSession())) {
         $page = $utilisateur->routerAccueil();
         $page->routerAcc (connexionSes::getIdConnected());
     } else {
