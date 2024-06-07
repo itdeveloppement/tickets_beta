@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Services;
+
+use App\Modeles\Utilisateur;
+
 /*
 RAISONNEMENT -----------------------------
 si la connexion d'un utilisateur (password et log ok) est validé, l'id de l'utilisateur est renseigner dans la super globale $_SESSION (dans la methode personnage)

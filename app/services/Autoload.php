@@ -1,7 +1,5 @@
 <?php
 
-// namespace App\Services;
-
 /* NOTION "auto chargement des classes" ----------------------------------
 Objectif : charger les classes sans avoir à les inclure une apres l'autre manuellement
 Methode : si une classe PHP rencontre une classe non denfnini il appel une fonction de chargement de la classe
@@ -10,6 +8,8 @@ Methode : si une classe PHP rencontre une classe non denfnini il appel une fonct
     - charge la classe modele , sinon la classe nomée si elle existe.
     - si la classe existe on peut effectuier d'autre traitement (vérifications supplémentaires ou des initialisations spécifiques à la classe. A preciser)
 */
+
+
 
 /**
  * Role : charger automatiquement les classes

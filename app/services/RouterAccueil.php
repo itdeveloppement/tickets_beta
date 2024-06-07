@@ -1,8 +1,17 @@
 <?php
+
+use App\Modeles\Model;
+use App\Services\ConnexionSes;
+
 /**
  * Role : route la page d'accueil en fonction du status
  */
-class RouterAccueil extends Model{
+
+
+
+
+
+class RouterAccueil extends Model {
 
 /** role : afficher la page d'accueil en fonction du status
  * @param : id de l'utilisateur connecté

@@ -4,6 +4,10 @@
  * 
  */
 
+use App\Modeles\Utilisateur;
+use App\Services\ConnexionSes;
+use App\Modeles\Model;
+
  class ConnexionPwd extends Model{
 
 //attributs
@@ -24,7 +28,7 @@ public function __construct($log, $pwd) {
 * @return true si connecté , sinon return false 
 */
 public function connexionValide() {
-    $listeUtilisateurs = new utilisateur ();
+    $listeUtilisateurs = new Utilisateur ();
     $utilisateurs = $listeUtilisateurs->listAll();
 
     foreach ($utilisateurs as $utilisateur => $values) {

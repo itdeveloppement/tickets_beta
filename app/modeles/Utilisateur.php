@@ -3,6 +3,15 @@
  * role : caracteristique d'un personnage (client / vendeur / technicien)
  */
 
+namespace App\Modeles;
+
+use App\Modeles\Model;
+use Button;
+use ConnexionPwd;
+use Droits;
+use Form;
+use RouterAccueil;
+
  class Utilisateur extends Model {
 
     // attributs

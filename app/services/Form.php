@@ -20,6 +20,8 @@
  *
  */
 
+
+
 class Form{
     // attributs
     protected $data; // ex : $data [ "nom"=>"Durand", "prenom"=>"Teo", "email" => "email@email" ]

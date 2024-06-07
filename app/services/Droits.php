@@ -7,6 +7,8 @@
  *  statusUtilisateur ($id) : retourne le status de l'utilisateur connecté
  */
 
+
+
 class Droits {
 
     protected $url; // url current

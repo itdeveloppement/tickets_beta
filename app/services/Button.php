@@ -1,4 +1,5 @@
 <?php
+
 /**
  * role : creation bouton 
  * 
@@ -7,6 +8,8 @@
  * 
  * exemple utilisation :  <?= $button->button("Envoyer", "submit", "classe"); ?>
  */
+
+
 
 class Button {
     // attributs

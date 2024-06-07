@@ -8,6 +8,12 @@
  * update() : modifie un objet dans la base de données
  * delete () : suprimme un objet dans la base de données
  */
+
+ namespace App\Modeles;
+
+use ConnexionBdd;
+use PDO;
+
 class Model {
 
     // Attributs
@@ -115,7 +121,7 @@ function getTarget($fieldName) {
     // verifier si ce n'est pas un lien on instencie un objet qu'on retourne
     if ( ! isset($this->links[$fieldName])) {
         // Ce n'est pas un lien : on retourne un objet de la classe _model
-        $this->targets[$fieldName] = new _model();
+        $this->targets[$fieldName] = new Model();
         return $this->targets[$fieldName];
     }
 

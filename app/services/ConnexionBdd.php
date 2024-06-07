@@ -13,6 +13,10 @@
  *  connexion() : connexion à la bdd
  *  deconnexion() : deconnexion à la bdd
  */
+
+
+
+
 class ConnexionBdd {
 
 // attributs

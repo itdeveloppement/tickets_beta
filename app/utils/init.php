@@ -1,6 +1,8 @@
 <?php
 
-// use App\Services\Autoload;
+use App\Services\ConnexionSes;
+
+ echo"test";
 
 // NOTION : affichage des erreur  ----------------------------------------
     // parametre l'affichage des erreurs

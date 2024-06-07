@@ -9,6 +9,8 @@
  *   <?= $link->link("url", "libelle", "classe", "id"); ?>
  */
  
+ 
+
 class Link {
 
     // attributs

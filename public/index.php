@@ -9,6 +9,9 @@
  *      password
  */
 
+use App\Modeles\Utilisateur;
+use App\Services\ConnexionSes;
+
  include_once  __DIR__ . "/../App/Utils/init.php";
 
  $utilisateur = new Utilisateur ();
