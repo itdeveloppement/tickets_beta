@@ -9,7 +9,7 @@
  *   <?= $link->link("url", "libelle", "classe", "id"); ?>
  */
  
- 
+ namespace App\Services;
 
 class Link {
 

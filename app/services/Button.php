@@ -10,7 +10,8 @@
  */
 
 
-
+ namespace App\Services;
+ 
 class Button {
     // attributs
     protected $type; // submit, button ...

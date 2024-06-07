@@ -15,7 +15,10 @@
  */
 
 
+namespace App\Services;
 
+use PDO;
+use PDOException;
 
 class ConnexionBdd {
 

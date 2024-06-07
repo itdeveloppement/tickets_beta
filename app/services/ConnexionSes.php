@@ -1,8 +1,5 @@
 <?php
 
-namespace App\Services;
-
-use App\Modeles\Utilisateur;
 
 /*
 RAISONNEMENT -----------------------------
@@ -25,6 +22,13 @@ a chaque debut de script on appel activation() (ds l'init)
  *  sessionUserconnected() : retourne l'objet de l'itilisateur connecté
  *  connect($id): connecter un utilisateur
  */
+
+
+namespace App\Services;
+
+use App\Modeles\Utilisateur;
+
+
 class ConnexionSes {
 
 protected $utilisateurConnecte;

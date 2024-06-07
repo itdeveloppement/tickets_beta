@@ -6,11 +6,11 @@
 namespace App\Modeles;
 
 use App\Modeles\Model;
-use Button;
-use ConnexionPwd;
-use Droits;
-use Form;
-use RouterAccueil;
+use App\Services\Button;
+use App\Services\ConnexionPwd;
+use App\Services\Droits;
+use App\Services\Form;
+use App\Services\RouterAccueil;
 
  class Utilisateur extends Model {
 

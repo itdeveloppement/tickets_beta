@@ -10,7 +10,6 @@ Methode : si une classe PHP rencontre une classe non denfnini il appel une fonct
 */
 
 
-
 /**
  * Role : charger automatiquement les classes
  * 
@@ -19,23 +18,75 @@ Methode : si une classe PHP rencontre une classe non denfnini il appel une fonct
  *  autoloadClasses ($class) : trouve la classe et la charge
  * 
  */
-class Autoload { 
+
+namespace App\Services;
+
+
+class Autoload {
+
+    /** role : initialise autoloadClass pour initialiser le chargement automatique de la classe
+     * @param : neant
+     * @return : neant
+     */
+    // public static function register (){
+    // self (un peu comme le this mais pour classe static / pour la classe courante appel la fonction ...)
+    // pour appller la fonction autoloadClasses on passe un tableau avec la classe et la fonction
+    // on ourrait aussi ecrire ['Autoload', 'autoloadClasses']
+    public static function register() {
+        spl_autoload_register([self::class, 'autoloadClasses']);
+    }
+
+    /** Role : trouver la classe et la charger
+     * @param {objet} $class : nom du namespace
+     * @return : neant
+     */
+    public static function autoloadClasses($class) {
+        $prefix = 'App\\'; // namesspace App
+        $base_dir = __DIR__ . '/../';
+
+        // compare le prefixe 'App\\' avec le debut de la classe. 
+        $len = strlen($prefix);
+        if (strncmp($prefix, $class, $len) !== 0) {
+            // Si cela ne corespond il n'y a pas de namespace donc soit un autre autoloader prend le relais soit une erreur apparait
+            return;
+        }
+
+        // obtenir le nom de laclasse (relative)
+        $relative_class = substr($class, $len);
+
+        // construire le chemin. Il faut remplacer les \ du chemin namespace par des / pour le chemin à inclure
+        $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+
+        // si le fichier existe on l'incus
+        if (file_exists($file)) {
+            include $file;
+        } else {
+            echo "La classe n'existe pas: $class";
+        }
+    }
+}
+
+
+// ARCHIVE : autoload sans utilisation des names space
+// class Autoload { 
 
 /** role : initialise autoloadClass pour initialiser le chargement automatique de la classe
  * @param : neant
  * @return : neant
  */
-public static function register (){
+// public static function register (){
     // self (un peu comme le this mais pour classe static / pour la classe courante appel la fonction ...)
     // pour appller la fonction autoloadClasses on passe un tableau avec la classe et la fonction
     // on ourrait aussi ecrire ['Autoload', 'autoloadClasses']
+/*
     spl_autoload_register([self::class, 'autoloadClasses']); // "Autoload"
 }
-
+*/
 /** Role : trouver la classe et la charger
  * @param {objet} $class : nom de la classe
  * @return : neant
  */
+/*
 public static function autoloadClasses ($class) {
     if ($class == "_model") {
         include_once __DIR__ . "/../Modeles/Model.php";
@@ -56,4 +107,4 @@ public static function autoloadClasses ($class) {
         echo "la classe n'exitse pas";
     }
 }
-}
+*/

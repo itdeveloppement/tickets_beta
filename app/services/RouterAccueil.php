@@ -1,15 +1,16 @@
 <?php
 
-use App\Modeles\Model;
-use App\Services\ConnexionSes;
+
+
 
 /**
  * Role : route la page d'accueil en fonction du status
  */
 
 
+ namespace App\Services;
 
-
+use App\Modeles\Model;
 
 class RouterAccueil extends Model {
 

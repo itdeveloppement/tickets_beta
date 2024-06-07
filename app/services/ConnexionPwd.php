@@ -4,6 +4,8 @@
  * 
  */
 
+ namespace App\Services;
+ 
 use App\Modeles\Utilisateur;
 use App\Services\ConnexionSes;
 use App\Modeles\Model;

@@ -11,7 +11,7 @@
 
  namespace App\Modeles;
 
-use ConnexionBdd;
+use App\Services\ConnexionBdd;
 use PDO;
 
 class Model {

@@ -7,7 +7,7 @@
  *  statusUtilisateur ($id) : retourne le status de l'utilisateur connecté
  */
 
-
+ namespace App\Services;
 
 class Droits {
 
