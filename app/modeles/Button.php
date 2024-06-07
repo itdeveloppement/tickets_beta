@@ -4,6 +4,8 @@
  * 
  * methode
  *  button ($libelle, $type, $class = null, $id= null) : return le bouton html
+ * 
+ * exemple utilisation :  <?= $button->button("Envoyer", "submit", "classe"); ?>
  */
 
 class Button {

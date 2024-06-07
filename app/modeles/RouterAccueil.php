@@ -10,6 +10,10 @@ class RouterAccueil extends _model{
  */
 public function routerAcc ($id) {
     $status = ConnexionSes::getStatusSession ();
+    $form = new Form();
+    $button = new Button();
+    $link = new Link();
+
     // $utilisateur = new Utilisateur($id);
     // $status = $utilisateur->get("status"); // A MODIFIER SUR LA SESSION
     if ($status == "CLI") {

@@ -26,7 +26,7 @@ class Autoload {
  */
 public static function register (){
     // self (un peu comme le this mais pour classe static / pour la classe courante appel la fonction ...)
-    spl_autoload_register([self::class, 'autoloadClasses']);
+    spl_autoload_register([self::class, 'autoloadClasses']); // "Autoload"
 }
 
 /** Role : trouver la classe et la charger
