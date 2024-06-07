@@ -25,7 +25,8 @@ use App\Services\RouterAccueil;
     "password",
     "created_date"
  ];
-    
+
+ protected $links = ['id' => 'Utilisateur'];  
 
  // -------- INSTANCIATION DES CLASSES ---------------
 

@@ -22,11 +22,47 @@ class Model {
     protected $values =[]; // valeur des champs ex : $value = [ "nomChamp1" => valeur1, ... ]
     protected $id = 0;
 
-    protected $links = [];      // Liste des liens sortants : 
+    protected $links = [];      
+        // Liste des liens sortants : 
         //tableau qui pour cahque lien met en index le nom du champ qui est un lien, et en valeur le nom de l'objet
         //  (exemple : [ "fournisseur" => "fournisseur"])
 
     protected $targets = [];    // On stockera pour les liens [ "nomChamp" => objetLié, .. ]
+
+// ------- SELECTIONNER UN OBJET ASSOCIE A UN CHAMPS D UNE TABLE ------------------------
+
+// ex : dans une table produit vendu avec l'id du vendeur il est possible de recuperer les cracateristique du vendeur (sans instentier directement la classe vendeur)
+
+/**
+ * role : selectionner un objet pointé (en lien) avec la table
+ * @param : nom du champ de l'objet pointé dans la table initiale
+ * @return : objet (d'une classe héritée de la classe _model), chargé avec l'objet pointé
+    *       si on ne trouve pas :
+    *         si champ inconnu ou pas un lien : retourne un objet _model (vide)
+    *          si le champ est un lien, mais vide, ou pas d'objet en face : le bon objet, mais pas chargé
+* exemple d'utilisation : 
+*   definir le lien dans $Links $ Links= [ 'id' => 'utilisateur']
+*    retourne une instance d'un utilisateur(id)
+ */
+function getTarget($fieldName) {
+
+    // Verifier si l'objet associé au champs est deja chargé dans le tableu $targets (dans $this->targets)
+    if (isset($this->targets[$fieldName])) {
+        return $this->targets[$fieldName];
+    }
+
+    // verifier si ce n'est pas un lien on instencie un objet qu'on retourne
+    if ( ! isset($this->links[$fieldName])) {
+        // Ce n'est pas un lien : on retourne un objet de la classe _model
+        $this->targets[$fieldName] = new Model();
+        return $this->targets[$fieldName];
+    }
+
+    // si c'est un lien on retourne l'objet pointé est de la classe indiquée dans $this->links[$fieldName]
+    $nomClasse = $this->links[$fieldName];
+    $this->targets[$fieldName] = new $nomClasse($this->get($fieldName));
+    return $this->targets[$fieldName];
+}
 
 
 // ---------------- CHAGEMENT AUTOMATIQUE DE L'OBJET à l'instenciation ---------------
@@ -44,12 +80,42 @@ public function __construct($id = null){
  * @param : le nom de l'attribut
  * @return : la valeur de l'attribut, ou chaine vide si l'attribut n'esxitse pas
  */
+
+ /*
 function get($fieldName) {
     if (isset($this->values[$fieldName])) {
         return $this->values[$fieldName];
     } else {
         return "";
     }
+}
+*/
+function get($fieldName) {
+    // Rôle : récupérer la valeur d'un attribut
+    // Paramètres :
+    //      $fieldName : nom de l'attribut
+    // Retour : la valeur de l'attribut (chaine vide si l'attribut n'existe)
+
+    // on va regarder si on a une méthode spécifique pour $fieldName
+    if (method_exists($this, "get_$fieldName")) {
+        $method = "get_$fieldName";
+        return $this->$method();
+    }
+
+    // On a la valeur dans l'attribut values, à l'index qui a le même nom que l'attribut cherché
+    // l'attribut values est accessible $this->values
+    // l'index qui nous intéresse est dans $fieldName
+
+    //  cad $this->values[$fieldName];
+
+    // On contrôle que la valeur existe, sinon, on retourne ""
+    // Si la valeur existe (isset(....)) retourne la valeur, sinon retourne ""
+    if (isset($this->values[$fieldName])) {
+        return $this->values[$fieldName];
+    } else {
+        return "";
+    }
+
 }
 
 /**
@@ -99,37 +165,6 @@ function is() {
     return ! empty($this->id);      
 }
 
-// ------- SELECTIONNER UN OBJET ASSOCIE A UN CHAMPS D UNE TABLE ------------------------
-
-// ex : dans une table produit vendu avec l'id du vendeur il est possible de recuperer les cracateristique du vendeur (sans instentier directement la classe vendeur)
-
-/**
- * role : selectionner un objet pointé (en lien) avec la table
- * @param : nom du champ de l'objet pointé dans la table initiale
- * @return : objet (d'une classe héritée de la classe _model), chargé avec l'objet pointé
-    *       si on ne trouve pas :
-    *         si champ inconnu ou pas un lien : retourne un objet _model (vide)
-    *          si le champ est un lien, mais vide, ou pas d'objet en face : le bon objet, mais pas chargé
- */
-function getTarget($fieldName) {
-
-    // Verifier si l'objet associé au champs est deja chargé dans le tableu $targets (dans $this->targets)
-    if (isset($this->targets[$fieldName])) {
-        return $this->targets[$fieldName];
-    }
-
-    // verifier si ce n'est pas un lien on instencie un objet qu'on retourne
-    if ( ! isset($this->links[$fieldName])) {
-        // Ce n'est pas un lien : on retourne un objet de la classe _model
-        $this->targets[$fieldName] = new Model();
-        return $this->targets[$fieldName];
-    }
-
-    // si c'est un lien on retourne l'objet pointé est de la classe indiquée dans $this->links[$fieldName]
-    $nomClasse = $this->links[$fieldName];
-    $this->targets[$fieldName] = new $nomClasse($this->get($fieldName));
-    return $this->targets[$fieldName];
-}
 
 
 // ----------------- SELECTIONNER UNE LISTE D OBJETS DANS LA BASE -----------------------
