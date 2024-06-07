@@ -8,7 +8,7 @@
  * update() : modifie un objet dans la base de données
  * delete () : suprimme un objet dans la base de données
  */
-class _model {
+class Model {
 
     // Attributs
     protected $table; // la table de la bdd

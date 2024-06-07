@@ -4,7 +4,7 @@
  * 
  */
 
- class ConnexionPwd extends _model{
+ class ConnexionPwd extends Model{
 
 //attributs
 protected $log;

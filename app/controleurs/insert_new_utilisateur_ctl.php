@@ -10,7 +10,7 @@
  *  password
  */
 
-include_once  __DIR__ . "/../utils/init.php";
+include_once  __DIR__ . "/../Utils/init.php";
 
 print_r($_POST);
 // verification des données POST

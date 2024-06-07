@@ -1,5 +1,6 @@
 <?php
 
+// namespace App\Services;
 
 /* NOTION "auto chargement des classes" ----------------------------------
 Objectif : charger les classes sans avoir à les inclure une apres l'autre manuellement
@@ -37,12 +38,17 @@ public static function register (){
  */
 public static function autoloadClasses ($class) {
     if ($class == "_model") {
-        include_once __DIR__ . "/../utils/model.php";
+        include_once __DIR__ . "/../Modeles/Model.php";
      }
      // si le fichier existe (ou le repertoire)
-     else if (file_exists(__DIR__ . "/../modeles/$class.php")) {
-         include_once __DIR__ . "/../modeles/$class.php";
-     }
+     else if (file_exists(__DIR__ . "/../Modeles/$class.php")) {
+         include_once __DIR__ . "/../Modeles/$class.php";
+     } else if (file_exists(__DIR__ . "/../Services/$class.php")) {
+        include_once __DIR__ . "/../Services/$class.php";
+    } else if (file_exists(__DIR__ . "/../Utils/$class.php")) {
+        include_once __DIR__ . "/../Utils/$class.php";
+    } 
+    
      // si la classe n'existe pas 
      if (! class_exists($class)) {
         // capter l'exception 

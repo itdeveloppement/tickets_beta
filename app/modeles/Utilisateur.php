@@ -3,7 +3,7 @@
  * role : caracteristique d'un personnage (client / vendeur / technicien)
  */
 
- class Utilisateur extends _model {
+ class Utilisateur extends Model {
 
     // attributs
  protected $table = "utilisateur";

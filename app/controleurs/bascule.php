@@ -7,6 +7,6 @@
  *      si status = technicien afficher page accueil vendeur
  */
 
- include_once  __DIR__ . "/../utils/init.php";
+ include_once  __DIR__ . "/../Utils/init.php";
 
  echo "en cour de dev : controleur basculer sur acc tech ou vendeur";

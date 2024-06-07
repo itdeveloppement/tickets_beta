@@ -2,7 +2,7 @@
 /**
  * Role : route la page d'accueil en fonction du status
  */
-class RouterAccueil extends _model{
+class RouterAccueil extends Model{
 
 /** role : afficher la page d'accueil en fonction du status
  * @param : id de l'utilisateur connecté
@@ -27,6 +27,5 @@ public function routerAcc ($id) {
             exit;
         }
     }
-
 }
 

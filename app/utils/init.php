@@ -1,4 +1,7 @@
 <?php
+
+// use App\Services\Autoload;
+
 // NOTION : affichage des erreur  ----------------------------------------
     // parametre l'affichage des erreurs
     // connexion à la base de donnée via PDO
@@ -23,8 +26,8 @@ $exception-getCode() : retourne le code du message d'erreur
 */
 
 // autochargement des classes (voir class autoload pour detail)
-include __DIR__ . "/../modeles/Autoload.php"; 
-include __DIR__ . "/../modeles/ClassNotExist.php";
+include __DIR__ . "/../Services/Autoload.php"; 
+include __DIR__ . "/../Utils/ClassNotExist.php";
 
 Autoload::register();
 
@@ -39,7 +42,7 @@ Autoload::register();
 // $bdd = connexion::connexion();
 
 // insertion des librairie diverse
-include_once __DIR__ . "/../modeles/ConnexionSes.php";
+include_once __DIR__ . "/../Services/ConnexionSes.php";
 // Activer le mécanisme de session
 ConnexionSes::activation();
 
