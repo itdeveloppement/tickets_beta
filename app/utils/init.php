@@ -2,7 +2,8 @@
 
 use App\Services\ConnexionSes;
 use App\Services\Autoload;
- echo"test";
+
+// echo"test entrée fichier utils";
 
 // NOTION : affichage des erreur  ----------------------------------------
     // parametre l'affichage des erreurs

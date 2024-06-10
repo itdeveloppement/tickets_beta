@@ -44,34 +44,6 @@ class Model {
 *   definir le lien dans $Links $ Links= [ 'id' => 'utilisateur']
 *    retourne une instance d'un utilisateur(id)
  */
-function getTarget($fieldName) {
-
-    // Verifier si l'objet associé au champs est deja chargé dans le tableu $targets (dans $this->targets)
-    if (isset($this->targets[$fieldName])) {
-        return $this->targets[$fieldName];
-    }
-
-    // verifier si ce n'est pas un lien on instencie un objet qu'on retourne
-    if ( ! isset($this->links[$fieldName])) {
-        // Ce n'est pas un lien : on retourne un objet de la classe _model
-        $this->targets[$fieldName] = new Model();
-        return $this->targets[$fieldName];
-    }
-
-    // si c'est un lien on retourne l'objet pointé est de la classe indiquée dans $this->links[$fieldName]
-    $nomClasse = $this->links[$fieldName];
-    $this->targets[$fieldName] = new $nomClasse($this->get($fieldName));
-    return $this->targets[$fieldName];
-}
-
-
-// ---------------- CHAGEMENT AUTOMATIQUE DE L'OBJET à l'instenciation ---------------
-
-public function __construct($id = null){
-    if($id != null){
-        $this->load($id);
-    }
-}
 
 // -------------------------------- GETTER ---------------------------------------------
 
@@ -109,7 +81,6 @@ function get($fieldName) {
     //  cad $this->values[$fieldName];
 
     // On contrôle que la valeur existe, sinon, on retourne ""
-    // Si la valeur existe (isset(....)) retourne la valeur, sinon retourne ""
     if (isset($this->values[$fieldName])) {
         return $this->values[$fieldName];
     } else {
@@ -143,16 +114,25 @@ function set($fieldName, $value) {
 
 /**
  * changer ou initialiser la valeurs des caracteristiques d'un objet à partir d'un tableau de données
- * @param : tableau de donnée valorisant les champs de la table
+ * @param : tableau d'objet de donnée valorisant les champs de la table
  * @return : true si ok, sinon false
  */
 function loadFromTab($tab) {
-    if (isset($tab["id"])) $this->id = $tab["id"];
-    foreach($this->fields as $nomChamp) {
-        if (isset($tab[$nomChamp])) 
-            $this->values[$nomChamp] = $tab[$nomChamp];
+    if (isset($tab["id"])) {
+        $this->id = $tab["id"];
     }
+    foreach($this->fields as $nomChamp) {
+        if (!isset($this->values)) {
+            $this->values = array();
+        }
+        $this->values[$nomChamp] = $tab[$nomChamp];    
+    }
+    
+
+    return true;
 }
+
+
 
 // -------- VERFIER SI L OBJET EST CHARGE --------------------------------------------
  
@@ -170,7 +150,7 @@ function is() {
 // ----------------- SELECTIONNER UNE LISTE D OBJETS DANS LA BASE -----------------------
 
 /**
- * role : selectionner une liste d'objetdans la base de données
+ * role : selectionner une liste d'objet dans la base de données
  * @param : nothing
  * @return : liste d'objet (voir si c'est vraiment un tableau d'objet)
  */
@@ -209,6 +189,56 @@ function listAll() {
     return $result;
 }
 
+/**
+ * role : selectionner une liste d'objet dans la base de données selon un champs et une valeur de champs
+ * @param : champs et la valeur du champs
+ * @return : liste d'objet (voir si c'est vraiment un tableau d'objet)
+ */
+function listAllCondition($field, $fieldValue) {
+    $sql = "SELECT "; 
+    // Construire la liste des champs encadrés par ` 
+    // On met d'abord l'id
+    $tableau = [ "`id`" ];
+    foreach($this->fields as $type) {
+        $tableau[] = "`$type`";
+    }
+    $sql .= implode(", ", $tableau);
+    $sql .= " FROM `$this->table` ";
+    $sql .= " WHERE `$field` = :$field"; 
+  
+     // tableau des parametres
+     $param = [ ":$field" => $fieldValue];
+
+     
+    // préparer / exécuter
+    $bdd = ConnexionBdd::connexion();
+    $req = $bdd->prepare($sql);
+    if ( ! $req->execute($param)) {
+        // Echec de la requête
+        return [];
+    }
+
+    // Construire le tableau résultat ( à reprendre)
+    $result = [];
+    // tant que j'ai une ligne de résultat de la requête à lire
+    while ($tabObject = $req->fetch(PDO::FETCH_ASSOC)) {
+        // "transférer" $tabObject en objet de la classe courante
+        // Récupération du nom de la classe de l'objet courant
+
+        // Récupère le nom complet de la classe avec le namespace
+        $fullClassName = get_class($this); 
+
+        $obj = new $fullClassName();
+        // Charger l'objet
+        $obj->loadFromtab($tabObject);
+        // ON ajoute cela dans $result
+        $result[$obj->getId()] = $obj;
+   
+    }
+    
+    return $result;
+}
+
 // ---- SELECTIONNER - SUPPRIMER - INSERER - MODFIER UN OBJET DANS LA BASE -------------
 /**
  * Role : recuperer pour un id, l'objet dans la base de données
@@ -236,7 +266,29 @@ public function load($id) {
             // On a une erreur de requête (on peut afficher des messages en phase de debug)
             return false;
         }
+
+    // On s'assure que l'on a trouvé une ligne
+    $listeExtraite = $req->fetchAll(PDO::FETCH_ASSOC);
+    // Si le tableau $liste est vide (0 elt), c'est qu'on a pas l'id cherché
+    if (empty($listeExtraite)) {
+        return false;
+    }
+
+    // chargement de l'objet courent
+    // On récupère le premier (et seul) élément
+    $tab = $listeExtraite[0];
+
+    // Pour chaque champ de l'objet, on valorise $this->values[champ];
+    foreach($this->fields as $nomChamp) {
+        $this->values[$nomChamp] = $tab[$nomChamp];
+    }
+
+    // On renseigne l'id :
+    $this->id = $id;
+
+    return true;
 }
+
 
 /**
  * role : inserer un objet dans la base de données
