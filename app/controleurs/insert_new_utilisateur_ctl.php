@@ -14,7 +14,7 @@ use App\Modeles\Utilisateur;
 
 include_once  __DIR__ . "/../Utils/init.php";
 
-print_r($_POST);
+// print_r($_POST);
 // verification des données POST
 
 if (

@@ -38,7 +38,7 @@
             <th>Prenom du client</th>
         </tr>
     </thead>
-    <tbody class="listeTicketsStatus">
+    <tbody id="listeTicketsStatus">
         <!-- // construit avec la foncttion js selectListeTicketsStatus()
         <tr >
             <td>${ticket["titre"]}</td>
@@ -50,7 +50,9 @@
         </tr> -->
     </tbody>
 </table>
+<script src="../../../tickets/tickets_beta/public/js/app.js" defer></script>
 <?php
+
  // Template de page : footer
  include __DIR__ . "/../layout/footer.tpl.php";
  ?>

@@ -8,6 +8,7 @@
 const buttons = document.querySelectorAll('.btn_status_tkt');
         buttons.forEach(button => {
             button.addEventListener('click', function() {
+                // console.log ("test");
                 const status = button.getAttribute('data-id');
                 selectListeTicketsStatus(status);
             });
@@ -19,12 +20,13 @@ const buttons = document.querySelectorAll('.btn_status_tkt');
  * @retour :
  */
 function selectListeTicketsStatus(status) {
-    fetch(`select_status_tickets.php?status=${status}`)
+    fetch(`../App/Controleurs/select_status_tickets.php?status=${status}`)
     .then(response=>{
         return response.json();
     })  .then (response=>{
+        console.log(response);
        // appeller la fonction pour afficher la liste des tickets selon un status
-       afficherListeTicketStatus (response)
+       afficherListeTicketStatus(response);
     })
     // recuperation des erreurs
     .catch(erreur=>{
@@ -41,7 +43,7 @@ function selectListeTicketsStatus(status) {
 function afficherListeTicketStatus (response) {
     zone = document.getElementById ("listeTicketsStatus");
     template = '';
-    response.foreach( ticket => {
+    Object.values(response).forEach(ticket => {
         template += 
         `
          <tr >
