@@ -5,7 +5,6 @@
  */
 
 use App\Modeles\Ticket;
-use App\Services\ConnexionSes;
 
 include_once  __DIR__ . "/../Utils/init.php";
 /*

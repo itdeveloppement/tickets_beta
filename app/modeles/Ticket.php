@@ -27,6 +27,8 @@ class Ticket extends Model{
 
     protected $links = ['client' => 'Ticket'];  
 
+// ------ METHODES DE SELECTION DANS LA BDD ----------------
+
 /**
  * role : récupérer tous les tickets ayant le meme status
  * @param : status
@@ -60,21 +62,33 @@ public function selectListeStatusTickets($status) {
 }
 
 /**
- * role : afficher le status sans abreviation
- * ex : OUV devient Ouvert
- * @param : status sous vorme de chaine de caractere
- * @return : status sous forme de chaine de cracatere
+ * role : récupérer les caracteristique d'un ticket
+ * @param : id du ticket
+ * @return : tableu des caracteristique du ticket
  */
-public function status ($status) {
-    if ($status=="OUV") {
-        return "Ouvert";
-    } else if ($status=="ENC") {
-        return "En cours";
-    } else if ($status=="RES") {
-        return "resolut";
-    }
+public function detailTicket($id) {
+    // recuperation des tickets pour un status
+    $this->load($id);
+  
+    // construction du tableau de données
+        $tab = [];
+        $tab["id"] = $id;
+        $tab ["titre"]= $this->get("titre");
+        $tab ["status"]= $this->get("status");
+        $date = new Date ();
+        $tab ["created_date"]= $date->dateShort($this->get("created_date")) ;
+    
+        // recuperation des nom et prenom du cient pour le ticket
+        $nameClient = $this->clientTicket($id);
+        $tab ["nom"]= $nameClient["nom"];
+        $tab ["prenom"]= $nameClient["prenom"];
 
+        // recuperation de la desigantion du produit
+        $designationProduit = $this->produitTicket($id);
+        $tab ["designation"]= $designationProduit["designation"];
+   return $tab ;
 }
+
 /**
  * Role : selectionner dans la base de donnée le nom et le prenom d'un client d'un ticket
  * @param : $id du ticket
@@ -106,7 +120,7 @@ public function clientTicket ($id) {
 }
 
 /**
- * Role : selectionner dans la base de donnée le nom du produit pourun ticket
+ * Role : selectionner dans la base de donnée le nom du produit pour un ticket
  * @param : $id du ticket
  * @return : l'objet à l'id passé en argument
  */
@@ -134,7 +148,24 @@ public function produitTicket ($id) {
    
     return $listeExtraite;
 }
+
+
+// ----------- METHODE DE TRAITEMENT DES DONNEES
+
+/**
+ * role : afficher le status sans abreviation
+ * ex : OUV devient Ouvert
+ * @param : status sous vorme de chaine de caractere
+ * @return : status sous forme de chaine de cracatere
+ */
+public function status ($status) {
+    if ($status=="OUV") {
+        return "Ouvert";
+    } else if ($status=="ENC") {
+        return "En cours";
+    } else if ($status=="RES") {
+        return "resolut";
+    }
 }
 
-
-
+}
