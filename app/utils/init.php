@@ -47,7 +47,8 @@ Autoload::register();
 // insertion des librairie diverse
 include_once __DIR__ . "/../Services/ConnexionSes.php";
 // Activer le mécanisme de session
-ConnexionSes::activation();
+$session = new ConnexionSes();
+$session->activation();
 
 
 

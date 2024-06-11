@@ -10,22 +10,26 @@
  */
 
 use App\Modeles\Utilisateur;
-use App\Services\ConnexionSes;
+use App\Services\ConnexionPwd;
+use App\Services\Droits;
+use App\Services\Router;
 
  include_once  __DIR__ . "/../App/Utils/init.php";
 
  $utilisateur = new Utilisateur ();
+ $droit = new Droits();
 
  // verifier si la session existe 
     // en fonction du status affiche la page d'accueil
-    if  (ConnexionSes::isConnected()) {
-        $idSession = ConnexionSes::isConnected();
-        $status = $utilisateur->droits();
-        if($status->verifierDroits($_SESSION["status"])) {
-            $page = $utilisateur->routerAccueil();
-            $page->routerAcc ($idSession);
+    if  ($session->isConnected()) {
+        print_r($_SESSION);
+        // si l'utilisateur n'a pas les droit
+        if ( ! $droit->verifierDroits($session->getStatusSession())) {
+            include __DIR__ . "/../App/views/error/err403.tpl.php";
+        // sinon routage sur la page d'accueil en fonction du status
         } else {
-            include __DIR__ . "/../App/views/error/err404.tpl.php";
+            $router = new Router();
+            $router->routerAcc($session->getStatusSession());
         }
 
     // sinon verifier la connexion paswword
@@ -37,23 +41,29 @@ use App\Services\ConnexionSes;
         $log = $_POST["email"];
         $password = $_POST["password"];
 
-        // validation password et idt
-        $utilisateur->connexionValideUtilisateur($log, $password);
-        $idSession = ConnexionSes::isConnected();
-        // connexion et rensegnement session id et du status
-        $utilisateur->load($idSession);
-        // routage pour ouverture page en fonction du status
-        $status = $utilisateur->droits();
-      
-    if($status->verifierDroits($idSession)) {
-        $page = $utilisateur->routerAccueil();
-        $page->routerAcc ($idSession);
+        // CONNEXION
+        // si les validation password et idt ne sont pas validé renvoyé sur page connexion
+        $connexion = new ConnexionPwd($log, $password);
+        if ( $connexion->connexionValide() == null) {
+            include __DIR__ . "/../App/views/main/form_connexion_view.php";
+            exit;
+        // sinon renseignier la session et instencier utilisateurconnecté
+        } else {
+            $session->connect($connexion->connexionValide());
+            $session->statusSessionConnect($utilisateurConnecte->get("status"));
+        }
 
-    } else {
-        include __DIR__ . "/../App/views/error/err404.tpl.php";
-    }
-    
-    // sinon affiche le formulaire de connexion
+        // DROIT
+        // si l'utilisateur n'a pas les droit
+        if ( ! $droit->verifierDroits($session->getStatusSession())) {
+            include __DIR__ . "/../App/views/error/err403.tpl.php";
+        // sinon routage sur la page d'accueil en fonction du status
+        } else {
+            $router = new Router();
+            $router->routerAcc($session->getStatusSession());
+        };
+
+    // sinon afficher le formulaire de connexion
     } else {
         $form = $utilisateur->form();
         $button = $utilisateur->button();

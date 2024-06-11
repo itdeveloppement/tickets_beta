@@ -28,14 +28,12 @@
 <table>
     <thead>
         <tr>
-            <th colspan="5">Titre</th>
-        </tr>
-        <tr>
             <th>Produit</th>
             <th>Status du ticket</th>
             <th>Date de cration du ticket</th>
             <th>Nom du client</th>
             <th>Prenom du client</th>
+            <th>Voir les messages</th>
         </tr>
     </thead>
     <tbody id="listeTicketsStatus">
@@ -48,6 +46,7 @@
             <td>${ticket["nom"]}</td>
             <td>${ticket["prenom"]}</td>
         </tr> -->
+        
     </tbody>
 </table>
 <script src="../../../tickets/tickets_beta/public/js/app.js" defer></script>

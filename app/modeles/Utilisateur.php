@@ -7,10 +7,9 @@ namespace App\Modeles;
 
 use App\Modeles\Model;
 use App\Services\Button;
-use App\Services\ConnexionPwd;
 use App\Services\Droits;
 use App\Services\Form;
-use App\Services\RouterAccueil;
+use App\Services\Router;
 
  class Utilisateur extends Model {
 
@@ -30,23 +29,12 @@ use App\Services\RouterAccueil;
 
  // -------- INSTANCIATION DES CLASSES ---------------
 
-/** role : instentie la classe ConnexionPwd
- * @param : 
- *    le log (identifiant) de connexion
- *    le password
- * @return : nothing
- */
-public function connexionValideUtilisateur ($log, $password) {
-   $connexion = new ConnexionPwd($log, $password);
-   $connexion->connexionValide();
- }
-
 /** role : instentie la classe RouterAccueil
  * @param : nothing
  * @return : une instance vide
  */
  public function routerAccueil () {
-   $routerAccueil = new RouterAccueil();
+   $routerAccueil = new Router();
    return $routerAccueil;
  }
 

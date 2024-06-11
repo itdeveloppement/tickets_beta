@@ -27,7 +27,7 @@ public function __construct($log, $pwd) {
  * Rôle : verifie le login et le password de connexion d'un utilisateur
 * @param {string} $log: la valeur de l'identifiant de connexion passé en POST
 * @param {string} $password : la valeur du password passé en POST
-* @return true si connecté , sinon return false 
+* @return si connecté id de l'utilisateur sinon null
 */
 public function connexionValide() {
     $listeUtilisateurs = new Utilisateur ();
@@ -36,18 +36,13 @@ public function connexionValide() {
     foreach ($utilisateurs as $utilisateur => $values) {
         $logUtilisateur = $values->get("email");
         $passwordUtilisateur = $values->get("password");
-        $statusUtilisateur = $values->get("status");
 
         // vrification concordance
         if (($logUtilisateur==$this->log) && (password_verify($this->pwd, $passwordUtilisateur))) { 
-            ConnexionSes::connect($utilisateur, );
-            ConnexionSes::statusSessionConnect($statusUtilisateur);
-            
-            return true;
+            return $utilisateur;
         }   
     }
-    return false;
-   
+    return null;
     }
  }
 

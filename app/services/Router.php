@@ -11,15 +11,19 @@
  namespace App\Services;
 
 use App\Modeles\Model;
+use App\Services\ConnexionSes;
+use App\Services\Form;
+use App\Services\Button;
+use App\Services\Link;
 
-class RouterAccueil extends Model {
+
+class Router extends Model {
 
 /** role : afficher la page d'accueil en fonction du status
  * @param : id de l'utilisateur connecté
  * @return : nothing
  */
-public function routerAcc ($id) {
-    $status = ConnexionSes::getStatusSession ();
+public function routerAcc ($status) {
     $form = new Form();
     $button = new Button();
     $link = new Link();

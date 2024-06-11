@@ -14,12 +14,12 @@ class Droits {
     protected $url; // url current
     const DROITS = [
         'index.php' => ['CLI', 'VEN', 'TEC'],
-        'test_unitaire _ctl.php' => ['CLI', 'VEN'],
+        'afficher_form_repondre_message.php' => ['CLI', 'VEN', 'TEC'],
     ];
 
 /** role : recuperation l'URL de la page courent et verifie les droits
  *  @param : neant
- *  @return : true si autorisé, sion false
+ *  @return : l'url courente
  */
 private function urlCurrent () {
     // recuperation de l'url current dans la globale SERVEUR
@@ -42,12 +42,12 @@ public function verifierDroits($status) {
         foreach ($tab as $value){
             // status : client / vendeur / technicien et AC : compte actif
             if ($value == $status) { // il faut ajouter ICI && SI ETAT == AC
-                echo "Message debug dans class Droits : acces autorisé";
+                // echo "Message debug dans class Droits : acces autorisé";
                 return true;
                 exit;
             }
         }
-        echo "Message debug dans class Droits : acces refusé";
+        // echo "Message debug dans class Droits : acces refusé";
         // include __DIR__ . "/../controleurs/index.php";
         return false;
     }

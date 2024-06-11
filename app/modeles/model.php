@@ -145,8 +145,6 @@ function is() {
     return ! empty($this->id);      
 }
 
-
-
 // ----------------- SELECTIONNER UNE LISTE D OBJETS DANS LA BASE -----------------------
 
 /**

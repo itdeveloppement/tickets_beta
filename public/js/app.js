@@ -46,13 +46,16 @@ function afficherListeTicketStatus (response) {
     Object.values(response).forEach(ticket => {
         template += 
         `
+         <tr>
+            <th colspan="5">${ticket["titre"]}</th>
+        </tr>
          <tr >
-            <td>${ticket["titre"]}</td>
             <td>${ticket["designation"]}</td>
-            <td>${ticket["Status"]}</td>
+            <td>${ticket["status"]}</td>
             <td>${ticket["created_date"]}</td>
             <td>${ticket["nom"]}</td>
             <td>${ticket["prenom"]}</td>
+            <td><a href="../App/Controleurs/afficher_form_repondre_message.php">Voir les messages</a></td>
         </tr>
         `;
     }); 
