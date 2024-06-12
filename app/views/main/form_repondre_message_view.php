@@ -46,9 +46,18 @@
             <p>Editeur</p>
             <p>Message</p>
         </div>
+        <!-- formulaire pour repondre a un message -->
         <h3>Répondre</h3>
+        <div>
+            <form id="formMessage">
+                <div>
+                    <label for="message">Message :</label>
+                    <textarea id="message" name="message" rows="5" cols="80"></textarea>
+                </div>
+                <input type="submit" value="Envoyer">
+            </form>
+        </div>
     </main>
-
     <script src="../../../tickets_beta/public/js/app.js" defer></script>
 <?php
 

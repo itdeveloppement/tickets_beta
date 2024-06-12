@@ -7,28 +7,6 @@
 
 // ------- FONCTION DE TRAITEMENT --------
 
-/**
- * role : recupere la valeur de l'id du ticket dans l'url de la page
- * @param : noting
- * @return : id recupéré dans l'url
- */
-function recupereValuerDsUrl() { 
-
-    var contentElement = document.getElementById('content');
-    var id = contentElement.getAttribute('data-id');
-    console.log (id);
-
-    /*
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
-    const contentElement = document.getElementById('content');
-    contentElement.setAttribute('data-id', id);
-    */
-    return id;
-  
-};
-
-
 // --------------------- ECOUTEUR EVENEMENT ----------------------
 // ecouteur sur btm rechercher un ticket par status
 const buttons = document.querySelectorAll('.btn_status_tkt');
@@ -48,12 +26,18 @@ const btmCloturer = document.querySelectorAll('.btn_cloturer_tkt');
             });
         });
 
+    if (window.location.href.includes("http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/afficher_form_repondre_message.php")) {
+
+         
+
+    }
+
+
+
 // ----------- AU CHARGEMENT DE LA PAGE ---------------------
 
 // afficher le detail d'un tickets
 document.addEventListener("DOMContentLoaded", function(){
-   
-
     // au chargement de la page message (verifier si opn est sur la deuxieme page) href url absolut
     if (window.location.href.includes("http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/afficher_form_repondre_message.php")) {
          // recuperation id ticket
@@ -63,7 +47,40 @@ document.addEventListener("DOMContentLoaded", function(){
         selectTicket(id);
         selectListeMessageTicket(id);
     }
+
+    // recuperation id ticket
+    var contentElement = document.getElementById('content');
+    var id = contentElement.getAttribute('data-id');
+    
+        // ecouteur evenement formulaire
+        const formulaire = document.getElementById('formMessage');
+        formulaire.addEventListener('submit', function(event) {
+       event.preventDefault(); // Empêche le comportement par défaut de soumission du formulaire
+       // Envoi des données à PHP via une requête fetch
+
+        // Récupération des données du formulaire
+        const formData = new FormData(formulaire);
+       
+       fetch(`http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/insert_message_ticket.php?id=${id}`, {
+           method: 'POST',
+           body: formData
+       })
+       .then(response => {
+           return response.json();
+       })
+       .then(response => {
+           console.log(response);
+           afficherListeMessagesTicket(response);
+           formulaire.querySelector('textarea').value = "";
+
+       })
+       .catch(error => {
+           console.log(error);
+       });
+   });
+
 });
+
 
 // ------------------- FETCH ----------------------------
 /**
@@ -111,7 +128,6 @@ function selectListeMessageTicket(id) {
     .then(response=>{
         return response.json();
     })  .then (response=>{
-        console.log(response);
        // appeller la fonction pour afficher la liste de message d'un ticket
        afficherListeMessagesTicket(response);
     })

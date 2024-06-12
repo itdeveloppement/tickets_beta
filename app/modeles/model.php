@@ -111,7 +111,6 @@ function set($fieldName, $value) {
     return true;
 }
 
-
 /**
  * changer ou initialiser la valeurs des caracteristiques d'un objet à partir d'un tableau de données
  * @param : tableau d'objet de donnée valorisant les champs de la table
@@ -307,17 +306,17 @@ function insert() {
             } else {
                 $param[$index] = null;
             }
-   
+        }
     // construction des champs de la requette : `nomChamp` = :nomChamp
     $champsRequette = [];
     foreach($this->fields as $nomChamp) {
         $champsRequette[] = "`$nomChamp` = :$nomChamp";
     }
     // construction de la requette
-    $sql = "INSERT INTO `$this->table`SET " . implode(", ", $champsRequette);
-    
+    $sql = "INSERT INTO `$this->table` SET " . implode(", ", $champsRequette);
     // On prépare la requête
     $bdd = ConnexionBdd::connexion();
+ 
     $req = $bdd->prepare($sql);
     if ( ! $req->execute($param)) {
         // Erreur sur la requête
@@ -327,7 +326,7 @@ function insert() {
     $this->id = $bdd->lastInsertId();
     return true;
 }
-}
+
 
 /**
  * role : modifier les caracteristiques d'un objet dans la base de données
