@@ -32,7 +32,7 @@ class Ticket extends Model{
 /**
  * role : récupérer tous les tickets ayant le meme status
  * @param : status
- * @return : tableu d'objet de la liste des tickets indexé par l'i des tickets
+ * @return : tableu d'objet de la liste des tickets indexé par l'id des tickets
  */
 public function selectListeStatusTickets($status) {
 
@@ -74,7 +74,7 @@ public function detailTicket($id) {
         $tab = [];
         $tab["id"] = $id;
         $tab ["titre"]= $this->get("titre");
-        $tab ["status"]= $this->get("status");
+        $tab ["status"]= $this->status($this->get("status"));
         $date = new Date ();
         $tab ["created_date"]= $date->dateShort($this->get("created_date")) ;
     

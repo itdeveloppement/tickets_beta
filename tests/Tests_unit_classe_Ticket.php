@@ -16,9 +16,12 @@ $status = "OUV";
 $id = 1;
 
     // liste des tickets selon un status
-    print_r($ticket->selectListeStatusTickets($status));
+    // print_r($ticket->selectListeStatusTickets($status));
 
-    // select en bdd designation d'un produit
-    print_r($ticket->produitTicket($id));
+    // select en bdd la designation d'un produit pour un ticket
+    //print_r($ticket->produitTicket($id));
+
+    // select en bdd un ticket
+    print_r( $ticket->detailTicket($id));
 
 

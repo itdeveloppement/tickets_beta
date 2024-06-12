@@ -7,9 +7,9 @@
 use App\Modeles\Ticket;
 
 include_once  __DIR__ . "/../Utils/init.php";
-$_GET['id'] = 1;
+
  // verification si je suis connecté
- if ( ! $session->isConnected()) {
+ if (! $session->isConnected()) {
     include __DIR__ . "/../views/main/form_connexion_view.php";
     exit;
 }
@@ -21,9 +21,8 @@ $_GET['id'] = 1;
     include __DIR__ . "/../views/main/accueil_technicien_view.php";
     exit;
  }
- // echo "test";
+
  // recuperation donnée et encodage json
- 
  $ticket = new Ticket();
  $ticket->detailTicket($id);
 

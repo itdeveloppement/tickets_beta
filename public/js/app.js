@@ -4,6 +4,32 @@
  *  afficherListeTicketsStatus() : affiche le fragment de la liste des tickets selon un stus (ouvert / en cours / resolu)
  */
 
+
+// ------- FONCTION DE TRAITEMENT --------
+
+/**
+ * role : recupere la valeur de l'id du ticket dans l'url de la page
+ * @param : noting
+ * @return : id recupéré dans l'url
+ */
+function recupereValuerDsUrl() { 
+
+    var contentElement = document.getElementById('content');
+    var id = contentElement.getAttribute('data-id');
+    console.log (id);
+
+    /*
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    const contentElement = document.getElementById('content');
+    contentElement.setAttribute('data-id', id);
+    */
+    return id;
+  
+};
+
+
+// --------------------- ECOUTEUR EVENEMENT ----------------------
 // ecouteur sur btm rechercher un ticket par status
 const buttons = document.querySelectorAll('.btn_status_tkt');
         buttons.forEach(button => {
@@ -17,11 +43,27 @@ const buttons = document.querySelectorAll('.btn_status_tkt');
 const btmCloturer = document.querySelectorAll('.btn_cloturer_tkt');
     btmCloturer.forEach(button => {
             button.addEventListener('click', function() {
-                console.log ("test btm cloturer ticket");
                 // recuperation id
                 selectTicket(recupereValuerDsUrl());
             });
         });
+
+// ----------- AU CHARGEMENT DE LA PAGE ---------------------
+
+// afficher le detail d'un tickets
+document.addEventListener("DOMContentLoaded", function(){
+   
+
+    // au chargement de la page message (verifier si opn est sur la deuxieme page) href url absolut
+    if (window.location.href.includes("http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/afficher_form_repondre_message.php")) {
+         // recuperation id ticket
+        var contentElement = document.getElementById('content');
+        var id = contentElement.getAttribute('data-id');
+    
+        selectTicket(id);
+        selectListeMessageTicket(id);
+    }
+});
 
 // ------------------- FETCH ----------------------------
 /**
@@ -30,11 +72,10 @@ const btmCloturer = document.querySelectorAll('.btn_cloturer_tkt');
  * @retour :
  */
 function selectListeTicketsStatus(status) {
-    fetch(`../App/Controleurs/select_status_tickets.php?status=${status}`)
+    fetch(`http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/select_status_tickets.php?status=${status}`)
     .then(response=>{
         return response.json();
     })  .then (response=>{
-        console.log(response);
        // appeller la fonction pour afficher la liste des tickets selon un status
        afficherListeTicketStatus(response);
     })
@@ -50,23 +91,35 @@ function selectListeTicketsStatus(status) {
  * @retour :
  */
 function selectTicket(id) {
-console.log(id)
-    
-    fetch(`../Controleurs/select_ticket.php?status=${id}`)
+    fetch(`http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/select_ticket.php?id=${id}`)
     .then(response=>{
         return response.json();
     })  .then (response=>{
-        console.log(response);
-       // appeller la fonction pour afficher la liste des tickets selon un status
+       // appeller la fonction pour afficher un ticket
        afficherTicket(response);
     })
     // recuperation des erreurs
     .catch(erreur=>{
         console.log(erreur);
     });
-    
 }
 
+
+// en cours
+function selectListeMessageTicket(id) {
+    fetch(`http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/select_liste_messages_ticket.php?id=${id}`)
+    .then(response=>{
+        return response.json();
+    })  .then (response=>{
+        console.log(response);
+       // appeller la fonction pour afficher la liste de message d'un ticket
+       afficherListeMessagesTicket(response);
+    })
+    // recuperation des erreurs
+    .catch(erreur=>{
+        console.log(erreur);
+    });
+}
 // ------------------   AFFICHAGE ------------------------------------
 
 /**
@@ -78,10 +131,8 @@ console.log(id)
 function afficherListeTicketStatus (response) {
     zone = document.getElementById ("listeTicketsStatus");
     template = '';
-    console.log(Object.values(response));
     // recupere l'id dans response
     Object.entries(response).forEach(([id, ticket]) => {
-        console.log(id);
         template += 
         `
         <tr>
@@ -125,30 +176,26 @@ function afficherTicket(response) {
     zone.innerHTML = template;      
 }
 
-
-
-// ------- FONCTION DE TRAITEMENT --------
-
 /**
- * role : recupere la valeur de l'id du ticket dans l'url de la page
- * @param : noting
- * @return : id recupéré dans l'url
- */
-function recupereValuerDsUrl () { 
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
-    const contentElement = document.getElementById('content');
-    contentElement.setAttribute('data-id', id);
-    
-    return id;
-  
-};
+ * role : affiche la liste des tickets par status
+ * @param : reponse / les données (liste des tickets selon un status ) 
+ * @retour :
+ *
+*/
+function afficherListeMessagesTicket(response) {
+    zone = document.getElementById ("listeMessages");
+    template = '';
+    // recupere l'id dans response
+    Object.entries(response).forEach(([id, message]) => {
+        template += 
+        `
+        <p>${message["prenom"]}</p>
+        <p>${message["nom"]}</p>
+        <p>${message["message"]}</p>
+        `;
+    }); 
+    zone.innerHTML = template;      
+}
 
-// au chargement affiche le detail d'un tickets
-document.addEventListener("DOMContentLoaded", function(){
-    console.log("load");
-    const id = recupereValuerDsUrl();
-    // console.log("test id" + id);
-    selectTicket(id)
-    });
+
 

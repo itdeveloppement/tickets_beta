@@ -14,12 +14,6 @@ exit;
 if (isset($_GET['id'])) {
     $id=$_GET['id'];
 }
-print_r($id);
-
-// recupere id du tickets
-// construire le detail d'un ticket
-// construire la liste des meaasge
-// construire la reponse à un message
 
 // affichage page messages
 include __DIR__ . "/../views/main/form_repondre_message_view.php";

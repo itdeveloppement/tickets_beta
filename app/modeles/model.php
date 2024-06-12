@@ -187,6 +187,7 @@ function listAll() {
     return $result;
 }
 
+
 /**
  * role : selectionner une liste d'objet dans la base de données selon un champs et une valeur de champs
  * @param : champs et la valeur du champs
@@ -205,9 +206,8 @@ function listAllCondition($field, $fieldValue) {
     $sql .= " WHERE `$field` = :$field"; 
   
      // tableau des parametres
-     $param = [ ":$field" => $fieldValue];
+     $param = [":$field" => $fieldValue];
 
-     
     // préparer / exécuter
     $bdd = ConnexionBdd::connexion();
     $req = $bdd->prepare($sql);
@@ -231,7 +231,6 @@ function listAllCondition($field, $fieldValue) {
         $obj->loadFromtab($tabObject);
         // ON ajoute cela dans $result
         $result[$obj->getId()] = $obj;
-   
     }
     
     return $result;

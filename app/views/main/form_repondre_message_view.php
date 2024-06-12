@@ -6,7 +6,7 @@
   include __DIR__ . "/../layout/header.tpl.php";
 ?>
 <body>
-        <div id="content" data-id></div>
+        <div id="content" data-id="<?=$id;?>"></div>
     <!-- menu generale -->
     <header>
         <?php 
@@ -26,7 +26,6 @@
         <table>
     <thead>
         <tr>
-            <th>Titre</th>
             <th>Produit</th>
             <th>Status du ticket</th>
             <th>Date de cration du ticket</th>
@@ -41,6 +40,12 @@
     </tbody>
 </table>
         <h3>Liste des messages</h3>
+         <!-- include avec js fonction afficherListeMessageTicket() dans app.js -->
+
+        <div id="listeMessages">
+            <p>Editeur</p>
+            <p>Message</p>
+        </div>
         <h3>Répondre</h3>
     </main>
 
