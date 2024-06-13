@@ -26,9 +26,6 @@ const btmCloturer = document.querySelectorAll('.btn_cloturer_tkt');
             });
         });
 
-    if (window.location.href.includes("http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/afficher_form_repondre_message.php")) {
-    }
-
 // -------------------------- PAGE MESSAGE --------------------------------
 
 if (window.location.href.includes("http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/afficher_form_repondre_message.php")) {
@@ -56,8 +53,60 @@ if (window.location.href.includes("http://mcastellano.mywebecom.ovh/back/tickets
 }
 }
 
-// ------------------- FETCH ----------------------------
+// ------------------------------ PAGE ENREGISTRER UNE VENTE -------------------
 
+// ---------------- RECHERCHE CLIENT ---------------------------
+
+    rechercherClient.addEventListener("input", function (event){ 
+    const rechercherClient = document.getElementById('rechercherClient');
+    let currentValue = event.target.value;
+    // Vérifie si le contenu a au moins 3 lettres
+    if (currentValue.length >= 3) {
+       selectClient();
+       if ( selectOption(currentValue) != 0) {
+        // Affiche les informations du client
+        selectUtilisateur(selectOption(currentValue));
+       };
+       
+    }
+    });
+
+
+
+
+
+
+
+
+
+
+
+// ------------------- FETCH POST ----------------------------
+
+/**
+ * role : selectionne une liste de client en fonction de : nom, son prénom ou son adresse mail
+ * @param : nothing
+ * @return: nothing
+ */
+function selectClient() {
+      // Récupération des données du formulaire
+      
+      const formData = new FormData();
+    fetch(`http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/select_liste_clients.php`, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response=>{
+        return response.json();
+    })  .then (response=>{
+       // appeller la fonction pour afficher la liste des tickets selon un status
+       afficherListeResultatClient(response);
+    })
+    // recuperation des erreurs
+    .catch(erreur=>{
+        console.log(erreur);
+    });
+}
 
 /**
  * role : insert en bdd un message
@@ -85,6 +134,29 @@ function insertMessage(id, formulaire) {
         console.log(error);
     });
     }
+
+// ------------------- FETCH ----------------------------
+
+/**
+ * role : selectionne un utilisateur
+ * @param : id de l'utilisateur
+ * @return: nothing
+ */
+function selectUtilisateur(id){
+fetch(`http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/select_client.php?id=${id}`)
+    .then(response=>{
+        return response.json();
+    })  .then (response=>{
+        console.log(response);
+       // appeller la fonction pour afficher la liste des tickets selon un status
+       afficherUtilisateur(response);
+    })
+    // recuperation des erreurs
+    .catch(erreur=>{
+        console.log(erreur);
+    });
+    
+}
 
 /**
  * role : afficher la liste des tickets par status et l'afficher
@@ -124,7 +196,10 @@ function selectTicket(id) {
     });
 }
 
-// en cours
+/**
+ * role : selectionner la liste de message d'un ticket
+ * @param : id du ticket
+ */
 function selectListeMessageTicket(id) {
     fetch(`http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/select_liste_messages_ticket.php?id=${id}`)
     .then(response=>{
@@ -138,7 +213,44 @@ function selectListeMessageTicket(id) {
         console.log(erreur);
     });
 }
+
 // ------------------   AFFICHAGE ------------------------------------
+/**
+ * role : affiche un utilisateur
+ * @param : objet : les caracteristiques de l'utilisateur 
+ * @retour :
+ *
+*/
+function afficherUtilisateur(response) {
+    zone = document.getElementById ("selecClient");
+        template = 
+        `
+        <p>Client</p>
+        <p>${response.prenom}</p>
+        <p>${response.nom}</p>
+        <p>${response.email}</p>
+        `;
+    
+    zone.innerHTML = template;  
+}
+/**
+ * role : affiche la liste des resultat de recherche pour trouver un client
+ * @param : string : les elemet fourni dans l'input
+ * @retour : tableau de resultat
+ *
+*/
+function afficherListeResultatClient(response) {
+    zone = document.getElementById ("clientOption");
+        template = '';
+        // recupere l'id dans response
+        Object.entries(response).forEach(([id, result]) => {
+            template += 
+            `
+            <option data-id=${result["id"]}>${result["prenom"]}, ${result["nom"]}, ${result["email"]}</option>
+            `;
+        }); 
+        zone.innerHTML = template;      
+}
 
 /**
  * role : affiche la liste des tickets par status
@@ -215,3 +327,21 @@ function afficherListeMessagesTicket(response) {
     zone.innerHTML = template;      
 }
 });
+
+// -------------- traitement de donnéés -----------------------------
+/**
+ * role : Recherche de l'option de datalist sélectionnée par sa valeur
+ * @pâram : currentValue : la valeur de l'input
+ * @return : l'id de l'option selectionné, sinon false
+ */
+function selectOption (currentValue){
+    let dataList = document.getElementById("clientOption");
+    // Recherche de l'option sélectionnée par sa valeur // transforme en tableau et recherche la valeur de l'input
+    let selectedOption = Array.from(dataList.options).find(option => option.value === currentValue);
+    if (selectedOption) {
+        let selectedId = selectedOption.getAttribute('data-id');
+        return selectedId;
+    } else { 
+        return false;
+    }
+}

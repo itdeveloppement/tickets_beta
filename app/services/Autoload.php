@@ -47,7 +47,7 @@ class Autoload {
         // compare le prefixe 'App\\' avec le debut de la classe. 
         $len = strlen($prefix);
         if (strncmp($prefix, $class, $len) !== 0) {
-            // Si cela ne corespond il n'y a pas de namespace donc soit un autre autoloader prend le relais soit une erreur apparait
+            // Si cela ne correspond il n'y a pas de namespace donc soit un autre autoloader prend le relais soit une erreur apparait
             return;
         }
 

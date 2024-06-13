@@ -15,8 +15,8 @@ class Droits {
     const DROITS = [
         'index.php' => ['CLI', 'VEN', 'TEC'],
         'afficher_form_repondre_message.php' => ['CLI', 'VEN', 'TEC'],
+        'afficher_form_insert_vente.php' => ['CLI', 'VEN', 'TEC'],
       
-       
     ];
 
 /** role : recuperation l'URL de la page courent et verifie les droits

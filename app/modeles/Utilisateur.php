@@ -7,9 +7,11 @@ namespace App\Modeles;
 
 use App\Modeles\Model;
 use App\Services\Button;
+use App\Services\ConnexionBdd;
 use App\Services\Droits;
 use App\Services\Form;
 use App\Services\Router;
+use PDO;
 
  class Utilisateur extends Model {
 
@@ -27,6 +29,34 @@ use App\Services\Router;
 
  protected $links = ['id' => 'Utilisateur'];  
 
+ // -------------- recherche client et produit ------------
+
+/**
+ * role : selectionner une liste de client (nom, prenom, mail)
+ *  @param : chaine de minimum 3 caracteres
+ * @return : tableau des resultat 
+ */
+ public function selectListeClient($string) {
+
+  $sql = "SELECT * FROM utilisateur WHERE nom LIKE '%$string%' OR prenom LIKE '%$string%' OR email LIKE '%$string%' LIMIT 5";
+
+  // Préparer / exécuter
+  $bdd = ConnexionBdd::connexion();
+   
+  $req = $bdd->prepare($sql);
+  if ( ! $req->execute()) {
+      // On a une erreur de requête (on peut afficher des messages en phase de debug)
+      echo "erreur de requette";
+      return false;
+  }
+  // On s'assure que l'on a trouvé une ligne
+  $listeExtraite = $req->fetchAll(PDO::FETCH_ASSOC);
+  
+  // chargement de l'objet courent
+  // On récupère le premier (et seul) élément
+ 
+  return $listeExtraite;
+ }
  // -------- INSTANCIATION DES CLASSES ---------------
 
 /** role : instentie la classe RouterAccueil

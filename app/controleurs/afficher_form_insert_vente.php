@@ -1,6 +1,6 @@
 <?php
 /**
- * role : affficher la page d'affichage des message d'un ticket et y repondre
+ * role : affficher la page pour renseignier une vente
  */
 
 use App\Services\Droits;
@@ -18,13 +18,11 @@ exit;
 $droit = new Droits();
 if (! $droit->verifierDroits($session->getStatusSession())) {
     include __DIR__ . "/../views/error/err403.tpl.php";
+    exit;
     // sinon routage sur la page d'accueil en fonction du status
 }
 
-// traitement des données GET
-if (isset($_GET['id'])) {
-    $id=$_GET['id'];
-}
 
-// affichage page messages
-include __DIR__ . "/../views/main/form_repondre_message_view.php";
+
+// affichage page enregistrer une vente
+include __DIR__ . "/../views/main/form_insert_vente_view.php";

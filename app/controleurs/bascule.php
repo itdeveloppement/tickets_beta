@@ -19,7 +19,6 @@
  afficher page accueil technicien
  */
 
- print_r($session->getStatusSession());
 // verification si je suis connecté
 if (! $session->isConnected()) {
     include __DIR__ . "/../views/main/form_connexion_view.php";
