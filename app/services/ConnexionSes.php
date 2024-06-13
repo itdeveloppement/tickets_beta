@@ -132,11 +132,20 @@ public function statusSessionConnect($status) {
 
 /**
  * role : retourne le status renseigné dans la session
- * @param : status à renseigner dans la session
- * @return : status renseigné dans la session
+ * @param : 
+ * @return : status de la session
  */
 public function getStatusSession () {
     return $this->isConnected() ? $_SESSION["status"] : '';
 }
 
+/**
+ * role : renseigne le status dans la session
+ * @param : status à renseigner dans la session
+ * @return : true si status renseignier
+ */
+public function setStatusSession ($status) {
+    $_SESSION["status"] = $status;
+    return true;
+}
 }
