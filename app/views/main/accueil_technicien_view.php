@@ -49,7 +49,7 @@
         
     </tbody>
 </table>
-<script src="../../../tickets/tickets_beta/public/js/app.js" defer></script>
+<script src="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/public/js/app.js" defer></script>
 <?php
 
  // Template de page : footer

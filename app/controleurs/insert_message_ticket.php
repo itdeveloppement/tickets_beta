@@ -8,6 +8,7 @@
  */
 
 use App\Modeles\Message;
+use App\Services\Router;
 
 include_once  __DIR__ . "/../Utils/init.php";
 
@@ -16,6 +17,7 @@ if (! $session->isConnected()) {
     include __DIR__ . "/../views/main/form_connexion_view.php";
     exit;
 }
+
 
 // traitement des données get
  if (isset($_GET['id'])) {

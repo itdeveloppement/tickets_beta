@@ -29,22 +29,15 @@ class Model {
 
     protected $targets = [];    // On stockera pour les liens [ "nomChamp" => objetLié, .. ]
 
-// ------- SELECTIONNER UN OBJET ASSOCIE A UN CHAMPS D UNE TABLE ------------------------
+// --------------------------------- CONSTRUCTEUR ------------------------
 
-// ex : dans une table produit vendu avec l'id du vendeur il est possible de recuperer les cracateristique du vendeur (sans instentier directement la classe vendeur)
-
-/**
- * role : selectionner un objet pointé (en lien) avec la table
- * @param : nom du champ de l'objet pointé dans la table initiale
- * @return : objet (d'une classe héritée de la classe _model), chargé avec l'objet pointé
-    *       si on ne trouve pas :
-    *         si champ inconnu ou pas un lien : retourne un objet _model (vide)
-    *          si le champ est un lien, mais vide, ou pas d'objet en face : le bon objet, mais pas chargé
-* exemple d'utilisation : 
-*   definir le lien dans $Links $ Links= [ 'id' => 'utilisateur']
-*    retourne une instance d'un utilisateur(id)
- */
-
+function __construct($id = null){
+        //  Charger l'objet avec cet id
+        if ( ! is_null($id)) {
+            $this->load($id);
+        }
+}
+    
 // -------------------------------- GETTER ---------------------------------------------
 
 /**
@@ -346,7 +339,7 @@ function update() {
             } else {
                 $param[$index] = null;
             }
-   
+    }
     // construction des champs de la requette : `nomChamp` = :nomChamp
     $champsRequette = [];
     foreach($this->fields as $nomChamp) {
@@ -357,7 +350,7 @@ function update() {
     $sql = "UPDATE  `$this->table` SET " . implode(", ", $champsRequette) . " WHERE `id` = :id ";
     // ajout de l'id dans le tableau param
     $param[":id"] = $this->id;
-       
+      
     // preparation etexecution requette
     $bdd = ConnexionBdd::connexion();
     $req = $bdd->prepare($sql);
@@ -366,11 +359,10 @@ function update() {
         return false;
     }
     return true;
-}
 
 }
 /**
- * role : suprimer un objet dans la base à l'id courrent
+ * role : suprimer un objet dans laa base à l'id courrent
  * @param : nothing
  * @return : true si la supression est réalisée, sinon false
  */

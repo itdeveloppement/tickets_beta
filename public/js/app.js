@@ -1,11 +1,12 @@
 /**
- * role : organise la partie JS Dde l'application
- * fonction :
- *  afficherListeTicketsStatus() : affiche le fragment de la liste des tickets selon un stus (ouvert / en cours / resolu)
+ * role : organise la partie JS de l'application
  */
 
 
-// ------- FONCTION DE TRAITEMENT --------
+
+
+// code executé apres le chargement du DOM
+document.addEventListener("DOMContentLoaded", function(){
 
 // --------------------- ECOUTEUR EVENEMENT ----------------------
 // ecouteur sur btm rechercher un ticket par status
@@ -21,68 +22,70 @@ const buttons = document.querySelectorAll('.btn_status_tkt');
 const btmCloturer = document.querySelectorAll('.btn_cloturer_tkt');
     btmCloturer.forEach(button => {
             button.addEventListener('click', function() {
-                // recuperation id
                 selectTicket(recupereValuerDsUrl());
             });
         });
 
     if (window.location.href.includes("http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/afficher_form_repondre_message.php")) {
-
-         
-
     }
 
+// -------------------------- PAGE MESSAGE --------------------------------
 
-
-// ----------- AU CHARGEMENT DE LA PAGE ---------------------
-
-// afficher le detail d'un tickets
-document.addEventListener("DOMContentLoaded", function(){
-    // au chargement de la page message (verifier si opn est sur la deuxieme page) href url absolut
-    if (window.location.href.includes("http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/afficher_form_repondre_message.php")) {
-         // recuperation id ticket
-        var contentElement = document.getElementById('content');
-        var id = contentElement.getAttribute('data-id');
-    
-        selectTicket(id);
-        selectListeMessageTicket(id);
-    }
-
+if (window.location.href.includes("http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/afficher_form_repondre_message.php")) {
     // recuperation id ticket
     var contentElement = document.getElementById('content');
     var id = contentElement.getAttribute('data-id');
-    
-        // ecouteur evenement formulaire
-        const formulaire = document.getElementById('formMessage');
-        formulaire.addEventListener('submit', function(event) {
-       event.preventDefault(); // Empêche le comportement par défaut de soumission du formulaire
-       // Envoi des données à PHP via une requête fetch
 
-        // Récupération des données du formulaire
-        const formData = new FormData(formulaire);
-       
-       fetch(`http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/insert_message_ticket.php?id=${id}`, {
-           method: 'POST',
-           body: formData
-       })
-       .then(response => {
-           return response.json();
-       })
-       .then(response => {
-           console.log(response);
-           afficherListeMessagesTicket(response);
-           formulaire.querySelector('textarea').value = "";
+    selectTicket(id);
+    selectListeMessageTicket(id);
 
-       })
-       .catch(error => {
-           console.log(error);
-       });
-   });
+    // ecouteur evenement formulaire
+    const formulaire = document.getElementById('formMessage');
+    formulaire.addEventListener('submit', soumettreFormulaireMessage);
 
-});
+    /**
+     * role : enregistre et affiche un message
+     * @param : event evenement courant
+     * @return: nothing
+     */
+    function soumettreFormulaireMessage (event){ 
+    // Empêche le comportement par défaut de soumission du formulaire
+    event.preventDefault(); 
+    insertMessage(id, formulaire)
 
+}
+}
 
 // ------------------- FETCH ----------------------------
+
+
+/**
+ * role : insert en bdd un message
+ * @param : id du ticket concerné par les messages, le formulzire de collecte de donnée
+ * @return: nothing
+ */
+function insertMessage(id, formulaire) {
+      
+    // Récupération des données du formulaire
+    const formData = new FormData(formulaire);
+    fetch(`http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/insert_message_ticket.php?id=${id}`, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then(response => {
+        console.log(response);
+        afficherListeMessagesTicket(response);
+        formulaire.querySelector('textarea').value = "";
+
+    })
+    .catch(error => {
+        console.log(error);
+    });
+    }
+
 /**
  * role : afficher la liste des tickets par status et l'afficher
  * @param : status du tickets
@@ -120,7 +123,6 @@ function selectTicket(id) {
         console.log(erreur);
     });
 }
-
 
 // en cours
 function selectListeMessageTicket(id) {
@@ -160,7 +162,7 @@ function afficherListeTicketStatus (response) {
             <td>${ticket["created_date"]}</td>
             <td>${ticket["nom"]}</td>
             <td>${ticket["prenom"]}</td>
-            <td><a href="../App/Controleurs/afficher_form_repondre_message.php?id=${id}">Voir les messages</a></td>
+            <td><a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/afficher_form_repondre_message.php?id=${id}">Voir les messages</a></td>
         </tr>
         `;
     }); 
@@ -185,7 +187,7 @@ function afficherTicket(response) {
             <td>${response.created_date}</td>
             <td>${response.nom}</td>
             <td>${response.prenom}</td>
-            <td><a href="../App/Controleurs/afficher_form_repondre_message.php?id=${response.id}">Cloturer</a></td>
+            <td><a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/update_status_ticket.php?id=${response.id}">Cloturer</a></td>
         </tr>
         `;
      
@@ -212,6 +214,4 @@ function afficherListeMessagesTicket(response) {
     }); 
     zone.innerHTML = template;      
 }
-
-
-
+});

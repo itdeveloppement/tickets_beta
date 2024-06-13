@@ -25,9 +25,7 @@ a chaque debut de script on appel activation() (ds l'init)
 
 
 namespace App\Services;
-
 use App\Modeles\Utilisateur;
-
 
 class ConnexionSes {
 
@@ -47,9 +45,11 @@ public function activation () {
         $utilisateurConnecte ->load($this->getIdConnected());
 
         // si l'utilsateur n'esxiste plus, on force la deconnexion
+        
         if (!$utilisateurConnecte->is()) {
             $this->deconnect();
         }
+            
     }
     // retour si on est connecté ou pas
     return $this->isConnected();

@@ -22,7 +22,6 @@ use App\Services\Router;
  // verifier si la session existe 
     // en fonction du status affiche la page d'accueil
     if  ($session->isConnected()) {
-        print_r($_SESSION);
         // si l'utilisateur n'a pas les droit
         if ( ! $droit->verifierDroits($session->getStatusSession())) {
             include __DIR__ . "/../App/views/error/err403.tpl.php";
@@ -49,6 +48,7 @@ use App\Services\Router;
             exit;
         // sinon renseignier la session et instencier utilisateurconnecté
         } else {
+            // verif password
             $session->connect($connexion->connexionValide());
             $session->statusSessionConnect($utilisateurConnecte->get("status"));
         }
