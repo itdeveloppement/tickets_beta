@@ -54,11 +54,9 @@ class Form{
      */
     public function input ($name, $libelle, $classe = null) {
         $value = $this->getValue($name);
-        $html = 
-        "
-        <label class='" . htmlentities($classe) ."'for=$name>" . htmlentities($libelle)."</label><br>
-        <input class='" . htmlentities($classe) . "' type='" . htmlentities($name) ."' id='" . htmlentities($name) ."' name='" . htmlentities($name) . "' value=" . htmlentities($value) . "><br>
-        ";
+        $html = '
+        <label class="' . htmlentities($classe) . '" for="' . htmlentities($name) . '">' . htmlentities($libelle) . '</label><p class="star">*</p><br>
+        <input class="' . htmlentities($classe) . '" type="text" id="' . htmlentities($name) . '" name="' . htmlentities($name) . '" value="' . htmlentities($value) . '" required><br>';
         return  $html;  
     }
 

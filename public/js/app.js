@@ -32,7 +32,7 @@ const rechercherClient = document.getElementById('rechercherClient');
         let currentValue = event.target.value;
         // Vérifie si le contenu a au moins 3 lettres
         if (currentValue.length >= 3) {
-            // Affiche liste deroulane
+            // Affiche liste deroulante
             selectClient();
             if (selectOptionClient(currentValue) != 0) {
             // Affiche les informations du client

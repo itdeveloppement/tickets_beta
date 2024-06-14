@@ -1,3 +1,138 @@
-body {
-    background-color: rgb(225, 225, 228);
+/*NORMELAZIED*/
+
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
 }
+
+/*IMPORT FONT*/
+
+/* Luciole-Regular */
+@font-face {
+    font-family: 'Luciole';
+    src: url('../fonts/Luciole_webfonts/Luciole-Regular/Luciole-Regular.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/Luciole_webfonts/Luciole-Regular/Luciole-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../fonts/Luciole_webfonts/Luciole-Regular/Luciole-Regular.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/Luciole_webfonts/Luciole-Regular/Luciole-Regular.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('../fonts/Luciole_webfonts/Luciole-Regular/Luciole-Regular.svg#Luciole-Regular') format('svg'); /* Legacy iOS */
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+/*Font Archivo Black*/
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+/*Font Roboto*/
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+/*VARIABLES COLOR ET STYLE*/
+:root {
+    /*variable color*/
+    --colorOne: #222222;
+    --colorTwo:  #3e8bac;
+    --colorThree: #ebebeb;
+    --colorFour: #ffffff;
+    --colorFive:rgb(245, 246, 250);
+  
+    /*variable font*/
+    --robotoFont: "Roboto", sans-serif;
+    --archivoBlackFont: "Archivo Black", sans-serif;
+    --typoAccLuciole:'Luciole', sans-serif;
+    /* border radius*/
+    --borderRadius: 3px;
+    --borderShadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/*REGLES GENERALE*/
+
+/* flex box */
+.flex { 
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* font */
+body {
+    font-family: var(--robotoFont);
+    background-color: var(--colorFive);
+}
+
+label {
+    margin-bottom: 10px;
+}
+input {
+    border: 1px solid var(--colorTwo);
+    border-radius: var(--borderRadius);
+    width: 100%;
+    height: 30px;
+    margin-bottom: 20px;
+    padding: 5px;
+}
+input[type="submit"] {
+    background-color: var(--colorTwo);
+    border-radius: var(--borderRadius);
+    color: var(--colorFour);
+    border: none;
+    width: 200px;
+    padding: 8px;
+    margin: auto;
+}
+button {
+    background-color: var(--colorTwo);
+    border-radius: var(--borderRadius);
+    color: var(--colorFour);
+    border: none;
+    width: 100px;
+    padding: 8px;
+    margin: auto; 
+}
+button:hover {
+    background-color:var(--colorOne);
+}
+
+header {
+    background-color: var(--colorTwo);
+    box-shadow: var(--borderShadow);
+    border-radius: var(--borderRadius);
+    height: 70px;
+    width: 50%;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    color: var(--colorFour);
+}
+
+.section {
+    background-color: var(--colorFive);
+    border-radius: var(--borderRadius);
+    width: 100%;
+    margin: auto;
+    padding: 10%;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+h3 {
+    margin-bottom: 10px;
+}
+.star {
+    margin-left: 10px;
+}
+
+.card {
+    background-color: var(--colorFour);
+    width: 50%;
+    padding: 5%;
+    box-shadow: var(--borderShadow);
+    border-radius: var(--borderRadius);
+    margin: auto;
+}
+
+/*page connexion*/
+.formConnexion h2 {
+    text-align: center;
+}
+

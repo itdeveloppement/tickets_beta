@@ -13,9 +13,11 @@ include __DIR__ . "/../layout/header.tpl.php";
     </header>
     <!-- page accueil vendeur -->
     <main>
-        <h2>Page accueil vendeur</h2>
-        <a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/afficher_form_insert_vente.php">Enregistrer une vente</a>
-        <a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/???????? ">Creer un compte client</a>
+        <div class="card">
+            <h2>Page accueil vendeur</h2>
+            <a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/afficher_form_insert_vente.php">Enregistrer une vente</a>
+            <a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/???????? ">Creer un compte client</a>
+        </div>
     </main>
 </body>
 <?php
