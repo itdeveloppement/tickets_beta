@@ -26,19 +26,21 @@
         <datalist id="clientOption"></datalist>
 
         <h3>Selectionner un produit</h3>
-        <input type="text" id="rechercherProduit" name="rechercheClient" placeholder="Rechercher un produit" ...>
+        <input type="text" id="rechercherProduit" name="rechercheProduit" list="produitOption" placeholder="Rechercher un produit" ...>
+         <datalist id="produitOption"></datalist>
+        
     
         <!-- formulaire pour repondre enregistrer une vente -->
         <h3>Enregistrer la vente</h3>
         <div id="selecClient"></div>
         <div id="selecProduit"></div>
         <div>
-            <form id="formMessageVente">
+            <form id="formVente">
                 <div>
-                    <label for="numProduit">Indiquer le numero de serie du produit :</label>
-                    <input type="text" id="numProduit" name="numProduit">
-                    <label for="dateVente">Indiquer la date de la vente :</label>
-                    <input type="date" id="dateVente" name="dateVente">
+                    <label for="num_serie">Indiquer le numero de serie du produit :</label>
+                    <input type="text" id="num_serie" name="num_serie">
+                    <label for="date_vente">Indiquer la date de la vente :</label>
+                    <input type="date" id="date_vente" name="date_vente" value="<?=date('Y-m-d')?>">
                 </div>
                 <input type="submit" value="Envoyer">
             </form>

@@ -32,9 +32,9 @@ use PDO;
  // -------------- recherche client et produit ------------
 
 /**
- * role : selectionner une liste de client (nom, prenom, mail)
- *  @param : chaine de minimum 3 caracteres
- * @return : tableau des resultat 
+ * role : selectionner une liste de client selon une chaine de caractere
+ * @param : chaine de minimum 3 caracteres
+ * @return : tableau des resultats limité à 5 selections
  */
  public function selectListeClient($string) {
 
@@ -57,6 +57,7 @@ use PDO;
  
   return $listeExtraite;
  }
+
  // -------- INSTANCIATION DES CLASSES ---------------
 
 /** role : instentie la classe RouterAccueil

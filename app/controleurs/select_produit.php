@@ -1,10 +1,10 @@
 <?php 
 /**
- * role : selectionner un client
+ * role : selectionner un produit
  * @param : id du client
  */
 
-use App\Modeles\Utilisateur;
+use App\Modeles\Produit;
 
 include_once  __DIR__ . "/../Utils/init.php";
 
@@ -23,19 +23,14 @@ include_once  __DIR__ . "/../Utils/init.php";
  }
 
  // recuperation donnée et encodage json
- $utilisateur = new Utilisateur($id);
+ $utilisateur = new Produit($id);
  // preparation des données
 
  // print_r($utilisateur);
  $data = [ 
-    'status' => $utilisateur->get('status'),
-    'etat' => $utilisateur->get('etat'),
-    'nom' => $utilisateur->get('nom'),
-    'prenom' => $utilisateur->get('prenom'),
-    'email' => $utilisateur->get('email'),
-    'created_date' => $utilisateur->get('created_date')
+    'ref' => $utilisateur->get('ref'),
+    'designation' => $utilisateur->get('designation'),
 ];
 
  $json = json_encode($data);
  echo $json;
-

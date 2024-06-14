@@ -1,12 +1,12 @@
 /**
  * role : organise la partie JS de l'application
  */
-
-
-
-
 // code executé apres le chargement du DOM
 document.addEventListener("DOMContentLoaded", function(){
+
+    let idClient;
+    let idProduit;
+
 
 // --------------------- ECOUTEUR EVENEMENT ----------------------
 // ecouteur sur btm rechercher un ticket par status
@@ -24,7 +24,52 @@ const btmCloturer = document.querySelectorAll('.btn_cloturer_tkt');
             button.addEventListener('click', function() {
                 selectTicket(recupereValuerDsUrl());
             });
-        });
+    });
+
+// ---------------- RECHERCHE CLIENT ---------------------------
+const rechercherClient = document.getElementById('rechercherClient');
+    rechercherClient.addEventListener("input", function (event){ 
+        let currentValue = event.target.value;
+        // Vérifie si le contenu a au moins 3 lettres
+        if (currentValue.length >= 3) {
+            // Affiche liste deroulane
+            selectClient();
+            if (selectOptionClient(currentValue) != 0) {
+            // Affiche les informations du client
+            selectUtilisateur(selectOptionClient(currentValue));
+            idClient = selectOptionClient(currentValue);
+            };
+        }
+});
+
+// ---------------- RECHERCHE PRODUIT ---------------------------
+const rechercherProduit = document.getElementById('rechercherProduit');
+    rechercherProduit.addEventListener("input", function (event){ 
+        
+        let currentValue = event.target.value;
+        // Vérifie si le contenu a au moins 3 lettres
+        if (currentValue.length >= 3) {
+             // Affiche liste deroulane
+            selectProduits();
+            if (selectOptionProduit(currentValue) != 0) {
+            // Affiche les informations du produit
+            selectProduit(selectOptionProduit(currentValue));
+            idProduit = selectOptionProduit(currentValue);
+            };
+        
+        }
+});
+
+// --------- SOUMISSION FORMULAIRE VENTE -------------------
+let formVente = document.getElementById('formVente');
+formVente.addEventListener('submit', function(event) {
+    // Empêcher l'envoi par défaut du formulaire
+    event.preventDefault();
+    console.log("test");
+    // updateAction();
+    insertVente(idClient, idProduit);
+});
+
 
 // -------------------------- PAGE MESSAGE --------------------------------
 
@@ -49,39 +94,71 @@ if (window.location.href.includes("http://mcastellano.mywebecom.ovh/back/tickets
     // Empêche le comportement par défaut de soumission du formulaire
     event.preventDefault(); 
     insertMessage(id, formulaire)
-
 }
 }
-
-// ------------------------------ PAGE ENREGISTRER UNE VENTE -------------------
-
-// ---------------- RECHERCHE CLIENT ---------------------------
-
-    rechercherClient.addEventListener("input", function (event){ 
-    const rechercherClient = document.getElementById('rechercherClient');
-    let currentValue = event.target.value;
-    // Vérifie si le contenu a au moins 3 lettres
-    if (currentValue.length >= 3) {
-       selectClient();
-       if ( selectOption(currentValue) != 0) {
-        // Affiche les informations du client
-        selectUtilisateur(selectOption(currentValue));
-       };
-       
-    }
-    });
-
-
-
-
-
-
-
-
-
-
 
 // ------------------- FETCH POST ----------------------------
+
+/**
+ * role : inserer une vente en bdd
+ * @param : nothing
+ * @return: nothing
+ */
+function insertVente(idClient, idProduit) {
+    console.log(idClient);
+    console.log(idProduit);
+    // Récupération des données du formulaire
+    const formData = new FormData(formVente);
+    // ajout au formulaure
+    formData.append('client', idClient);
+    formData.append('produit', idProduit);
+
+     // Affichage des valeurs envoyées
+     for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+    }
+
+  fetch(`http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/insert_vente.php`, {
+      method: 'POST',
+      body: formData
+  })
+  .then(response => {
+    // Réinitialisation du formulaire
+    formVente.reset();
+    // Vidange des champs de recherche
+    document.getElementById('rechercherClient').value = '';
+    document.getElementById('rechercherProduit').value = '';
+})
+  // recuperation des erreurs
+  .catch(erreur=>{
+      console.log(erreur);
+  }); 
+}
+
+/**
+ * role : selectionne une liste de produit en fonction de caracteres
+ * @param : nothing
+ * @return: nothing
+ */
+function selectProduits() {
+    // Récupération des données du formulaire
+    const formData = new FormData();
+  fetch(`http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/select_liste_produits.php`, {
+      method: 'POST',
+      body: formData
+  })
+  .then(response=>{
+      return response.json();
+  })  .then (response=>{
+     // appeller la fonction pour afficher la liste des tickets selon un status
+     afficherListeResultatProduit(response);
+  })
+  // recuperation des erreurs
+  .catch(erreur=>{
+      console.log(erreur);
+  }); 
+}
+
 
 /**
  * role : selectionne une liste de client en fonction de : nom, son prénom ou son adresse mail
@@ -136,6 +213,24 @@ function insertMessage(id, formulaire) {
     }
 
 // ------------------- FETCH ----------------------------
+/**
+ * role : selectionne un produit
+ * @param : id du produit
+ * @return: nothing
+ */
+function selectProduit(id){
+    fetch(`http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/select_produit.php?id=${id}`)
+        .then(response=>{
+            return response.json();
+        })  .then (response=>{
+           // appeller la fonction pour afficher la liste des tickets selon un status
+           afficherProduit(response);
+        })
+        // recuperation des erreurs
+        .catch(erreur=>{
+            console.log(erreur);
+        });  
+    }
 
 /**
  * role : selectionne un utilisateur
@@ -147,15 +242,13 @@ fetch(`http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleur
     .then(response=>{
         return response.json();
     })  .then (response=>{
-        console.log(response);
-       // appeller la fonction pour afficher la liste des tickets selon un status
+    // appeller la fonction pour afficher la liste des tickets selon un status
        afficherUtilisateur(response);
     })
     // recuperation des erreurs
     .catch(erreur=>{
         console.log(erreur);
-    });
-    
+    });  
 }
 
 /**
@@ -230,9 +323,46 @@ function afficherUtilisateur(response) {
         <p>${response.nom}</p>
         <p>${response.email}</p>
         `;
-    
     zone.innerHTML = template;  
 }
+
+/**
+ * role : affiche un produit
+ * @param : objet : les caracteristiques de l'utilisateur 
+ * @retour :
+ *
+*/
+function afficherProduit(response) {
+    zone = document.getElementById ("selecProduit");
+        template = 
+        `
+        <p>Produit</p>
+        <p>${response.ref}</p>
+        <p>${response.designation}</p>
+        `;
+    zone.innerHTML = template;  
+}
+
+/**
+ * role : affiche la liste des resultat de recherche pour trouver un client
+ * @param : string : les elemet fourni dans l'input
+ * @retour : tableau de resultat
+ *
+*/
+function afficherListeResultatProduit(response) {
+    let zone = document.getElementById ("produitOption");
+        template = '';
+        // recupere l'id dans response
+        Object.entries(response).forEach(([id, result]) => {
+            template += 
+            `
+            <option data-id=${result["id"]}>${result["ref"]}, ${result["designation"]}</option>
+            `;
+        }); 
+        zone.innerHTML = template;      
+}
+
+
 /**
  * role : affiche la liste des resultat de recherche pour trouver un client
  * @param : string : les elemet fourni dans l'input
@@ -240,10 +370,10 @@ function afficherUtilisateur(response) {
  *
 */
 function afficherListeResultatClient(response) {
-    zone = document.getElementById ("clientOption");
+    let zone = document.getElementById ("clientOption");
         template = '';
         // recupere l'id dans response
-        Object.entries(response).forEach(([id, result]) => {
+        response.forEach(result=> {
             template += 
             `
             <option data-id=${result["id"]}>${result["prenom"]}, ${result["nom"]}, ${result["email"]}</option>
@@ -326,15 +456,15 @@ function afficherListeMessagesTicket(response) {
     }); 
     zone.innerHTML = template;      
 }
-});
 
-// -------------- traitement de donnéés -----------------------------
+
+// -------------- TRAITEMENT DES DONNEES -----------------------------
 /**
- * role : Recherche de l'option de datalist sélectionnée par sa valeur
+ * role : Recherche de l'option de datalist cient sélectionnée par sa valeur
  * @pâram : currentValue : la valeur de l'input
  * @return : l'id de l'option selectionné, sinon false
  */
-function selectOption (currentValue){
+function selectOptionClient (currentValue){
     let dataList = document.getElementById("clientOption");
     // Recherche de l'option sélectionnée par sa valeur // transforme en tableau et recherche la valeur de l'input
     let selectedOption = Array.from(dataList.options).find(option => option.value === currentValue);
@@ -345,3 +475,36 @@ function selectOption (currentValue){
         return false;
     }
 }
+/**
+ * role : Recherche de l'option de datalist produit sélectionnée par sa valeur
+ * @pâram : currentValue : la valeur de l'input
+ * @return : l'id de l'option selectionné, sinon false
+ */
+function selectOptionProduit (currentValue){
+    let dataList = document.getElementById("produitOption");
+    // Recherche de l'option sélectionnée par sa valeur // transforme en tableau et recherche la valeur de l'input
+    let selectedOption = Array.from(dataList.options).find(option => option.value === currentValue);
+    if (selectedOption) {
+        let selectedId = selectedOption.getAttribute('data-id');
+        return selectedId;
+    } else { 
+        return false;
+    }
+}
+/**
+ * role : recupere la valeur de l'id client et id vente dans les liste d'options et renseinhe champ input formulaire
+ * @param : neant
+ * @return : neant
+ */
+function updateAction() {
+    // Récupérer l'ID du client sélectionné
+    let clientId = document.getElementById('rechercherClient').value;
+    document.getElementById('clientForm').value = clientId;
+
+    // Récupérer l'ID du produit sélectionné
+    let produitId = document.getElementById('rechercherProduit').value;
+    document.getElementById('produitForm').value = produitId;
+
+}
+
+});

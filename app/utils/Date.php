@@ -10,6 +10,8 @@ use DateTime;
 
 class Date extends Model {
 
+    protected $date;
+
  /**
   * role : supression heure d'un datetime et formatage xx xx xxxx
   * @param : string $datetime : format : Y-m-d H:i:s
@@ -28,4 +30,8 @@ if ($dateTime === false) {
 return $shortDate;
 }
 
+public function dateCurent () {
+    $date = date('Y-m-d H:i:s');
+    return $date;
+}
 }
