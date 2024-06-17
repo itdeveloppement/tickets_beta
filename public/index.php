@@ -12,6 +12,8 @@
 use App\Modeles\Utilisateur;
 use App\Services\ConnexionPwd;
 use App\Services\Droits;
+use App\Services\Form;
+use App\Services\Link;
 use App\Services\Router;
 
  include_once  __DIR__ . "/../App/Utils/init.php";
@@ -44,6 +46,7 @@ use App\Services\Router;
         // si les validation password et idt ne sont pas validé renvoyé sur page connexion
         $connexion = new ConnexionPwd($log, $password);
         if ( $connexion->connexionValide() == null) {
+            $form=new Form();
             include __DIR__ . "/../App/views/main/form_connexion_view.php";
             exit;
         // sinon renseignier la session et instencier utilisateurconnecté

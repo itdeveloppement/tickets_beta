@@ -3,12 +3,16 @@
  * role : affficher la page d'affichage des message d'un ticket et y repondre
  */
 
+use App\Services\Button;
 use App\Services\Droits;
+use App\Services\Form;
 
 include_once  __DIR__ . "/../Utils/init.php";
 
 // verification session connecté
 if (! $session->isConnected()) {
+    $form=new Form();
+    $button = new Button();
 include __DIR__ . "/../views/main/form_connexion_view.php";
 exit;
 }

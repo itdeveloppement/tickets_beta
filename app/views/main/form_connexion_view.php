@@ -14,7 +14,7 @@
     <main class="formConnexion">
         <div class="card">
             <h2>Connexion</h2>
-            <form class="flex section" method="post" action="index.php">
+            <form class="flex section" method="post" action="../../public/index.php">
                 <?= $form->input("email", "Email", "classe"); ?>
                 <?= $form->input("password", "Mot de passe", "classe"); ?>
                 <?= $button->button("Envoyer", "submit", "classe"); ?>
