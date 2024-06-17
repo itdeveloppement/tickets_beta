@@ -20,24 +20,24 @@ include_once  __DIR__ . "/../Utils/init.php";
 }
 
 // verification des droits
- // si l'utilisateur n'a pas les droit
- $droit = new Droits();
- if (! $droit->verifierDroits($session->getStatusSession())) {
-     include __DIR__ . "/../views/error/err403.tpl.php";
- }
+// si l'utilisateur n'a pas les droit
+$droit = new Droits();
+if (! $droit->verifierDroits($session->getStatusSession())) {
+   include __DIR__ . "/../views/error/err403.tpl.php";
+}
 
 
- // traitement des données get
- if (isset($_GET['id'])) {
-    $id = $_GET['id'];
- } else {
-    include __DIR__ . "/../views/main/accueil_technicien_view.php";
-    exit;
- }
+// traitement des données get
+if (isset($_GET['id'])) {
+   $id = $_GET['id'];
+} else {
+   include __DIR__ . "/../views/main/accueil_technicien_view.php";
+   exit;
+}
 
- // recuperation donnée et encodage json
- $ticket = new Ticket();
- $ticket->detailTicket($id);
+// recuperation donnée et encodage json
+$ticket = new Ticket();
+$ticket->detailTicket($id);
 
- $json = json_encode($ticket->detailTicket($id));
- echo $json;
+$json = json_encode($ticket->detailTicket($id));
+echo $json;

@@ -119,8 +119,6 @@ function loadFromTab($tab) {
         }
         $this->values[$nomChamp] = $tab[$nomChamp];    
     }
-    
-
     return true;
 }
 

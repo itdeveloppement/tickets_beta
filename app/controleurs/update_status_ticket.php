@@ -20,19 +20,19 @@ if (! $session->isConnected()) {
 }
 
 // verification des droits
- // si l'utilisateur n'a pas les droit
- $droit = new Droits();
- if (! $droit->verifierDroits($session->getStatusSession())) {
-     include __DIR__ . "/../views/error/err403.tpl.php";
- }
+// si l'utilisateur n'a pas les droit
+$droit = new Droits();
+if (! $droit->verifierDroits($session->getStatusSession())) {
+    include __DIR__ . "/../views/error/err403.tpl.php";
+}
 
 // traitement des données get
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
- } else {
-    // include __DIR__ . "/../views/main/accueil_technicien_view.php";
-    exit;
- }
+} else {
+// include __DIR__ . "/../views/main/accueil_technicien_view.php";
+exit;
+}
 
 $ticket = new Ticket($id);
 $ticket->set("status", "RES");

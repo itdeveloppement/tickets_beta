@@ -26,11 +26,11 @@ include_once  __DIR__ . "/../Utils/init.php";
 
 
 // verification des droits
- // si l'utilisateur n'a pas les droit
- $droit = new Droits();
- if (! $droit->verifierDroits($session->getStatusSession())) {
-     include __DIR__ . "/../views/error/err403.tpl.php";
- }
+// si l'utilisateur n'a pas les droit
+$droit = new Droits();
+if (! $droit->verifierDroits($session->getStatusSession())) {
+   include __DIR__ . "/../views/error/err403.tpl.php";
+}
 
 // recuperation de la liste des tickets
 $ticket = new Ticket();

@@ -20,11 +20,11 @@ if (! $session->isConnected()) {
 }
 
 // verification des droits
- // si l'utilisateur n'a pas les droit
- $droit = new Droits();
- if (! $droit->verifierDroits($session->getStatusSession())) {
-     include __DIR__ . "/../views/error/err403.tpl.php";
- }
+// si l'utilisateur n'a pas les droit
+$droit = new Droits();
+if (! $droit->verifierDroits($session->getStatusSession())) {
+    include __DIR__ . "/../views/error/err403.tpl.php";
+}
 
 // traitement des données
 if (! isset($_POST['string'])) {

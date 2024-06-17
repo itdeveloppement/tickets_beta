@@ -9,7 +9,6 @@ Methode : si une classe PHP rencontre une classe non denfnini il appel une fonct
     - si la classe existe on peut effectuier d'autre traitement (vérifications supplémentaires ou des initialisations spécifiques à la classe. A preciser)
 */
 
-
 /**
  * Role : charger automatiquement les classes
  * 
@@ -20,7 +19,6 @@ Methode : si une classe PHP rencontre une classe non denfnini il appel une fonct
  */
 
 namespace App\Services;
-
 
 class Autoload {
 

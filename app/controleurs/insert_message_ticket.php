@@ -30,20 +30,20 @@ if (! $droit->verifierDroits($session->getStatusSession())) {
 }
 
 // traitement des données get
- if (isset($_GET['id'])) {
-    $id = $_GET['id'];
- } else {
-    include __DIR__ . "/../views/main/accueil_technicien_view.php";
-    exit;
- }
+if (isset($_GET['id'])) {
+   $id = $_GET['id'];
+} else {
+   include __DIR__ . "/../views/main/accueil_technicien_view.php";
+   exit;
+}
 
- // traitement des données
+// traitement des données
 if (isset($_POST['message'])) {
    $texte = $_POST['message'];
- } else {
-    include __DIR__ . "/../views/main/accueil_technicien_view.php";
-    exit;
- }
+} else {
+   include __DIR__ . "/../views/main/accueil_technicien_view.php";
+   exit;
+}
 
 $message = new Message();
 // preparation des données
@@ -60,5 +60,5 @@ if(! $message->insert()) {
 // retourne la liste des messages
 $listeMessages = $message->selectListeMessages($id);
 
- $json = json_encode($listeMessages);
- echo $json;
+$json = json_encode($listeMessages);
+echo $json;

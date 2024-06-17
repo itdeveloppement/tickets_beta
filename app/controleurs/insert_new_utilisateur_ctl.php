@@ -25,20 +25,18 @@ if (! $session->isConnected()) {
      exit;
  }
  
- // verification des droits
- // si l'utilisateur n'a pas les droit
- $droit = new Droits();
- if (! $droit->verifierDroits($session->getStatusSession())) {
-     include __DIR__ . "/../views/error/err403.tpl.php";
- }
+// verification des droits
+// si l'utilisateur n'a pas les droit
+$droit = new Droits();
+if (! $droit->verifierDroits($session->getStatusSession())) {
+    include __DIR__ . "/../views/error/err403.tpl.php";
+}
 
 // verification des données POST
 
 if (
     ! empty($_POST["nom"]) && 
     ! empty($_POST["prenom"]) && 
-    ! empty ($_POST["status"]) &&
-    ! empty ($_POST["etat"]) &&
     ! empty ($_POST["email"]) &&
     ! empty ($_POST["password"])
     ){
@@ -49,6 +47,7 @@ if (
     }
 
     // preparation des données
+    $_POST["status"] = "CLI";
     $_POST["created_date"] =  date("Y-m-d H:i:s");
     $_POST["password"] = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
@@ -58,8 +57,10 @@ if (
         $personnage->insert();
         $form=new Form();
         $button = new Button();
-        include __DIR__ . "/../views/main/form_connexion_view.php";
+        include __DIR__ . "/../views/main/accueil_vendeur_view.php";
     } else {
-        include __DIR__ . "/afficher_form_insert_utilisateur_ctl.php";
+        $form=new Form();
+        $button = new Button();
+        include __DIR__ . "/../views/main/form_connexion_view.php";
         exit;
     }

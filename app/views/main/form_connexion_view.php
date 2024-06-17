@@ -11,10 +11,10 @@
     <header>
     <?php include __DIR__ . "/../layout/menu_hors_connexion_tpl.php"; ?>
     </header>
-    <main class="formConnexion">
+    <main class="formConnexion ">
         <div class="card">
             <h2>Connexion</h2>
-            <form class="flex section" method="post" action="../../public/index.php">
+            <form class="flex section" method="post" action="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/public/index.php">
                 <?= $form->input("email", "Email", "classe"); ?>
                 <?= $form->input("password", "Mot de passe", "classe"); ?>
                 <?= $button->button("Envoyer", "submit", "classe"); ?>

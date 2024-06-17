@@ -26,11 +26,6 @@ const btmCloturer = document.querySelectorAll('.btn_cloturer_tkt');
             });
     });
 
-
-
-
-
-
 // -------------------------- PAGE MESSAGE --------------------------------
 
 if (window.location.href.includes("http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/afficher_form_repondre_message.php")) {
@@ -299,10 +294,11 @@ function selectTicket(id) {
 }
 
 /**
- * role : selectionner la liste de message d'un ticket
+ * role : selectionner la liste des messages d'un ticket
  * @param : id du ticket
  */
 function selectListeMessageTicket(id) {
+    
     fetch(`http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/select_liste_messages_ticket.php?id=${id}`)
     .then(response=>{
         return response.json();
@@ -328,9 +324,9 @@ function afficherUtilisateur(response) {
         template = 
         `
         <p>Client</p>
-        <p>${response.prenom}</p>
-        <p>${response.nom}</p>
-        <p>${response.email}</p>
+        <p><?php htmlentities(?>${response.prenom}<?php )></p>
+        <p><?php htmlentities(?>${response.nom}<?php )></p>
+        <p><?php htmlentities(?>${response.email}<?php )></p>
         `;
     zone.innerHTML = template;  
 }
@@ -346,8 +342,8 @@ function afficherProduit(response) {
         template = 
         `
         <p>Produit</p>
-        <p>${response.ref}</p>
-        <p>${response.designation}</p>
+        <p><?php htmlentities(?>${response.ref}<?php )></p>
+        <p><?php htmlentities(?>${response.designation}<?php )></p>
         `;
     zone.innerHTML = template;  
 }
@@ -365,7 +361,7 @@ function afficherListeResultatProduit(response) {
         Object.entries(response).forEach(([id, result]) => {
             template += 
             `
-            <option data-id=${result["id"]}>${result["ref"]}, ${result["designation"]}</option>
+            <option data-id=<?php htmlentities(?>${result["id"]}<?php )><?php htmlentities(?>${result["ref"]}<?php ),<?php htmlentities(?>(${result["designation"]}<?php )</option>
             `;
         }); 
         zone.innerHTML = template;      
@@ -385,7 +381,7 @@ function afficherListeResultatClient(response) {
         response.forEach(result=> {
             template += 
             `
-            <option data-id=${result["id"]}>${result["prenom"]}, ${result["nom"]}, ${result["email"]}</option>
+            <option data-id=<?php htmlentities(?>${result["id"]}<?php )><?php htmlentities(?>${result["prenom"]}<?php ), <?php htmlentities(?>${result["nom"]}<?php ), <?php htmlentities(?>${result["email"]}<?php )</option>
             `;
         }); 
         zone.innerHTML = template;      
@@ -405,14 +401,14 @@ function afficherListeTicketStatus (response) {
         template += 
         `
         <tr>
-            <th colspan="5">${ticket["titre"]}</th>
+            <th colspan="5"><?php htmlentities(?>${ticket["titre"]}<?php )?></th>
         </tr>
          <tr >
-            <td>${ticket["designation"]}</td>
-            <td>${ticket["status"]}</td>
-            <td>${ticket["created_date"]}</td>
-            <td>${ticket["nom"]}</td>
-            <td>${ticket["prenom"]}</td>
+            <td><?php htmlentities(?>${ticket["designation"]}<?php )?></td>
+            <td><?php htmlentities(?>${ticket["status"]}<?php )?></td>
+            <td><?php htmlentities(?>${ticket["created_date"]}<?php )?></td>
+            <td><?php htmlentities(?>${ticket["nom"]}<?php )?></td>
+            <td><?php htmlentities(?>${ticket["prenom"]}<?php )?></td>
             <td><a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/afficher_form_repondre_message.php?id=${id}">Messages</a></td>
         </tr>
         `;
@@ -433,11 +429,11 @@ function afficherTicket(response) {
             <th colspan="5">${response.titre}</th>
         </tr>
          <tr >
-            <td>${response.designation}</td>
-            <td>${response.status}</td>
-            <td>${response.created_date}</td>
-            <td>${response.nom}</td>
-            <td>${response.prenom}</td>
+            <td><?php htmlentities(?>${response.designation}<?php )?></td>
+            <td><?php htmlentities(?>${response.status}<?php )?></td>
+            <td><?php htmlentities(?>${response.created_date}<?php )?></td>
+            <td><?php htmlentities(?>${response.nom}<?php )?></td>
+            <td><?php htmlentities(?>${response.prenom}<?php )?></td>
             <td><a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/update_status_ticket.php?id=${response.id}">Cloturer</a></td>
         </tr>
         `;
@@ -446,7 +442,7 @@ function afficherTicket(response) {
 }
 
 /**
- * role : affiche la liste des tickets par status
+ * role : affiche la liste des message d'un ticket
  * @param : reponse / les données (liste des tickets selon un status ) 
  * @retour :
  *
@@ -458,9 +454,9 @@ function afficherListeMessagesTicket(response) {
     Object.entries(response).forEach(([id, message]) => {
         template += 
         `
-        <p>${message["prenom"]}</p>
-        <p>${message["nom"]}</p>
-        <p>${message["message"]}</p>
+        <p><?php htmlentities(?>${message["prenom"]}<?php )?></p>
+        <p><?php htmlentities(?>${message["nom"]}<?php )?></p>
+        <p><?php htmlentities(?>${message["message"]}<?php )?></p>
         `;
     }); 
     zone.innerHTML = template;      

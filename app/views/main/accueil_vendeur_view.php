@@ -17,7 +17,7 @@ include __DIR__ . "/../layout/header.tpl.php";
             <h2>Page accueil vendeur</h2>
             <ul class="flex">
                 <li><a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/afficher_form_insert_vente.php">Enregistrer une vente</a></li>
-                <li><a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/???????? ">Creer un compte client</a></li>
+                <li><a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/insert_new_utilisateur_ctl.php">Creer un compte client</a></li>
             </ul>
         </div>
     </main>

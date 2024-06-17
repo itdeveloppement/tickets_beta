@@ -19,7 +19,6 @@ use PDO;
  protected $table = "utilisateur";
  protected $fields = [
     "status",
-    "etat",
     "nom",
     "prenom",
     "email",
