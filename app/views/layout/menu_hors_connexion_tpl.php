@@ -4,6 +4,3 @@
  * param : nothing
  */
 ?>
-<div>
-  <div>Ticketing</div>
-</div>

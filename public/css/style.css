@@ -83,7 +83,7 @@ button {
     border-radius: var(--borderRadius);
     color: var(--colorFour);
     border: none;
-    width: 100px;
+    width: 200px;
     padding: 8px;
     margin: auto; 
 }
@@ -102,6 +102,10 @@ header {
     margin-bottom: 20px;
     padding: 10px;
     color: var(--colorFour);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .section {
@@ -122,6 +126,26 @@ h3 {
     margin-left: 10px;
 }
 
+ul {
+    list-style: none;
+    width: 100%;
+    gap : 10px;
+    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+    background-color: var(--colorTwo);
+    border-radius: var(--borderRadius);
+    color: var(--colorFour);
+    border: none;
+    width: 200px;
+    padding: 8px;
+    margin: auto; 
+}
+a:hover {
+    background-color:var(--colorOne);
+}
 .card {
     background-color: var(--colorFour);
     width: 50%;
@@ -130,6 +154,17 @@ h3 {
     border-radius: var(--borderRadius);
     margin: auto;
 }
+
+table {
+    width: 100%;
+    font-size: 11px;
+}
+textarea {
+    width: 100%;
+    height: 70px;
+}
+/* menu */
+
 
 /*page connexion*/
 .formConnexion h2 {

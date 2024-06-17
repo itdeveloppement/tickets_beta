@@ -18,30 +18,31 @@
             include __DIR__ . "/../layout/menu_client_tpl.php";
         }
         ?>
-        <h2>Messages espace technicien</h2>
-    </header>
-    <!-- page accueil technicien -->
-    <main>
-        <h3>Detail d'un arcticle</h3>
-        <table>
-    <thead>
-        <tr>
-            <th>Produit</th>
-            <th>Status du ticket</th>
-            <th>Date de cration du ticket</th>
-            <th>Nom du client</th>
-            <th>Prenom du client</th>
-            <th>Cloturer</th>
-        </tr>
-    </thead>
-    <tbody id="détailTicket">
-        <!-- include avec js fonction afficherTicket() dans app.js -->
         
-    </tbody>
-</table>
+    </header>
+  
+    <!-- page accueil technicien -->
+    <main class="card" >
+        <h2>Messages espace technicien</h2>
+        <h3>Detail de l'arcticle</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Status</th>
+                    <th>Création</th>
+                    <th>Nom du client</th>
+                    <th>Prenom du client</th>
+                    <th>Cloturer</th>
+                </tr>
+            </thead>
+            <tbody id="détailTicket">
+                <!-- include avec js fonction afficherTicket() dans app.js -->
+            </tbody>
+        </table>
+
         <h3>Liste des messages</h3>
          <!-- include avec js fonction afficherListeMessageTicket() dans app.js -->
-
         <div id="listeMessages">
             <p>Editeur</p>
             <p>Message</p>
@@ -52,7 +53,7 @@
             <form id="formMessage">
                 <div>
                     <label for="message">Message :</label>
-                    <textarea id="message" name="message" rows="5" cols="80"></textarea>
+                    <textarea id="message" name="message"></textarea>
                 </div>
                 <input type="submit" value="Envoyer">
             </form>

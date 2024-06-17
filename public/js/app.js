@@ -26,49 +26,9 @@ const btmCloturer = document.querySelectorAll('.btn_cloturer_tkt');
             });
     });
 
-// ---------------- RECHERCHE CLIENT ---------------------------
-const rechercherClient = document.getElementById('rechercherClient');
-    rechercherClient.addEventListener("input", function (event){ 
-        let currentValue = event.target.value;
-        // Vérifie si le contenu a au moins 3 lettres
-        if (currentValue.length >= 3) {
-            // Affiche liste deroulante
-            selectClient();
-            if (selectOptionClient(currentValue) != 0) {
-            // Affiche les informations du client
-            selectUtilisateur(selectOptionClient(currentValue));
-            idClient = selectOptionClient(currentValue);
-            };
-        }
-});
 
-// ---------------- RECHERCHE PRODUIT ---------------------------
-const rechercherProduit = document.getElementById('rechercherProduit');
-    rechercherProduit.addEventListener("input", function (event){ 
-        
-        let currentValue = event.target.value;
-        // Vérifie si le contenu a au moins 3 lettres
-        if (currentValue.length >= 3) {
-             // Affiche liste deroulane
-            selectProduits();
-            if (selectOptionProduit(currentValue) != 0) {
-            // Affiche les informations du produit
-            selectProduit(selectOptionProduit(currentValue));
-            idProduit = selectOptionProduit(currentValue);
-            };
-        
-        }
-});
 
-// --------- SOUMISSION FORMULAIRE VENTE -------------------
-let formVente = document.getElementById('formVente');
-formVente.addEventListener('submit', function(event) {
-    // Empêcher l'envoi par défaut du formulaire
-    event.preventDefault();
-    console.log("test");
-    // updateAction();
-    insertVente(idClient, idProduit);
-});
+
 
 
 // -------------------------- PAGE MESSAGE --------------------------------
@@ -97,6 +57,55 @@ if (window.location.href.includes("http://mcastellano.mywebecom.ovh/back/tickets
 }
 }
 
+// -------------------------- PAGE VENTE --------------------------------
+
+if ((window.location.href.includes("http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/afficher_form_insert_vente.php"))){
+
+    // ---------------- RECHERCHE CLIENT ---------------------------
+const rechercherClient = document.getElementById('rechercherClient');
+rechercherClient.addEventListener("input", function (event){ 
+    let currentValue = event.target.value;
+    // Vérifier si le contenu a au moins 3 lettres
+    if (currentValue.length >= 3) {
+        // Affiche liste deroulante
+        selectClient();
+        if (selectOptionClient(currentValue) != 0) {
+        // Affiche les informations du client
+        selectUtilisateur(selectOptionClient(currentValue));
+        idClient = selectOptionClient(currentValue);
+        };
+    }
+});
+
+    // ---------------- RECHERCHE PRODUIT ---------------------------
+const rechercherProduit = document.getElementById('rechercherProduit');
+rechercherProduit.addEventListener("input", function (event){ 
+    
+    let currentValue = event.target.value;
+    // Vérifie si le contenu a au moins 3 lettres
+    if (currentValue.length >= 3) {
+         // Affiche liste deroulane
+        selectProduits();
+        if (selectOptionProduit(currentValue) != 0) {
+        // Affiche les informations du produit
+        selectProduit(selectOptionProduit(currentValue));
+        idProduit = selectOptionProduit(currentValue);
+        };
+    
+    }
+});
+
+// --------- SOUMISSION FORMULAIRE VENTE -------------------
+let formVente = document.getElementById('formVente');
+formVente.addEventListener('submit', function(event) {
+// Empêcher l'envoi par défaut du formulaire
+event.preventDefault();
+console.log("test");
+// updateAction();
+insertVente(idClient, idProduit);
+});
+    
+}
 // ------------------- FETCH POST ----------------------------
 
 /**
@@ -344,7 +353,7 @@ function afficherProduit(response) {
 }
 
 /**
- * role : affiche la liste des resultat de recherche pour trouver un client
+ * role : affiche la liste des resultat de recherche pour trouver un produit
  * @param : string : les elemet fourni dans l'input
  * @retour : tableau de resultat
  *
@@ -404,7 +413,7 @@ function afficherListeTicketStatus (response) {
             <td>${ticket["created_date"]}</td>
             <td>${ticket["nom"]}</td>
             <td>${ticket["prenom"]}</td>
-            <td><a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/afficher_form_repondre_message.php?id=${id}">Voir les messages</a></td>
+            <td><a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/afficher_form_repondre_message.php?id=${id}">Messages</a></td>
         </tr>
         `;
     }); 
