@@ -23,7 +23,6 @@ $droit = new Droits();
 if (! $droit->verifierDroits($session->getStatusSession())) {
     include __DIR__ . "/../views/error/err403.tpl.php";
     exit;
-    // sinon routage sur la page d'accueil en fonction du status
 }
 
 

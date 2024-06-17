@@ -22,7 +22,6 @@ exit;
 $droit = new Droits();
 if (! $droit->verifierDroits($session->getStatusSession())) {
     include __DIR__ . "/../views/error/err403.tpl.php";
-    // sinon routage sur la page d'accueil en fonction du status
 }
 
 // traitement des données GET

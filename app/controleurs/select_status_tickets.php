@@ -5,6 +5,7 @@
  */
 
 use App\Modeles\Ticket;
+use App\Services\Droits;
 
 include_once  __DIR__ . "/../Utils/init.php";
 /*
@@ -23,6 +24,13 @@ include_once  __DIR__ . "/../Utils/init.php";
     exit;
  }
 
+
+// verification des droits
+ // si l'utilisateur n'a pas les droit
+ $droit = new Droits();
+ if (! $droit->verifierDroits($session->getStatusSession())) {
+     include __DIR__ . "/../views/error/err403.tpl.php";
+ }
 
 // recuperation de la liste des tickets
 $ticket = new Ticket();

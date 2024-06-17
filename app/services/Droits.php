@@ -13,10 +13,28 @@ class Droits {
 
     protected $url; // url current
     const DROITS = [
+
         'index.php' => ['CLI', 'VEN', 'TEC'],
         'afficher_form_repondre_message.php' => ['CLI', 'VEN', 'TEC'],
-        'afficher_form_insert_vente.php' => ['CLI', 'VEN', 'TEC'],
-      
+        'afficher_form_update_param_connexion.php' => ['CLI', 'VEN', 'TEC'],
+        'deconnexion_session.php' => ['CLI', 'VEN', 'TEC'],
+        'insert_message_ticket.php' => ['CLI', 'VEN', 'TEC'],
+        'select_status_tickets.php' => ['CLI', 'VEN', 'TEC'],
+        'select_ticket.php' => ['CLI', 'VEN', 'TEC'],
+        'update_status_ticket.php' => ['CLI', 'VEN', 'TEC'],
+    
+        'insert_vente.php' => ['VEN', 'TEC'],
+        'select_client.php' => ['VEN', 'TEC'],
+        'select_liste_clients.php' => ['VEN', 'TEC'],
+        'select_liste_messages_ticket.php' => ['VEN', 'TEC'],
+        'afficher_form_insert_vente.php' => ['VEN', 'TEC'],
+        'bascule.php' => ['VEN', 'TEC'],
+        'select_liste_produits.php' => ['VEN', 'TEC'],
+        'select_produit.php' => ['VEN', 'TEC'],
+       
+        'insert_new_utilisateur_ctl.php' => ['VEN'],
+        'afficher_form_new_utilisateur_ctl.php' => ['VEN'],
+
     ];
 
 /** role : recuperation l'URL de la page courent et verifie les droits
