@@ -26,6 +26,9 @@ class Model {
         // Liste des liens sortants : 
         //tableau qui pour cahque lien met en index le nom du champ qui est un lien, et en valeur le nom de l'objet
         //  (exemple : [ "fournisseur" => "fournisseur"])
+        // exemple : dans dans table vente on a un id du client au champ (client). On recherche a optenir les caracteristiques du client pour la vente a l'id client
+        //$links = [] dans la class vente  $links = [ vendeur => utilisateur(client) ]
+        //      ] 
 
     protected $targets = [];    // On stockera pour les liens [ "nomChamp" => objetLié, .. ]
 
@@ -79,7 +82,6 @@ function get($fieldName) {
     } else {
         return "";
     }
-
 }
 
 /**
@@ -91,6 +93,57 @@ function get($fieldName) {
         return $this->id;
     }
 
+// méthodes magiques
+/**
+ * role : permet d'appeller la methode get directement sur l'attribut $obj->attribut au lieu de $obj->get($attribut)
+ * @param : non de l'attribut
+ * @return : la valeur du champ appellé
+ */
+function __get($name) {
+    if ($name == "id") return $this->getId();
+    else if (in_array($name, $this->fields)) return $this->get($name);
+}
+
+
+/**
+ * role : retourné un objet pointé par un champ
+ * ex : dans dans table vente on a un id de l'utilisateur au champ (vendeur). On recherche a optenir les caracteristiques de l'utilisateur pour la vente ad l'id utilistaeur
+ * @param : le nom du champs
+ * ex : champs vendeur ds la table vente
+ * @return : 
+ * - l'objet pointé
+ * ou une instance de model (vide)
+ * ou c'est un lien : l'objet pointé est de la classe indéiquée dans $this->links[$fieldName] (A PRECISER)
+ */
+function getTarget($fieldName) {
+    // Rôle : retourner un objet pointé par un champ
+    // paramètre : 
+    //      $fieldName : nom du champ
+    // Retour : objet (d'une classe héritée de la classe _model), chargé avec l'objet pointé
+    //       si on ne trouve pas :
+    //          si champ inconnu ou pas un lien : retourne un objet _model (vide)
+    //          si le champ est un lien, mais vide, ou pas d'bjet en face : le bon objet, mais pas chargé
+
+    // At-on déjà la cible (dans $this->targets)
+    if (isset($this->targets[$fieldName])) {
+        return $this->targets[$fieldName];
+    }
+
+
+    // Est-ce que c'est un lien ?
+    if ( ! isset($this->links[$fieldName])) {
+        // Ce n'est pas un lien : on retourne un objet de la classe _model
+        $this->targets[$fieldName] = new Model();
+        return $this->targets[$fieldName];
+    }
+
+    // c'est un lien : l'objet pointé est de la classe indéiquée dans $this->links[$fieldName]
+    $nomClasse = $this->links[$fieldName];
+    $this->targets[$fieldName] = new $nomClasse($this->get($fieldName));
+
+    return $this->targets[$fieldName];
+
+}
 
 // -------------------- SETTERS ----------------------------------------------
 
@@ -122,7 +175,15 @@ function loadFromTab($tab) {
     return true;
 }
 
-
+// méthodes magiques
+/**
+ * role : permet d'appeller la methode set directement sur l'attribut $obj->attribut = valeur  au lieu de $obj->get($attribut)=valeur
+ * @param : non de l'attribut et valeur
+ * @return : nothing
+ */
+function __set($name, $value) {
+    if (in_array($name, $this->fields)) $this->set($name, $value);
+}
 
 // -------- VERFIER SI L OBJET EST CHARGE --------------------------------------------
  

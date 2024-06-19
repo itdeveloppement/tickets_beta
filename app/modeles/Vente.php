@@ -24,4 +24,6 @@ class Vente extends Model{
         "produit",
         "created_date"
     ];
+
+    protected $links = [ "client" => "utilisateur"];
 }

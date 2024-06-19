@@ -35,6 +35,9 @@ class Droits {
         'insert_new_utilisateur_ctl.php' => ['VEN'],
         'afficher_form_new_utilisateur_ctl.php' => ['VEN'],
 
+        'select_tickets_client.php' => ['CLI'],
+        'select_tickets_status_client.php' => ['CLI'],
+        
     ];
 
 /** role : recuperation l'URL de la page courent et verifie les droits
@@ -51,24 +54,21 @@ private function urlCurrent () {
  * @param : status de la session de l'utilisateur connecté
  * @return : true si autorisation, false sinon
  */
-public function verifierDroits($status) {
-
+public function verifierDroits($status){
     $url = $this->urlCurrent();
     if (! isset(self::DROITS[$url])) {
             return false;
+            exit;
     } else {
         $tab = self::DROITS[$url];
-        
         foreach ($tab as $value){
             // status : client / vendeur / technicien et AC : compte actif
-            if ($value == $status) { // il faut ajouter ICI && SI ETAT == AC
+            if ($value === $status) { // il faut ajouter ICI && SI ETAT == AC
                 // echo "Message debug dans class Droits : acces autorisé";
                 return true;
                 exit;
-            }
         }
-        // echo "Message debug dans class Droits : acces refusé";
-        // include __DIR__ . "/../controleurs/index.php";
+    }
         return false;
     }
 }

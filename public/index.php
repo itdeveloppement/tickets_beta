@@ -13,7 +13,6 @@ use App\Modeles\Utilisateur;
 use App\Services\ConnexionPwd;
 use App\Services\Droits;
 use App\Services\Form;
-use App\Services\Link;
 use App\Services\Router;
 
  include_once  __DIR__ . "/../App/Utils/init.php";
@@ -62,8 +61,10 @@ use App\Services\Router;
             include __DIR__ . "/../App/views/error/err403.tpl.php";
         // sinon routage sur la page d'accueil en fonction du status
         } else {
+           
             $router = new Router();
             $router->routerAcc($session->getStatusSession());
+           
         };
 
     // sinon afficher le formulaire de connexion

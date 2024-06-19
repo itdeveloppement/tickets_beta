@@ -95,12 +95,20 @@ let formVente = document.getElementById('formVente');
 formVente.addEventListener('submit', function(event) {
 // Empêcher l'envoi par défaut du formulaire
 event.preventDefault();
-console.log("test");
 // updateAction();
 insertVente(idClient, idProduit);
 });
     
 }
+
+
+// ------- PAGE ACCUEIL CLIENT -------------
+if ((window.location.href.includes("http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/public/index.php"))){
+
+selecTicketsClient();
+selecTicketsOuvertsClient();
+}
+
 // ------------------- FETCH POST ----------------------------
 
 /**
@@ -109,8 +117,6 @@ insertVente(idClient, idProduit);
  * @return: nothing
  */
 function insertVente(idClient, idProduit) {
-    console.log(idClient);
-    console.log(idProduit);
     // Récupération des données du formulaire
     const formData = new FormData(formVente);
     // ajout au formulaure
@@ -163,7 +169,6 @@ function selectProduits() {
   }); 
 }
 
-
 /**
  * role : selectionne une liste de client en fonction de : nom, son prénom ou son adresse mail
  * @param : nothing
@@ -206,10 +211,8 @@ function insertMessage(id, formulaire) {
         return response.json();
     })
     .then(response => {
-        console.log(response);
         afficherListeMessagesTicket(response);
         formulaire.querySelector('textarea').value = "";
-
     })
     .catch(error => {
         console.log(error);
@@ -312,9 +315,49 @@ function selectListeMessageTicket(id) {
     });
 }
 
+/**
+ * role : selectionner la liste des tickets d'un client
+ * @param : nothing
+ * @return: nothing
+ */
+function selecTicketsClient(){
+fetch(`http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/select_tickets_client.php`)
+    .then(response=>{
+        return response.json();
+    })  .then (response=>{
+    // appeller la fonction pour afficher la liste des tickets selon un status
+        afficherListeTickets(response);
+    })
+    // recuperation des erreurs
+    .catch(erreur=>{
+        console.log(erreur);
+    });  
+}
+
+/**
+ * role : selectionner la lsite des tickets ouvert d'un client
+ * @param : nothing
+ * @return: nothing
+ */
+function selecTicketsOuvertsClient(){
+    fetch(`http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/select_tickets_status_client.php`)
+        .then(response=>{
+            return response.json();
+        })  .then (response=>{
+        // appeller la fonction pour afficher la liste des tickets selon un status
+        
+        // console.log(response);
+            afficherListeTicketsOuverts (response);
+        })
+        // recuperation des erreurs
+        .catch(erreur=>{
+            console.log(erreur);
+        });  
+    }
+
 // ------------------   AFFICHAGE ------------------------------------
 /**
- * role : affiche un utilisateur
+ * role : afficher un utilisateur
  * @param : objet : les caracteristiques de l'utilisateur 
  * @retour :
  *
@@ -332,7 +375,7 @@ function afficherUtilisateur(response) {
 }
 
 /**
- * role : affiche un produit
+ * role : afficher un produit
  * @param : objet : les caracteristiques de l'utilisateur 
  * @retour :
  *
@@ -366,7 +409,6 @@ function afficherListeResultatProduit(response) {
         }); 
         zone.innerHTML = template;      
 }
-
 
 /**
  * role : affiche la liste des resultat de recherche pour trouver un client
@@ -438,6 +480,61 @@ function afficherTicket(response) {
         </tr>
         `;
      
+    zone.innerHTML = template;      
+}
+
+/**
+ * role : affiche la liste des tickets pour un client
+ * @param : reponse / les données (liste des tickets selon un status ) 
+ * @retour :
+ *
+*/
+function afficherListeTickets(response) {
+    zone = document.getElementById ("listeTicketsClientStatus");
+    template = '';
+    // recupere l'id dans response
+    Object.entries(response).forEach(([id, ticket]) => {
+        template += 
+        `
+        <tr>
+            <th colspan="5"><?php htmlentities(?>${ticket["titre"]}<?php )?></th>
+        </tr>
+         <tr >
+            <td><?php htmlentities(?>${ticket["designation"]}<?php )?></td>
+            <td><?php htmlentities(?>${ticket["status"]}<?php )?></td>
+            <td><?php htmlentities(?>${ticket["created_date"]}<?php )?></td>
+            <td><a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/update_status_ticket.php?id=${response.id}">Cloturer</a></td>
+        </tr>
+        `;
+    }); 
+    zone.innerHTML = template;      
+}
+
+/**
+ * role : affiche la liste des tickets ouvert pour un client 
+ * @param : reponse / les données (liste des tickets selon un status ) 
+ * @retour :
+ *
+*/
+function afficherListeTicketsOuverts(response) {
+    zone = document.getElementById ("listeTicketsClientOuvert");
+    template = '';
+    // recupere l'id dans response
+    Object.entries(response).forEach(([id, ticket]) => {
+        template += 
+        `
+        <tr>
+            <th colspan="5"><?php htmlentities(?>${ticket["titre"]}<?php )?></th>
+        </tr>
+         <tr >
+            <td><?php htmlentities(?>${ticket["designation"]}<?php )?></td>
+            <td><?php htmlentities(?>${ticket["status"]}<?php )?></td>
+            <td><?php htmlentities(?>${ticket["created_date"]}<?php )?></td>
+            <td><a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/update_status_ticket.php?id=${response.id}">Cloturer</a></td>
+            <td><a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/afficher_form_repondre_message.php?id=${id}">Messages</a></td>
+        </tr>
+        `;
+    }); 
     zone.innerHTML = template;      
 }
 

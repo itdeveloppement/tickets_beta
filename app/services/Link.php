@@ -14,10 +14,10 @@
 class Link {
 
     // attributs
-    protected $href; // submit, button ...
-    protected $libelle; // texte afficher sur le bouton
-    protected $class; 
-    protected $id; // ex "classe1" ou "classe1 classe2"
+    protected $href; // url vers le lien pointé
+    protected $libelle; // texte à afficher
+    protected $class; // ex "classe1" ou "classe1 classe2"
+    protected $id; // id du lien
 
     protected $data; // les données (parametre) à indiquer dans l'url $data [ "id" = 1, "non"="Durant" ...]
    
@@ -37,8 +37,8 @@ class Link {
      * @return : code html de la balise <a>
      * 
      */
-    public function link ($href, $libelle = null, $class = null, $params=null, $attributs=null, $id= null) {
-        $html = "<a class='" . htmlentities($class) . "' href='" . htmlentities($href) . $this->parametresURL($params) ."' id='" . htmlentities($id) ."'>" . htmlentities($libelle). "</a>";
+    public function link ($class = null, $href,   $params=null, $id= null, $libelle = null) {
+        $html = "<a class='" . htmlentities($class) . "' href='" . htmlentities($href) . htmlentities($this->parametresURL($params)) ."' id='" . htmlentities($id) ."'>" . htmlentities($libelle). "</a>";
         return  $html;  
     }
 

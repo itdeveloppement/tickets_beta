@@ -25,7 +25,10 @@ class Ticket extends Model{
         "created_date"
     ];
 
-    protected $links = ['client' => 'Ticket'];  
+    protected $links = [
+        'client' => 'App\Modeles\Utilisateur',
+        'produit' => 'App\Modeles\Produit'
+    ];  
 
 // ------ METHODES DE SELECTION DANS LA BDD ----------------
 
@@ -48,7 +51,7 @@ public function selectListeStatusTickets($status) {
         $date = new Date ();
         $tab ["created_date"]= $date->dateShort($objet->get("created_date")) ;
     
-        // recuperation des nom et prenom des cient pour chaque ticket
+        // recuperation des nom et prenom des cLient pour chaque ticket
         $nameClient = $this->clientTicket($key);
         $tab ["nom"]= $nameClient["nom"];
         $tab ["prenom"]= $nameClient["prenom"];
@@ -94,7 +97,7 @@ public function detailTicket($id) {
  * @param : $id du ticket
  * @return : l'objet à l'id passé en argument
  */
-public function clientTicket ($id) {
+public function clientTicket($id) {
     // concstruction de la requette sql avec jointure
     $sql = "SELECT utilisateur.nom, utilisateur.prenom FROM ticket JOIN utilisateur ON ticket.client = utilisateur.id WHERE ticket.id = :id";
 
@@ -148,8 +151,78 @@ public function produitTicket ($id) {
    
     return $listeExtraite;
 }
+/**
+ * role : selectionne la liste des tickets d'un client
+ * @param : id du client
+ * @return : un tableau des tickets
+ */
+function selectListTickets($id) {
+    // recuperer les donnée
+    $tickets = $this->listAllCondition("client", $id);
+     // construction du tableau de données
+    $data = [];
+    foreach($tickets as     $key => $ticket) {
+        $tab ["titre"]= $ticket->get("titre");
+        $tab ["status"]= $this->status ($ticket->get("status"));
+        $date = new Date ();
+        $tab ["created_date"]= $date->dateShort($ticket->get("created_date")) ;
+        
+        // recuperation de la desigantion du produit
+        $designationProduit = $this->produitTicket($key);
+        $tab ["designation"]= $designationProduit["designation"];
+        $data [$key] = $tab;
+    }
+    return $data;
+}
+/**
+ * role : selectionne la liste des tickets ouvert d'un client dont le dernier message n'est pas celui du client
+ * @param : id du client
+ * @return : tableau des id des tickets
+ */
+function selectListTicketsClient($id) {
 
+    $sql = "SELECT ticket FROM `message` JOIN ticket ON message.ticket = ticket.id
+            WHERE ticket.client = :id 
+                AND message.redacteur <> :id 
+                AND message.created_date = (SELECT MAX(m2.created_date)FROM `message` AS m2 WHERE m2.ticket = message.ticket)
+            ";
 
+    $param = [":id"=>$id];
+
+    // Préparer / exécuter
+    $bdd = ConnexionBdd::connexion();
+    $req = $bdd->prepare($sql);
+    if ( ! $req->execute($param)) {
+        // On a une erreur de requête (on peut afficher des messages en phase de debug)
+        echo "erreur de requette";
+        return false;
+    }
+  
+    $listeExtraite = $req->fetchAll(PDO::FETCH_ASSOC);
+    // construire le tableau des resutat
+    $tabTicketsClient = [];
+    foreach($listeExtraite as $value) {
+        $tabTicketsClient[] = $value["ticket"];
+    }
+   return $tabTicketsClient;      
+}
+
+/**
+ * role : retourner la liste des tickets d'un client seon un tableau d'id de ticket
+ * @param : l'id du client
+ * @return : tableau des caracteristiques des tickets indexé par l'id des tickets
+ */
+function selectListTicketsClientRepondre($id) {
+    $tab=$this->selectListTicketsClient($id);
+    $result = [];
+    foreach($tab as $value) {
+        $ticket = $this->detailTicket($value);
+        if($ticket["status"] == "Ouvert") { 
+        $result[$ticket["id"]] = $ticket;
+    }
+    }
+    return $result;
+}
 // ----------- METHODE DE TRAITEMENT DES DONNEES
 
 /**
