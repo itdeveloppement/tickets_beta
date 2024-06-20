@@ -22,11 +22,12 @@ class Droits {
         'select_status_tickets.php' => ['CLI', 'VEN', 'TEC'],
         'select_ticket.php' => ['CLI', 'VEN', 'TEC'],
         'update_status_ticket.php' => ['CLI', 'VEN', 'TEC'],
+        'select_liste_messages_ticket.php' => ['VEN', 'TEC', 'CLI'],
     
         'insert_vente.php' => ['VEN', 'TEC'],
         'select_client.php' => ['VEN', 'TEC'],
         'select_liste_clients.php' => ['VEN', 'TEC'],
-        'select_liste_messages_ticket.php' => ['VEN', 'TEC'],
+        
         'afficher_form_insert_vente.php' => ['VEN', 'TEC'],
         'bascule.php' => ['VEN', 'TEC'],
         'select_liste_produits.php' => ['VEN', 'TEC'],
@@ -63,7 +64,7 @@ public function verifierDroits($status){
         $tab = self::DROITS[$url];
         foreach ($tab as $value){
             // status : client / vendeur / technicien et AC : compte actif
-            if ($value === $status) { // il faut ajouter ICI && SI ETAT == AC
+            if ($value === $status) { 
                 // echo "Message debug dans class Droits : acces autorisé";
                 return true;
                 exit;
@@ -71,6 +72,7 @@ public function verifierDroits($status){
     }
         return false;
     }
+
 }
 
 }

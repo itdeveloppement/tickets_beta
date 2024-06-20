@@ -101,12 +101,17 @@ insertVente(idClient, idProduit);
     
 }
 
-
 // ------- PAGE ACCUEIL CLIENT -------------
 if ((window.location.href.includes("http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/public/index.php"))){
 
-selecTicketsClient();
-selecTicketsOuvertsClient();
+    selecTicketsClient();
+    selecTicketsOuvertsClient();
+}
+
+if ((window.location.href.includes("http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/update_status_ticket.php?"))){
+
+    selecTicketsClient();
+    selecTicketsOuvertsClient();
 }
 
 // ------------------- FETCH POST ----------------------------
@@ -301,11 +306,13 @@ function selectTicket(id) {
  * @param : id du ticket
  */
 function selectListeMessageTicket(id) {
+    console.log(id);
     
     fetch(`http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/select_liste_messages_ticket.php?id=${id}`)
     .then(response=>{
         return response.json();
     })  .then (response=>{
+       
        // appeller la fonction pour afficher la liste de message d'un ticket
        afficherListeMessagesTicket(response);
     })
@@ -345,9 +352,7 @@ function selecTicketsOuvertsClient(){
             return response.json();
         })  .then (response=>{
         // appeller la fonction pour afficher la liste des tickets selon un status
-        
-        // console.log(response);
-            afficherListeTicketsOuverts (response);
+            afficherListeTicketsOuverts(response);
         })
         // recuperation des erreurs
         .catch(erreur=>{
@@ -503,7 +508,7 @@ function afficherListeTickets(response) {
             <td><?php htmlentities(?>${ticket["designation"]}<?php )?></td>
             <td><?php htmlentities(?>${ticket["status"]}<?php )?></td>
             <td><?php htmlentities(?>${ticket["created_date"]}<?php )?></td>
-            <td><a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/update_status_ticket.php?id=${response.id}">Cloturer</a></td>
+            <td><a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/update_status_ticket.php?id=${ticket["id"]}">Cloturer</a></td>
         </tr>
         `;
     }); 
@@ -530,7 +535,7 @@ function afficherListeTicketsOuverts(response) {
             <td><?php htmlentities(?>${ticket["designation"]}<?php )?></td>
             <td><?php htmlentities(?>${ticket["status"]}<?php )?></td>
             <td><?php htmlentities(?>${ticket["created_date"]}<?php )?></td>
-            <td><a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/update_status_ticket.php?id=${response.id}">Cloturer</a></td>
+            <td><a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/update_status_ticket.php?id=${ticket["id"]}">Cloturer</a></td>
             <td><a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/afficher_form_repondre_message.php?id=${id}">Messages</a></td>
         </tr>
         `;

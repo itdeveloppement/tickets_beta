@@ -161,7 +161,8 @@ function selectListTickets($id) {
     $tickets = $this->listAllCondition("client", $id);
      // construction du tableau de données
     $data = [];
-    foreach($tickets as     $key => $ticket) {
+    foreach($tickets as $key => $ticket) {
+        $tab ["id"]=$key;
         $tab ["titre"]= $ticket->get("titre");
         $tab ["status"]= $this->status ($ticket->get("status"));
         $date = new Date ();
@@ -180,7 +181,6 @@ function selectListTickets($id) {
  * @return : tableau des id des tickets
  */
 function selectListTicketsClient($id) {
-
     $sql = "SELECT ticket FROM `message` JOIN ticket ON message.ticket = ticket.id
             WHERE ticket.client = :id 
                 AND message.redacteur <> :id 
@@ -200,6 +200,7 @@ function selectListTicketsClient($id) {
   
     $listeExtraite = $req->fetchAll(PDO::FETCH_ASSOC);
     // construire le tableau des resutat
+   
     $tabTicketsClient = [];
     foreach($listeExtraite as $value) {
         $tabTicketsClient[] = $value["ticket"];

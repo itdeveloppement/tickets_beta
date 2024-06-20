@@ -8,33 +8,39 @@ use App\Modeles\Ticket;
 use App\Services\Button;
 use App\Services\Droits;
 use App\Services\Form;
+use App\Services\Router;
 
 include_once  __DIR__ . "/../Utils/init.php";
 
-// verification si je suis connecté
+$form=new Form();
+$button = new Button();
+
+// verification session connecté
 if (! $session->isConnected()) {
-    $form=new Form();
-    $button = new Button();
     include __DIR__ . "/../views/main/form_connexion_view.php";
     exit;
 }
 
 // verification des droits
-// si l'utilisateur n'a pas les droit
 $droit = new Droits();
 if (! $droit->verifierDroits($session->getStatusSession())) {
+    $session->deconnect();
     include __DIR__ . "/../views/error/err403.tpl.php";
+    exit;
 }
 
 // traitement des données get
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 } else {
-// include __DIR__ . "/../views/main/accueil_technicien_view.php";
+include __DIR__ . "/../views/main/accueil_technicien_view.php";
 exit;
 }
 
 $ticket = new Ticket($id);
 $ticket->set("status", "RES");
 $ticket->update();
-include __DIR__ . "/../views/main/accueil_technicien_view.php";
+
+$router = new Router ();
+$router->routerAcc($session->getStatusSession());
+// include __DIR__ . "/../views/main/accueil_technicien_view.php";

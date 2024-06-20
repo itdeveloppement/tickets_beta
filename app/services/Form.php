@@ -85,11 +85,11 @@ class Form{
      * @return : code html d'un label
      * 
      */
-       /*
-    public function submit($libelle, $classe = null) {
+       
+    public function button($libelle, $classe = null) {
         $html = "<button class='" . htmlentities($classe) . "' type='submit'>" . htmlentities($libelle). "</button>";
         return $html;
        
-} */
+} 
 }
 

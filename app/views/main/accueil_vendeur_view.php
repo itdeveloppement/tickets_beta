@@ -20,6 +20,7 @@ include __DIR__ . "/../layout/header.tpl.php";
                 <li><a href="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/insert_new_utilisateur_ctl.php">Creer un compte client</a></li>
             </ul>
         </div>
+        <script src="http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/public/js/app.js" defer></script>
     </main>
 </body>
 <?php

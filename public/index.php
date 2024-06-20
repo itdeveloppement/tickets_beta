@@ -19,13 +19,16 @@ use App\Services\Router;
 
  $utilisateur = new Utilisateur ();
  $droit = new Droits();
+ $form=new Form();
+ $button = new Form();
 
  // verifier si la session existe 
     // en fonction du status affiche la page d'accueil
     if  ($session->isConnected()) {
         // si l'utilisateur n'a pas les droit
-        if ( ! $droit->verifierDroits($session->getStatusSession())) {
-            include __DIR__ . "/../App/views/error/err403.tpl.php";
+        if (! $droit->verifierDroits($session->getStatusSession())) { 
+            include __DIR__ . "/../App/views/main/form_connexion_view.php";
+            exit;
         // sinon routage sur la page d'accueil en fonction du status
         } else {
             $router = new Router();
@@ -44,8 +47,8 @@ use App\Services\Router;
         // CONNEXION
         // si les validation password et idt ne sont pas validé renvoyé sur page connexion
         $connexion = new ConnexionPwd($log, $password);
-        if ( $connexion->connexionValide() == null) {
-            $form=new Form();
+        if ($connexion->connexionValide() == null) {
+            $session->deconnect();
             include __DIR__ . "/../App/views/main/form_connexion_view.php";
             exit;
         // sinon renseignier la session et instencier utilisateurconnecté
@@ -54,14 +57,14 @@ use App\Services\Router;
             $session->connect($connexion->connexionValide());
             $session->statusSessionConnect($utilisateurConnecte->get("status"));
         }
-
         // DROIT
         // si l'utilisateur n'a pas les droit
-        if ( ! $droit->verifierDroits($session->getStatusSession())) {
-            include __DIR__ . "/../App/views/error/err403.tpl.php";
+        if (! $droit->verifierDroits($session->getStatusSession())) {
+            $session->deconnect();
+            include __DIR__ . "/../App/views/main/form_connexion_view.php";
+            exit;
         // sinon routage sur la page d'accueil en fonction du status
         } else {
-           
             $router = new Router();
             $router->routerAcc($session->getStatusSession());
            
@@ -71,6 +74,7 @@ use App\Services\Router;
     } else {
         $form = $utilisateur->form();
         $button = $utilisateur->button();
+        $session->deconnect();
         include __DIR__ . "/../App/views/main/form_connexion_view.php";
     }
 

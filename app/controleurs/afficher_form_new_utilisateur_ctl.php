@@ -9,10 +9,11 @@ use App\Services\Droits;
 
  include_once  __DIR__ . "/../Utils/init.php";
 
-// verification session connecté
-if (! $session->isConnected()) {
-    $form=new Form();
+ $form=new Form();
     $button = new Button();
+
+// verification session connecté
+if (! $session->isConnected()) {   
 include __DIR__ . "/../views/main/form_connexion_view.php";
 exit;
 }
@@ -21,6 +22,7 @@ exit;
 // si l'utilisateur n'a pas les droit
 $droit = new Droits();
 if (! $droit->verifierDroits($session->getStatusSession())) {
+    $session->deconnect();
     include __DIR__ . "/../views/error/err403.tpl.php";
 }
 $form=new Form();
