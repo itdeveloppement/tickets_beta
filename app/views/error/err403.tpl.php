@@ -9,7 +9,7 @@
         <p>
             Vous n'avez pas les droits pour accéder à cette page (erreur 403)
         </p>
-        <button><a href="../public/index.php">Retour à l'accueil</a></button>
+        <button><a href="../../public/index.php">Retour à l'accueil</a></button>
     </main>
 </body>
 
