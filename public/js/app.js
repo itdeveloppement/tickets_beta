@@ -103,21 +103,19 @@ insertVente(idClient, idProduit);
 
 // ------- PAGE ACCUEIL CLIENT -------------
 if ((window.location.href.includes("http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/public/index.php"))){
-
     selecTicketsClient();
     selecTicketsOuvertsClient();
 }
 
 if ((window.location.href.includes("http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleurs/update_status_ticket.php?"))){
-
     selecTicketsClient();
-    selecTicketsOuvertsClient();
+    eselecTicketsOuvertsClient();
 }
 
 // ------------------- FETCH POST ----------------------------
 
 /**
- * role : inserer une vente en bdd
+ * role : inserer une vente en bdde
  * @param : nothing
  * @return: nothing
  */
@@ -255,7 +253,8 @@ fetch(`http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleur
         return response.json();
     })  .then (response=>{
     // appeller la fonction pour afficher la liste des tickets selon un status
-       afficherUtilisateur(response);
+       
+        afficherUtilisateur(response);
     })
     // recuperation des erreurs
     .catch(erreur=>{
@@ -333,7 +332,9 @@ fetch(`http://mcastellano.mywebecom.ovh/back/tickets/tickets_beta/App/Controleur
         return response.json();
     })  .then (response=>{
     // appeller la fonction pour afficher la liste des tickets selon un status
+    if (response && Object.keys(response).length > 0) {
         afficherListeTickets(response);
+    }
     })
     // recuperation des erreurs
     .catch(erreur=>{
@@ -352,7 +353,9 @@ function selecTicketsOuvertsClient(){
             return response.json();
         })  .then (response=>{
         // appeller la fonction pour afficher la liste des tickets selon un status
+        if (response && Object.keys(response).length > 0) {
             afficherListeTicketsOuverts(response);
+        }
         })
         // recuperation des erreurs
         .catch(erreur=>{

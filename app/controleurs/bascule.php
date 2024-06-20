@@ -26,7 +26,7 @@ $form=new Form();
 $button = new Button();
 
 // verification session connecté
-if (! $session->isConnected()) {
+if (!$session->isConnected()) {
     include __DIR__ . "/../views/main/form_connexion_view.php";
     exit;
 }

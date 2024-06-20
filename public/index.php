@@ -17,6 +17,7 @@ use App\Services\Router;
 
  include_once  __DIR__ . "/../App/Utils/init.php";
 
+
  $utilisateur = new Utilisateur ();
  $droit = new Droits();
  $form=new Form();
@@ -25,6 +26,7 @@ use App\Services\Router;
  // verifier si la session existe 
     // en fonction du status affiche la page d'accueil
     if  ($session->isConnected()) {
+     
         // si l'utilisateur n'a pas les droit
         if (! $droit->verifierDroits($session->getStatusSession())) { 
             include __DIR__ . "/../App/views/main/form_connexion_view.php";
@@ -48,6 +50,7 @@ use App\Services\Router;
         // si les validation password et idt ne sont pas validé renvoyé sur page connexion
         $connexion = new ConnexionPwd($log, $password);
         if ($connexion->connexionValide() == null) {
+            
             $session->deconnect();
             include __DIR__ . "/../App/views/main/form_connexion_view.php";
             exit;
@@ -65,6 +68,7 @@ use App\Services\Router;
             exit;
         // sinon routage sur la page d'accueil en fonction du status
         } else {
+           
             $router = new Router();
             $router->routerAcc($session->getStatusSession());
            

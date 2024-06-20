@@ -36,8 +36,8 @@ class Droits {
         'insert_new_utilisateur_ctl.php' => ['VEN'],
         'afficher_form_new_utilisateur_ctl.php' => ['VEN'],
 
-        'select_tickets_client.php' => ['CLI'],
-        'select_tickets_status_client.php' => ['CLI'],
+        'select_tickets_client.php' => ['CLI', 'VEN', 'TEC'],
+        'select_tickets_status_client.php' => ['CLI', 'VEN', 'TEC'],
         
     ];
 

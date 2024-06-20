@@ -31,7 +31,10 @@ if (! $droit->verifierDroits($session->getStatusSession())) {
 // selectionner la liste des tickets pour le client courent
 // header('Content-Type: application/json');
 $tickets = new Ticket();
-$data1 = $tickets->selectListTicketsClientRepondre($session->getIdConnected());
 
-$json = json_encode($data1);
+$data = $tickets->selectListTicketsClientRepondre($session->getIdConnected());
+
+    $json = json_encode($data);
+
+
 echo $json;

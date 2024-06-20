@@ -13,7 +13,7 @@ $ticket = new Ticket();
     
 // variable
 $status = "OUV";
-$id = 6;
+$id;
 $client = "client";
     // liste des tickets selon un status
     // print_r($ticket->selectListeStatusTickets($status));
