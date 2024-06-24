@@ -55,5 +55,5 @@
 /* font */
 body {
     font-family: var(--robotoFont);
-    background-color: var(--colorFive);
+    background-color: gray;
 }
