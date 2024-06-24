@@ -9,7 +9,7 @@
  *      password
  */
 
-use App\Modeles\Utilisateur;
+// use App\Modeles\Utilisateur;
 use App\Services\ConnexionPwd;
 use App\Services\Droits;
 use App\Services\Form;
@@ -17,7 +17,7 @@ use App\Services\Router;
 
  include_once  __DIR__ . "/../App/Utils/init.php";
 
-
+/*
  $utilisateur = new Utilisateur ();
  $droit = new Droits();
  $form=new Form();
@@ -82,7 +82,8 @@ use App\Services\Router;
         include __DIR__ . "/../App/views/main/form_connexion_view.php";
     }
 
+*/
 
 
-
+include __DIR__ . "/../App/views/main/accueil_mypizza_view.php";
 
