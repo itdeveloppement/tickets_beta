@@ -15,25 +15,25 @@
             <article>
                 <h3>Taille</h3>
                 <div><img src="" alt="image d'une pizza"></div>
-                <a href="">Choisir</a>
+                <a href="<?php echo BASE_URL . '../App/views/layout/modal_lyt.php?card=TAI'; ?>">Choisir</a>
             </article>
             <!-- pate -->
             <article>
                 <h3>Pâte</h3>
                 <div><img src="" alt="image d'une pizza"></div>
-                <a href="">Choisir</a>
+                <a href="<?php echo BASE_URL . '../App/views/layout/modal_lyt.php?card=PAT'; ?>">Choisir</a>
             <!-- base -->
             </article>
             <article>
                 <h3>Base</h3>
                 <div><img src="" alt="image d'une pizza"></div>
-                <a href="">Choisir</a>
+                <a href="<?php echo BASE_URL . '../App/views/layout/modal_lyt.php?card=BAS'; ?>">Choisir</a>
             </article>
             <!-- ingredients -->
             <article>
                 <h3>Ingredients</h3>
                 <div><img src="" alt="image d'une pizza"></div>
-                <a href="">Choisir</a>
+                <a href="<?php echo BASE_URL . '../App/views/layout/modal_lyt.php?card=ING'; ?>">Choisir</a>
             </article>
         </section>
 
